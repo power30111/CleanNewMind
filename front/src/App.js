@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
-  return (
+    const [data, setData] = useState('');
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/test/api1')
+        .then((response) => {
+            setData(response.data);
+        })
+        .catch((error) => {
+            console.error('데이터를 가져오는 중 오류 발생', error)
+        });
+    },[]);
+
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1>텍스트 데이터:</h1>
+        <p>{data}</p>
     </div>
-  );
+    );
 }
 
 export default App;
