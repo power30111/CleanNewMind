@@ -6,7 +6,7 @@ function App() {
 
   useEffect(() => {
     // axios를 사용하여 GET 요청 보내기
-    axios.get('http://localhost:8080/test/api2')
+    axios.get('http://localhost:8080/test/api1')
       .then((response) => {
         setData(response.data);
       })
