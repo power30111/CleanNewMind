@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     MemberService memberService;
     
-    @CrossOrigin(origins = "http://localhost:3000/Login") // 특정 출처만 허용
+    @CrossOrigin(origins = "http://localhost:3000") // 특정 출처만 허용
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestParam("id") String userid,
                                     @RequestParam("password") String password){
