@@ -47,11 +47,9 @@ const Login = () => {
         })
 
         .then((response) => {
-            const data = response.data;
-            if (data.success) {
+            if (response.status === 200) {
             alert('로그인 성공');
             console.log("로그인 성공")
-
 
             } else {
             alert('로그인 실패');
@@ -66,8 +64,8 @@ const Login = () => {
     
     
     return (
-        <Container className='login'>
-            <Form onSubmit={handleSubmit}>
+        <Container className='login' >
+            <Form className=' LoginBox' onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formID">
                     <Form.Label>아이디</Form.Label>
                     <Form.Control type="text" placeholder="Enter ID" name="id" value={formData.id} onChange={handleInputChange} />
