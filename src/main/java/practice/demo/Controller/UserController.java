@@ -25,7 +25,7 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestParam("id") String userid,
                                     @RequestParam("password") String password){
         memberService.LoginCheck(userid,password);
-        log.info("로그인 요청이 예외발생없이 성공함.");
+        log.info("로그인 요청들어옴.");
         return ResponseEntity.status(HttpStatus.OK).body("로그인 요청이 성공하였습니다.");
     }
 
