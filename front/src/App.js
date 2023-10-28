@@ -3,6 +3,7 @@ import axios from 'axios'; // axios 임포트
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './page/Login';
+import Navbar from './component/Navbar';
 import { Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <div>
+      <Navbar/>
       <Routes>
         <Route path="/login" element={<Login/>}/>
       </Routes>
