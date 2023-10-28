@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // axios 임포트
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './page/Login';
+import { Routes, Route} from 'react-router-dom'
 
 function App() {
   const [data, setData] = useState('');
@@ -16,7 +20,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div>
+      <Routes>
+        <Route path="/login" element={<Login/>}/>
+      </Routes>
       <h1>텍스트 데이터:</h1>
       <p>{data}</p>
     </div>
