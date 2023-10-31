@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // axios 임포트
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './page/Login';
+import './App.css';
 import Navbar from './component/Navbar';
+import Login from './page/Login';
+import Membership from './page/Membership';
 import { Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/Membership" element={<Membership/>}/>
       </Routes>
       <h1>텍스트 데이터:</h1>
       <p>{data}</p>
