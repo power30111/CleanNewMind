@@ -35,7 +35,7 @@ public class UserController {
                                                @RequestParam("password") String password,
                                                @RequestParam("name") String userName,
                                                @RequestParam("Email") String Email){
-        Member member = new Member(userId,password,userName,userName);
+        Member member = new Member(userId,password,userName,Email);
         memberService.JoinMember(member);
         return ResponseEntity.status(HttpStatus.OK).body("회원가입이 정상적으로 완료되었습니다.");
     }
