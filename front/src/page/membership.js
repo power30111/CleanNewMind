@@ -9,7 +9,6 @@ const Membership = () => {
     /* 리듀서 */
     const user = useSelector((state) => state.user);
 
-
     const dispatch = useDispatch()
 
     /* 정보저장 */
@@ -29,7 +28,7 @@ const Membership = () => {
     
             axios.post('http://localhost:8080/user/register',user)
             .then((response) => {
-                if (response.status === 200 , response.data && response.data.success) {
+                if (response.status === 200) {
                 alert('회원가입 성공');
                 console.log("로그인 성공")
     
@@ -42,8 +41,6 @@ const Membership = () => {
             console.log(user)
             });
         }
-    
-
     return (
         <Container className='login' >
             <Form className=' LoginBox' onSubmit={handleSubmit}>
@@ -67,7 +64,6 @@ const Membership = () => {
                 <Button variant="primary" onClick={Register} type="submit">
                 회원가입
                 </Button>
-
             </Form>
         </Container>
     )
