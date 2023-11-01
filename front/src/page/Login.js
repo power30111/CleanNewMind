@@ -1,50 +1,29 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Form, Button, Container } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 
 
 
 const Login = () => {
 
+    const login = useSelector((state) => state.login);
 
-    const [formData, setFormData] = useState({
-        id: '',
-        password: '',
-    });
-    /* formdata를 usestate로 설정 */
+    /* 정보저장 */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        dispatch({type:'Login',payload:{ name, value }});
     };
+
+
     const dispatch = useDispatch()
     
-    /* 아이디 비번을  받아서 formdata에 저장 저장 */
-    
-    const Loginstart = ()=>{
-        dispatch({type:"Login"})
-    }
-    /* 로그인버튼 클릭이벤트 */
-
-    const formDataToSend = new FormData();
-    formDataToSend.append('id', formData.id);
-    formDataToSend.append('password', formData.password);
-    /* 전송할 form 데이터 생성 및 추가 */
-
-
 
     /* 클릭이벤트 유저정보 전달 */
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post('http://localhost:8080/user/login',formDataToSend, {
-            headers: {
-              'Content-Type': 'multipart/form-data', // 필수
-            },
-        })
+        axios.post('http://localhost:8080/user/loginV2',login)
 
         .then((response) => {
             if (response.status === 200) {
@@ -57,8 +36,7 @@ const Login = () => {
         })
         .catch((error) => {
         console.error('로그인 에러', error);
-        console.log(formDataToSend)
-        console.log(formData)
+        console.log(login)
         });
     }
     
@@ -68,14 +46,14 @@ const Login = () => {
             <Form className=' LoginBox' onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formID">
                     <Form.Label>아이디</Form.Label>
-                    <Form.Control type="text" placeholder="Enter ID" name="id" value={formData.id} onChange={handleInputChange} />
+                    <Form.Control type="text" placeholder="Enter ID" name="id" value={login.id} onChange={handleInputChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">
                     <Form.Label>비밀번호</Form.Label>
-                    <Form.Control type="password" placeholder="Password" name="password" value={formData.password} onChange={handleInputChange} /> 
+                    <Form.Control type="password" placeholder="Password" name="password" value={login.password} onChange={handleInputChange} /> 
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={Loginstart}>
+                <Button variant="primary" type="submit" >
                 로그인
                 </Button>
                 <Button variant="primary" type="submit">

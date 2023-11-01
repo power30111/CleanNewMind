@@ -17,10 +17,7 @@ const Membership = () => {
         dispatch({type:'userInfo',payload:{ name, value }});
     };
 
-    /* 회원가입버튼 클릭이벤트 */
-    const Register = ()=>{
-        dispatch({type:'register',payload:user})
-    }
+
     
         /* 클릭이벤트 유저정보 전달(수정 필) */
         const handleSubmit=(e)=>{
@@ -46,7 +43,7 @@ const Membership = () => {
             <Form className=' LoginBox' onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formID">
                     <Form.Label>아이디</Form.Label>
-                    <Form.Control type="text" placeholder="Enter ID" name="id" value={user.id} onChange={handleInputChange} />
+                    <Form.Control type="text" placeholder="Enter ID" name="userId" value={user.id} onChange={handleInputChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">
@@ -61,7 +58,7 @@ const Membership = () => {
                     <Form.Label>이메일</Form.Label>
                     <Form.Control type="email" placeholder="Enter Email" name="Email" value={user.Email} onChange={handleInputChange} />
                 </Form.Group>
-                <Button variant="primary" onClick={Register} type="submit">
+                <Button variant="primary"  type="submit">
                 회원가입
                 </Button>
             </Form>
