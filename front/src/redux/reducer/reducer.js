@@ -1,16 +1,21 @@
 let initialState={
     user:{
-        id:'',
+        userId:'',
         password: '',
         name:'',
         Email: ''
+    },
+    login:{
+        id:'',
+        password: '',
     }
 }
 
 
 function reducer(state=initialState,action){
-    if(action.type === 'register'){
-        return { ...state, user: { ...state.user, ...action.payload } };
+    if(action.type === 'Login'){
+        const { name, value } = action.payload;
+        return {...state,login: {...state.login, [name]: value,}}
     }
     if(action.type === 'userInfo'){
         const { name, value } = action.payload;
