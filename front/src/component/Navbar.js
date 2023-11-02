@@ -15,8 +15,8 @@ const Navbar = () => {
     const goLogin = () =>{
         navigate('/login')
     }
-    const goMembership = () =>{
-        navigate('/Membership')
+    const goSignup = () =>{
+        navigate('/Signup')
     }
 
   return (
@@ -37,7 +37,7 @@ const Navbar = () => {
       </Nav.Item>
       <Button variant="outline-primary" onClick={goHome}>Home</Button>
       <Button variant="outline-primary" onClick={goLogin}>Login</Button>
-      <Button variant="outline-primary" onClick={goMembership}>Register</Button>
+      <Button variant="outline-primary" onClick={goSignup}>SignUp</Button>
     </Nav>
   );
 /*    <div className='Navbar'>
