@@ -6,7 +6,7 @@ let initialState={
         Email: ''
     },
     login:{
-        id:'',
+        userId:'',
         password: '',
     }
 }

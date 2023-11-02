@@ -51,7 +51,7 @@ const Login = () => {
             <Form className=' LoginBox' onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formID">
                     <Form.Label>아이디</Form.Label>
-                    <Form.Control type="text" placeholder="Enter ID" name="id" value={login.id} onChange={handleInputChange} />
+                    <Form.Control type="text" placeholder="Enter ID" name="userId" value={login.userId} onChange={handleInputChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formPassword">

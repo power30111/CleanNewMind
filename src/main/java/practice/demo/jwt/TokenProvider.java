@@ -50,7 +50,7 @@ public class TokenProvider {
 
         Date tokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
 
-        System.out.println(tokenExpiresIn);
+        log.info(tokenExpiresIn.toString());
 
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())

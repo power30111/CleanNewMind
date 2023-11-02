@@ -3,17 +3,20 @@ package practice.demo.Configure;
 
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import practice.demo.jwt.JwtAccessDeniedHandler;
 import practice.demo.jwt.JwtAuthenticationEntryPoint;
 import practice.demo.jwt.TokenProvider;
 
+@Slf4j
 @EnableWebSecurity
 @EnableMethodSecurity
 @Configuration
@@ -34,21 +37,18 @@ public class SecurityConfig {
 
         http
                 .csrf().disable()
+                .httpBasic().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin()
-
-                .and()
                 .authorizeHttpRequests(request -> {
                             try {
                                 request
-                                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                                         .requestMatchers("/user/**","/test/**").permitAll()
                                         .anyRequest().authenticated()
                                         .and()
