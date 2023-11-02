@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Form, Button, Container } from 'react-bootstrap';
 import { useDispatch,useSelector } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -14,7 +14,12 @@ const Login = () => {
         const { name, value } = e.target;
         dispatch({type:'Login',payload:{ name, value }});
     };
-
+    /*회원가입 페이지 이동*/
+    const navigate = useNavigate()
+    
+    const goMembership = () =>{
+        navigate('/Membership')
+    }
 
     const dispatch = useDispatch()
     
@@ -56,7 +61,7 @@ const Login = () => {
                 <Button variant="primary" type="submit" >
                 로그인
                 </Button>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" onClick={goMembership} >
                 회원가입
                 </Button>
 

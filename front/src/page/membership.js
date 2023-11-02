@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Form, Button, Container } from 'react-bootstrap';
 import { useDispatch, useSelector} from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 
 const Membership = () => {
 
@@ -16,7 +16,12 @@ const Membership = () => {
         const { name, value } = e.target;
         dispatch({type:'userInfo',payload:{ name, value }});
     };
+    /*회원가입 성공시 로그인창으로 이동*/
+    const navigate = useNavigate()
 
+    const goLogin = () =>{
+        navigate('/login')
+    }
 
     
         /* 클릭이벤트 유저정보 전달(수정 필) */
@@ -28,6 +33,8 @@ const Membership = () => {
                 if (response.status === 200) {
                 alert('회원가입 성공');
                 console.log("로그인 성공")
+                goLogin()
+
     
                 } else {
                 alert('회원가입 실패');
