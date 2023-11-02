@@ -4,7 +4,7 @@ import { Form, Button, Container } from 'react-bootstrap';
 import { useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-const Membership = () => {
+const SignUp = () => {
 
     /* 리듀서 */
     const user = useSelector((state) => state.user);
@@ -28,7 +28,7 @@ const Membership = () => {
         const handleSubmit=(e)=>{
             e.preventDefault();
     
-            axios.post('http://localhost:8080/user/register',user)
+            axios.post('http://localhost:8080/user/signup',user)
             .then((response) => {
                 if (response.status === 200) {
                 alert('회원가입 성공');
@@ -73,7 +73,7 @@ const Membership = () => {
     )
 }
 
-export default Membership
+export default SignUp
 
 
 

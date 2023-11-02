@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Navbar from './component/Navbar';
 import Login from './page/Login';
-import Membership from './page/membership';
+import SignUp from './page/Signup';
 import Home from './page/Home';
 import { Routes, Route} from 'react-router-dom'
 
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/Membership" element={<Membership/>}/>
+        <Route path="/Signup" element={<SignUp/>}/>
       </Routes>
     </div>
   );

@@ -17,8 +17,8 @@ const Login = () => {
     /*회원가입 페이지 이동*/
     const navigate = useNavigate()
     
-    const goMembership = () =>{
-        navigate('/Membership')
+    const goSignup = () =>{
+        navigate('/Signup')
     }
 
     const dispatch = useDispatch()
@@ -28,7 +28,7 @@ const Login = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post('http://localhost:8080/user/loginV2',login)
+        axios.post('http://localhost:8080/user/login',login)
 
         .then((response) => {
             if (response.status === 200) {
@@ -61,7 +61,7 @@ const Login = () => {
                 <Button variant="primary" type="submit" >
                 로그인
                 </Button>
-                <Button variant="primary" onClick={goMembership} >
+                <Button variant="primary" onClick={goSignup} >
                 회원가입
                 </Button>
 
