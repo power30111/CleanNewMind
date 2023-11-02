@@ -58,12 +58,11 @@ const Login = () => {
                     <Form.Label>비밀번호</Form.Label>
                     <Form.Control type="password" placeholder="Password" name="password" value={login.password} onChange={handleInputChange} /> 
                 </Form.Group>
-                <Button variant="primary" type="submit" >
-                로그인
-                </Button>
-                <Button variant="primary" onClick={goSignup} >
-                회원가입
-                </Button>
+                <div className='Loginbtn'>
+                    <button class="btn-hover color-9" type='submit'>Login!</button>
+                    <button class="btn-hover color-9" onClick={goSignup}>Sign Up!</button>
+                </div>
+                
 
             </Form>
         </Container>

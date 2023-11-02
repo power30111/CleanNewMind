@@ -64,10 +64,11 @@ const SignUp = () => {
                 <Form.Group className="mb-3" controlId="formEmail">
                     <Form.Label>이메일</Form.Label>
                     <Form.Control type="email" placeholder="Enter Email" name="Email" value={user.Email} onChange={handleInputChange} />
-                </Form.Group>
-                <Button variant="primary"  type="submit">
-                회원가입
-                </Button>
+                </Form.Group >
+                <div className='Loginbtn'>
+                    <button class="btn-hover color-9" type='submit'>Sign Up!</button>
+                </div>
+                
             </Form>
         </Container>
     )
