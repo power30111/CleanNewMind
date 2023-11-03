@@ -8,7 +8,8 @@ let initialState={
     login:{
         userId:'',
         password: '',
-    }
+    },
+    token:'null',
 }
 
 
@@ -20,6 +21,11 @@ function reducer(state=initialState,action){
     if(action.type === 'userInfo'){
         const { name, value } = action.payload;
         return {...state,user: {...state.user, [name]: value,}}
+    }
+    if(action.type === 'setToken'){
+        const token= action.payload
+        console.log(token)
+        return { ...state, token:action.payload};
     }
     else{
         return{...state}
