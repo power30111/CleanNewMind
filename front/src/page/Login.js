@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
 
     const login = useSelector((state) => state.login);
-
+    const token = useSelector((state) => state.token);
     /* 정보저장 */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -32,10 +32,15 @@ const Login = () => {
 
         .then((response) => {
             if (response.status === 200) {
-            alert('로그인 성공');
-            console.log("로그인 성공")
-
-            } else {
+                const accessToken=response.data.accessToken
+                localStorage.setItem('token',accessToken);
+                dispatch({type:'setToken',payload:accessToken});
+                alert('로그인 성공');
+                console.log("로그인 성공")
+                console.log(`${response.data.accessToken}`)
+                console.log(accessToken)
+            }
+            else {
             alert('로그인 실패');
             }
         })
