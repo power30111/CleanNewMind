@@ -24,7 +24,7 @@ function reducer(state=initialState,action){
     }
     if(action.type === 'setToken'){
         const token= action.payload
-        console.log(token)
+        console.log("리듀서",token)
         return { ...state, token:action.payload};
     }
     else{
