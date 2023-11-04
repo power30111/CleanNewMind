@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Form, Button, Container } from 'react-bootstrap';
+import React from 'react'
+import { Form, Container } from 'react-bootstrap';
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { LoginAction } from '../redux/actions/LoginAction';
 
 
 const Login = () => {
@@ -33,12 +34,12 @@ const Login = () => {
         .then((response) => {
             if (response.status === 200) {
                 const accessToken=response.data.accessToken
-                localStorage.setItem('token',accessToken);
-                dispatch({type:'setToken',payload:accessToken});
+                dispatch(LoginAction.getToken(accessToken))
+
                 alert('로그인 성공');
                 console.log("로그인 성공")
-                console.log(`${response.data.accessToken}`)
-                console.log(accessToken)
+                console.log(`토큰 데이터 : ${response.data.accessToken}`)
+
             }
             else {
             alert('로그인 실패');
