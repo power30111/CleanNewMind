@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @ToString
-public class Member {
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,6 +19,9 @@ public class Member {
     private String password;
     private String name;
     private String Email;
+
+    @OneToMany(mappedBy = "member")
+    private List<Board> boardList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;    //권한
@@ -28,14 +34,6 @@ public class Member {
         this.name = name;
         this.Email = email;
         this.role = role;
-    }
-
-    public boolean checkPassword(String password){
-        return this.password.equals(password);
-    }
-    public void setRole(Role role){
-        this.role = role;
-
     }
 
     public void setUserId(String userId){

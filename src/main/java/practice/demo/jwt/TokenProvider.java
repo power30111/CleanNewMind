@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Component
 public class TokenProvider {
 
-    private static final String AUTHORITIES_KEY = "auth";   
+    private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "bearer";
     //토큰 생성, 검증에 쓰이는 값
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
@@ -50,7 +50,7 @@ public class TokenProvider {
 
         Date tokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
 
-        log.info(tokenExpiresIn.toString());
+        log.info("토큰 만료시간 = "+tokenExpiresIn.toString());
 
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
@@ -100,6 +100,7 @@ public class TokenProvider {
         return false;
     }
 
+    // Secret키를 사용하여 Token Parsing
     private Claims parseClaims(String accessToken) {
         try {
             return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
