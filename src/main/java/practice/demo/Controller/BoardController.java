@@ -47,4 +47,14 @@ public class BoardController {
             log.info("member를 조회할수없습니다.");
         }
     }
+    @GetMapping("/list/{boardId}")
+    public BoardDto readBoard(@PathVariable Long boardId){
+        log.info(boardId+" 번호의 게시글 조회 요청");
+        if(boardService.findOne(boardId).isPresent()) {
+            Board board = boardService.findOne(boardId).get();
+            return new BoardDto(board.getId(),board.getMember().getName(),board.getTitle(),board.getContent());
+        }else{
+            throw new RuntimeException("해당 번호의 게시글이 존재하지않습니다.");
+        }
+    }
 }
