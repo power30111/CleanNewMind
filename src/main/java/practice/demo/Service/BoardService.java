@@ -7,6 +7,7 @@ import practice.demo.Repository.BoardRepository;
 import practice.demo.domain.Board;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -19,5 +20,8 @@ public class BoardService {
     public Long saveBoard(Board board){
         boardRepository.save(board);
         return board.getId();
+    }
+    public Optional<Board> findOne(Long id){
+        return boardRepository.findById(id);
     }
 }
