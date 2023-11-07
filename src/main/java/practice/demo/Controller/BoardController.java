@@ -56,10 +56,11 @@ public class BoardController {
         }
     }
     @GetMapping("/list/{boardId}")
-    public BoardDto readBoard(@PathVariable Long boardId){
+    public BoardDto readBoard(@PathVariable String boardId){
         log.info(boardId+" 번호의 게시글 조회 요청");
-        if(boardService.findOne(boardId).isPresent()) {
-            Board board = boardService.findOne(boardId).get();
+        if(boardService.findOne(Long.parseLong(boardId)).isPresent()) {
+            Board board = boardService.findOne(Long.parseLong(boardId)).get();
+            log.info("게시판 조회");
             return new BoardDto(board.getId(),board.getMember().getName(),board.getTitle(),board.getContent());
         }else{
             throw new RuntimeException("해당 번호의 게시글이 존재하지않습니다.");
@@ -69,7 +70,7 @@ public class BoardController {
     public ResponseEntity<Message> deleteBoard(@PathVariable Long boardId){
         log.info(boardId+" 번호의 게시글 삭제 요청");
         HttpHeaders headers = getHttpHeaders();
-        if(boardService.findOne(boardId).isPresent() || boardService.equalsWriter(boardId)){
+        if(boardService.findOne(boardId).isPresent() && boardService.equalsWriter(boardId)){
             //게시판 ID를 통해 조회가 가능한지? + 게시판을 작성한 UserId와 게시판을 삭제하려는 UserId가 동일한지?
             boardService.deleteBoard(boardId);
             Message message = getMessage(StatusEnum.OK, "게시판 정상적으로 삭제");
