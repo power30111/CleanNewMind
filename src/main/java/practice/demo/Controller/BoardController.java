@@ -43,27 +43,42 @@ public class BoardController {
         return boardList;
     }
     @PostMapping("/write")
-    public void writeBoard(@RequestBody BoardDto boardDto){
+    public ResponseEntity<Message> writeBoard(@RequestBody BoardDto boardDto){
         log.info("게시글 작성 요청이 들어옴");
         MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
         Optional<Member> member = memberService.findByUserId(myInfoBySecurity.getUserId());
+        HttpHeaders headers = getHttpHeaders();
+
         if(member.isPresent()){
             Board board = new Board(member.get(), boardDto.getTitle(), boardDto.getContent());
             boardService.saveBoard(board);
             log.info("게시글 작성이 완료되었습니다.");
+
+            Message message = getMessage(StatusEnum.OK,"게시글 작성이 정상적으로 완료되었습니다.");
+            return new ResponseEntity<>(message,headers,HttpStatus.OK);
+
         }else{
-            log.info("member를 조회할수없습니다.");
+            log.info("해당 userId를 찾을수없습니다.");
+
+            Message message = getMessage(StatusEnum.BAD_REQUEST,"작성자가 요청한 인증에서 UserId를 찾을수없습니다.");
+            return new ResponseEntity<>(message,headers,HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping("/list/{boardId}")
-    public BoardDto readBoard(@PathVariable String boardId){
-        log.info(boardId+" 번호의 게시글 조회 요청");
-        if(boardService.findOne(Long.parseLong(boardId)).isPresent()) {
-            Board board = boardService.findOne(Long.parseLong(boardId)).get();
+    public ResponseEntity<?> readBoard(@PathVariable String boardId) {
+        log.info(boardId + " 번호의 게시글 조회 요청");
+
+        Optional<Board> boardOptional = boardService.findOne(Long.parseLong(boardId));
+        if (boardOptional.isPresent()) {
+            Board board = boardOptional.get();
             log.info("게시판 조회");
-            return new BoardDto(board.getId(),board.getMember().getName(),board.getTitle(),board.getContent());
-        }else{
-            throw new RuntimeException("해당 번호의 게시글이 존재하지않습니다.");
+            BoardDto boardDto = new BoardDto(board.getId(), board.getMember().getName(), board.getTitle(), board.getContent());
+            return ResponseEntity.ok(boardDto);
+        } else {
+            log.info("해당 번호의 게시글이 존재하지 않습니다.");
+            Message message = getMessage(StatusEnum.NOT_FOUNT, "해당 게시글이 존재하지 않습니다.");
+            HttpHeaders headers = getHttpHeaders();
+            return new ResponseEntity<>(message, headers, HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/list/{boardId}/delete")
