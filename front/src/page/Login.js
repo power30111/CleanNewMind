@@ -8,8 +8,8 @@ import { LoginAction } from '../redux/actions/LoginAction';
 
 const Login = () => {
 
-    const login = useSelector((state) => state.login);
-    const token = useSelector((state) => state.token);
+    const logininfo = useSelector((state) => state.login);
+    /*const token = useSelector((state) => state.token);*/
     /* 정보저장 */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -21,25 +21,33 @@ const Login = () => {
     const goSignup = () =>{
         navigate('/Signup')
     }
+    const goHome = () =>{
+        navigate('/')
+    }
+    const login =()=>{
+        dispatch({type:'login', payload:true})
+    }
 
     const dispatch = useDispatch()
+
+
     
 
     /* 클릭이벤트 유저정보 전달 */
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post('http://localhost:8080/user/login',login)
+        axios.post('http://localhost:8080/user/login',logininfo)
 
         .then((response) => {
             if (response.status === 200) {
                 const accessToken=response.data.accessToken
                 dispatch(LoginAction.getToken(accessToken))
-
+                login()
                 alert('로그인 성공');
                 console.log("로그인 성공")
                 console.log(`토큰 데이터 : ${response.data.accessToken}`)
-
+                goHome()
             }
             else {
             alert('로그인 실패');
@@ -53,8 +61,8 @@ const Login = () => {
     
     
     return (
-        <Container className='login' >
-            <Form className=' LoginBox' onSubmit={handleSubmit}>
+        <Container className='flexbox' >
+            <Form className='Box userinfo' onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formID">
                     <Form.Label>아이디</Form.Label>
                     <Form.Control type="text" placeholder="Enter ID" name="userId" value={login.userId} onChange={handleInputChange} />
@@ -64,7 +72,7 @@ const Login = () => {
                     <Form.Label>비밀번호</Form.Label>
                     <Form.Control type="password" placeholder="Password" name="password" value={login.password} onChange={handleInputChange} /> 
                 </Form.Group>
-                <div className='Loginbtn'>
+                <div className='flexbox'>
                     <button class="btn-hover color-9" type='submit'>Login!</button>
                     <button class="btn-hover color-9" onClick={goSignup}>Sign Up!</button>
                 </div>

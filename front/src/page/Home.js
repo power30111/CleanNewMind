@@ -1,12 +1,17 @@
 import React from 'react'
 import { Container, Button } from 'react-bootstrap'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
+    const navigate = useNavigate()
+
+    const goWrite = () =>{
+        navigate('/Write')
+    }
+
     return (
-        <Container className='homepage' >
+        <Container >
             <div className='hometop'>
                 <h1 className='hometop-text'>게시글</h1>
             </div>
@@ -20,8 +25,8 @@ const Home = () => {
                 </div>
 
             </div>
-            <div className='homebot'>
-                <Button variant="outline-primary">글쓰기</Button>
+            <div className='homebot Write-btn'>
+            <button class="btn-hover color-9" onClick={goWrite}>글쓰기</button>
             </div>
         </Container>
         
