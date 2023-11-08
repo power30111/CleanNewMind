@@ -10,25 +10,34 @@ let initialState={
         password: '',
     },
     token:'null',
+    islogin : false,
 }
 
 
 function reducer(state=initialState,action){
-    if(action.type === 'Login'){
-        const { name, value } = action.payload;
-        return {...state,login: {...state.login, [name]: value,}}
-    }
-    if(action.type === 'userInfo'){
-        const { name, value } = action.payload;
-        return {...state,user: {...state.user, [name]: value,}}
-    }
-    if(action.type === 'setToken'){
-        const token= action.payload
-        console.log("리듀서",token)
-        return { ...state, token:action.payload};
-    }
-    else{
-        return{...state}
+
+    switch (action.type) {
+        case 'Login':
+            const { name: loginName, value: loginValue } = action.payload;
+            return { ...state, login: { ...state.login, [loginName]: loginValue } };
+        
+        case 'userInfo':
+            const { name: userInfoName, value: userInfoValue } = action.payload;
+            return { ...state, user: { ...state.user, [userInfoName]: userInfoValue } };
+    
+        case 'setToken':
+            const token = action.payload;
+            console.log('리듀서 : ', token);
+            return { ...state, token: action.payload };
+    
+        case 'login':
+            return{...state, islogin: action.payload}
+        
+        case 'logout':
+            return {...state, islogin: action.payload}
+
+        default:
+            return { ...state };
     }
 };
 

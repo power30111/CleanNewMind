@@ -1,13 +1,15 @@
 import React from 'react'
-import Nav from 'react-bootstrap/Nav';
 import  {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const Navbar = () => {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const islogin = useSelector((state=> state.islogin))
 
     const goHome = () =>{
         navigate('/')
@@ -19,32 +21,23 @@ const Navbar = () => {
         navigate('/Signup')
     }
 
+  const logout =()=>{
+    dispatch({type:'logout', payload:false})
+  }
+
   return (
-      <Nav className="nav" activeKey="/home" onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
-      <Nav.Item>
-        <Nav.Link href="/home">Active</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1">Link</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-2">Link</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="disabled" disabled>
-          Disabled
-        </Nav.Link>
-      </Nav.Item>
+    <div className='nav'>
       <Button variant="outline-primary" onClick={goHome}>Home</Button>
-      <Button variant="outline-primary" onClick={goLogin}>Login</Button>
+
+      {islogin ? (
+        <button class="btn-hover color-9" onClick={logout}>로그아웃</button>
+      ):(
+        <button class="btn-hover color-9" onClick={goLogin}>로그인</button>
+      )}
+
       <Button variant="outline-primary" onClick={goSignup}>SignUp</Button>
-    </Nav>
-  );
-/*    <div className='Navbar'>
-        Navbar
     </div>
-  )
-  */
+  );
 }
 
 export default Navbar
