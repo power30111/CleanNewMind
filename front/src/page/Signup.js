@@ -46,8 +46,8 @@ const SignUp = () => {
             });
         }
     return (
-        <Container className='login' >
-            <Form className=' LoginBox' onSubmit={handleSubmit}>
+        <Container className='flexbox' >
+            <Form className='Box userinfo' onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formID">
                     <Form.Label>아이디</Form.Label>
                     <Form.Control type="text" placeholder="Enter ID" name="userId" value={user.id} onChange={handleInputChange} />
