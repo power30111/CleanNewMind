@@ -1,6 +1,9 @@
 import React from 'react'
 import { Container, Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Home = () => {
 
@@ -9,6 +12,28 @@ const Home = () => {
     const goWrite = () =>{
         navigate('/Write')
     }
+
+    const token = useSelector((state) => state.token)
+/*
+    useEffect(()=>{
+        axios.get('http://localhost:8080/board/list',{
+            headers: {
+                Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+                }
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                console.log("게시글 조회 성공")
+            }
+            else {
+            alert('게시글 조회 실패');
+            }
+        })
+        .catch(error => {
+            console.error('게시글 조회 실패 : ', error);
+        });
+    },[])
+*/
 
     return (
         <Container >

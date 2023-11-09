@@ -55,7 +55,7 @@ const Login = () => {
         })
         .catch((error) => {
         console.error('로그인 에러', error);
-        console.log(login)
+        console.log(logininfo)
         });
     }
     
@@ -76,8 +76,6 @@ const Login = () => {
                     <button class="btn-hover color-9" type='submit'>Login!</button>
                     <button class="btn-hover color-9" onClick={goSignup}>Sign Up!</button>
                 </div>
-                
-
             </Form>
         </Container>
     )
