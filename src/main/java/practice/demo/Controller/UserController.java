@@ -18,7 +18,6 @@ import practice.demo.domain.Role;
 @Controller
 @RequestMapping("user")
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000") // 특정 출처만 허용
 @RequiredArgsConstructor
 public class UserController {
 
