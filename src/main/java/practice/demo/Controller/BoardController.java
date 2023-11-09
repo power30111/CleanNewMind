@@ -17,10 +17,9 @@ import practice.demo.domain.Member;
 import practice.demo.domain.Message;
 import practice.demo.domain.StatusEnum;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-
+@CrossOrigin(origins = "http://localhost:3000") // 특정 출처만 허용
 @Slf4j
 @Controller
 @RequestMapping("board")
