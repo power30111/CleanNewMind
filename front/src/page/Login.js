@@ -73,8 +73,8 @@ const Login = () => {
                     <Form.Control type="password" placeholder="Password" name="password" value={login.password} onChange={handleInputChange} /> 
                 </Form.Group>
                 <div className='flexbox'>
-                    <button class="btn-hover color-9" type='submit'>Login!</button>
-                    <button class="btn-hover color-9" onClick={goSignup}>Sign Up!</button>
+                    <button className="btn-hover color-9" type='submit'>Login!</button>
+                    <button className="btn-hover color-9" onClick={goSignup}>Sign Up!</button>
                 </div>
             </Form>
         </Container>
