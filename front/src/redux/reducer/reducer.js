@@ -10,7 +10,14 @@ let initialState={
         password: '',
     },
     token:'null',
+
     islogin : false,
+
+    text : {
+        title : '',
+        content : '',
+    },
+/*    data:[]*/
 }
 
 
@@ -35,6 +42,10 @@ function reducer(state=initialState,action){
         
         case 'logout':
             return {...state, islogin: action.payload}
+
+        case 'write' :
+            const { name: textName, value: textValue } = action.payload;
+            return { ...state, text:{...state.text, [textName]: textValue } };
 
         default:
             return { ...state };

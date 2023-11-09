@@ -32,7 +32,7 @@ const SignUp = () => {
             .then((response) => {
                 if (response.status === 200) {
                 alert('회원가입 성공');
-                console.log("로그인 성공")
+                console.log("회원가입 성공")
                 goLogin()
 
     
