@@ -17,13 +17,15 @@ let initialState={
         title : '',
         content : '',
     },
-/*    data:[]*/
+    data:[]
 }
 
 
 function reducer(state=initialState,action){
 
     switch (action.type) {
+        case 'boardlist':
+            return {...state, data:action.payload}
         case 'Login':
             const { name: loginName, value: loginValue } = action.payload;
             return { ...state, login: { ...state.login, [loginName]: loginValue } };

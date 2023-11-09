@@ -66,7 +66,7 @@ const SignUp = () => {
                     <Form.Control type="email" placeholder="Enter Email" name="Email" value={user.Email} onChange={handleInputChange} />
                 </Form.Group >
                 <div className='Loginbtn'>
-                    <button class="btn-hover color-9" type='submit'>Sign Up!</button>
+                    <button className="btn-hover color-9" type='submit'>Sign Up!</button>
                 </div>
                 
             </Form>

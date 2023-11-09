@@ -73,7 +73,7 @@ body{
   }
 }
 
-/*로그인 페이지*/
+
 
 /*게시판 홈*/
 .hometop{
@@ -98,11 +98,13 @@ body{
 .boardlist{
   width: 80%;
   height: 70vh;
-  border: 1px solid slategray;
+  border: 2px solid slategray;
 }
 .listtop{
   display: flex;
   background-color: rgb(225, 209, 255);
+  height: 3%;
+  border-bottom: 1px solid black;
 }
 .list-No{
   width: 4vh;
@@ -119,6 +121,24 @@ body{
   display: flex;
   justify-content: flex-end;
 }
+
+/*게시글 리스트*/
+.max{
+  height: 97%;
+}
+
+.list{
+  border-bottom: 1px solid black;
+  height: 8%;
+}
+.list:last-child{
+  
+}
+
+
+
+
+
 
 /*글쓰기탭*/
 .Write-page{

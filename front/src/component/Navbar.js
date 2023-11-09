@@ -1,5 +1,4 @@
 import React from 'react'
-import  {Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -27,15 +26,15 @@ const Navbar = () => {
 
   return (
     <div className='nav'>
-      <Button variant="outline-primary" onClick={goHome}>Home</Button>
+      <button className="btn-hover color-9" onClick={goHome}>Home</button>
 
       {islogin ? (
-        <button class="btn-hover color-9" onClick={logout}>로그아웃</button>
+        <button className="btn-hover color-9" onClick={logout}>로그아웃</button>
       ):(
-        <button class="btn-hover color-9" onClick={goLogin}>로그인</button>
+        <button className="btn-hover color-9" onClick={goLogin}>로그인</button>
       )}
 
-      <Button variant="outline-primary" onClick={goSignup}>SignUp</Button>
+      <button className="btn-hover color-9" onClick={goSignup}>SignUp</button>
     </div>
   );
 }
