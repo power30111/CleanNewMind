@@ -83,8 +83,8 @@ const Write = () => {
                     </Form.Group>
 
                     <div className='Write-btn'>
-                        <button class="btn-hover color-9 " type='submit'>저장</button>
-                        <button class="btn-hover color-9" onClick={goHome}>취소</button>
+                        <button className="btn-hover color-9 " type='submit'>저장</button>
+                        <button className="btn-hover color-9" onClick={goHome}>취소</button>
                     </div>
                 </Form.Group>
             </Form>
