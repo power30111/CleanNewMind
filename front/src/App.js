@@ -7,6 +7,7 @@ import SignUp from './page/Signup';
 import Home from './page/Home';
 import { Routes, Route} from 'react-router-dom'
 import Write from './page/Write';
+import SelectedPage from './page/SelectedPage';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/Signup" element={<SignUp/>}/>
         <Route path="/Write" element={<Write/>}/>
+        <Route path="/board/list/:id" element={<SelectedPage/>}/>
       </Routes>
     </div>
   );

@@ -17,6 +17,7 @@ const Home = () => {
         navigate('/Write')
     }
 
+
     const data = useSelector((state) => state.data)
 /**/
     useEffect(()=>{
@@ -55,7 +56,7 @@ const Home = () => {
 
                     <div className='max'>
                         {data.map(item => (
-                            <List  {...item} />
+                            <List {...item} />
                         ))}
                     </div>
                 </div>
