@@ -17,7 +17,6 @@ const Home = () => {
         navigate('/Write')
     }
 
-
     const data = useSelector((state) => state.data)
 /**/
     useEffect(()=>{
