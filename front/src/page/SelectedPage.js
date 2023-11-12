@@ -12,20 +12,18 @@ const SelectedPage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const id = useParams();
 
-    const text = useSelector((state) => state.text);
+
+    const id = useSelector((state) => state.urlid);
+    const taketext = useSelector((state)=>state.taketext)
 
     const goHome = () =>{
         navigate('/')
     }
 
-    const selectid=(()=>{
-        dispatch({type:"selectid",payload:{id}})
-    })
-    useEffect(()=>{
-        selectid()
-    },[])
+    
+
+
 
     
 
@@ -36,19 +34,19 @@ const SelectedPage = () => {
                 <div className='Write-page'>
                     <div className="mb-3 flexbox Write-title" >
                         <div className='text-area' name="title">
-                            {text.title}
+                            {taketext.title}
                         </div>
                     </div>
 
                     <div className="mb-3 flexbox Write-text">
                         <div className='text-area'  name="content">
-                            {text.content}
+                            {taketext.content}
                         </div>
                     </div>
 
                     <div className='Write-btn'>
-                        <button class="btn-hover color-9 " >저장</button>
-                        <button class="btn-hover color-9" onClick={goHome}>삭제</button>
+                        <button className="btn-hover color-9 " >저장</button>
+                        <button className="btn-hover color-9" onClick={goHome}>삭제</button>
                     </div>
                 </div>
             </div>

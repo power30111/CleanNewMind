@@ -23,27 +23,6 @@ const Write = () => {
         dispatch({type:'write',payload:{ name, value }});
     };
 
-/*
-    useEffect(() => {
-        axios.get('http://localhost:8080/board/write', {
-            headers: {
-            Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
-            }
-        })
-        .then((response) => {
-            if (response.status === 200) {
-                console.log("토큰 조회 성공")
-            }
-            else {
-            alert('토큰 조회 실패');
-            }
-        })
-        .catch(error => {
-            console.error('토큰 조회 실패 : ', error);
-        });
-},[]);
-*/
-
     /* 클릭이벤트 글정보 전달 */
     const handleSubmit=(e)=>{
         e.preventDefault();

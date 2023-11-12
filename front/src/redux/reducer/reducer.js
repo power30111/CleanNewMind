@@ -17,7 +17,16 @@ let initialState={
         title : '',
         content : '',
     },
-    data:[]
+    data:[],
+
+    urlid : '',
+
+    taketext : {
+        id : '',
+        title : '',
+        writer : '',
+        content : '',
+    }
 }
 
 
@@ -49,19 +58,14 @@ function reducer(state=initialState,action){
             const { name: textName, value: textValue } = action.payload;
             return { ...state, text:{...state.text, [textName]: textValue } };
 
-            case 'selectid':
-                const selectedData = state.data.find((data) => data.id === action.payload);
-                return selectedData
-                    ? {
-                        ...state,
-                        text: {
-                            title: selectedData.title,
-                            content: selectedData.content,
-                        },
-                    }
-                    : state;
-            default:
-                return state;
+        case 'selectid':
+            return {...state, urlid:action.payload}
+        case 'takecontent':
+            return {...state, taketext:action.payload}
+
+
+        default:
+            return state;
     }
 };
 
