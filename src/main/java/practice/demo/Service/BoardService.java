@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import practice.demo.Repository.BoardRepository;
 import practice.demo.domain.Board;
 import practice.demo.domain.DTO.MemberResponseDto;
+import practice.demo.exception.UserNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +35,10 @@ public class BoardService {
     }
     public Boolean equalsWriter(Long boardId){
         MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
+        Board board = findOne(boardId).orElseThrow(() -> new UserNotFoundException("해당 유저가 존재하지않습니다."));
 
         if(myInfoBySecurity.getUserId().
-                equals(findOne(boardId).get().getMember().getUserId())){
+                equals(board.getMember().getUserId())){
             log.info("인증 요청한 UserId와 board를 작성한 UserId가 동일합니다.");
             return true;
         }else{
