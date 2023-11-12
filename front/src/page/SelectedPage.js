@@ -25,7 +25,7 @@ const SelectedPage = () => {
             if (response.status === 200) {
                 alert('글 삭제 성공')
                 console.log("글 삭제 성공")
-                navigate('/')
+                navigate('/') 
         }
             else {
             alert('글 삭제 실패');
