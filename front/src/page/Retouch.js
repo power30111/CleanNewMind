@@ -23,7 +23,6 @@ const Write = () => {
         dispatch({type:'write',payload:{ name, value }});
     };
 
-
     /* 클릭이벤트 글정보 전달 */
     const handleSubmit=(e)=>{
         e.preventDefault();

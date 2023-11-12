@@ -29,6 +29,7 @@ const List = (props) => {
                 console.log("글 수신",response)
                 dispatch({type:"takecontent",payload:response.data})
                 console.log("taketext",taketext)
+                console.log("url아이디",id)
         }
             else {
             alert('글 조회 실패');
@@ -41,8 +42,6 @@ const List = (props) => {
             console.log("url아이디",id)
 
         });
-
-
     })
 
     return (
