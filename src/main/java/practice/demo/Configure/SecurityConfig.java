@@ -1,7 +1,6 @@
 package practice.demo.Configure;
 
 
-import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -12,14 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import practice.demo.jwt.JwtAccessDeniedHandler;
 import practice.demo.jwt.JwtAuthenticationEntryPoint;
 import practice.demo.jwt.TokenProvider;
 
-import java.util.Arrays;
 
 @Slf4j
 @EnableWebSecurity
@@ -57,7 +52,7 @@ public class SecurityConfig {
                             try {
                                 request
                                         .requestMatchers("/user/**","/test/**").permitAll()
-                                        .requestMatchers("/board/list","/board/post/**").permitAll()
+                                        .requestMatchers("/board/list/**").permitAll()
                                         .anyRequest().authenticated()
                                         .and()
                                         .apply(new JwtSecurityConfig(tokenProvider));
