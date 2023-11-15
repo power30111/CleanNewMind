@@ -8,7 +8,7 @@ import List from '../component/List';
 
 
 
-const Home = () => {
+const Mywrite = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -42,20 +42,20 @@ const Home = () => {
     return (
         <Container >
             <div className='hometop'>
-                <h1 className='hometop-text'>게시글</h1>
+                <h1 className='hometop-text'>나의 게시글</h1>
             </div>
 
             <div className='listbox'>
                 <div className='boardlist'>
-                    <div className='listtop-title'>
+                    <div className='listtop'>
                         <div className='list-No'>No</div>
 
                         <div className='list-title'>제목</div>
                     </div>
 
                     <div className='max'>
-                        {data.map((item, index) => (
-                            <List index={index} {...item} />
+                        {data.map(item => (
+                            <List {...item} />
                         ))}
                     </div>
                 </div>
@@ -69,4 +69,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default Mywrite

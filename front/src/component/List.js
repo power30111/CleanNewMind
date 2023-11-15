@@ -46,7 +46,7 @@ const List = (props) => {
 
     return (
         <div className='flexbox list' onClick={detailPage}>
-            <div className='list-No'>{id}</div>
+            <div className='list-No'>{props.index + 1}</div>
             <div className='list-title'>{title}</div>
         </div>
     )

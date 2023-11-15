@@ -1,5 +1,6 @@
 body{
-  background-color: rgb(225, 209, 255);
+  background-color: #FFFFFF;
+  /*background-color: rgb(225, 209, 255);*/
 
 }
 
@@ -8,7 +9,7 @@ body{
   width: 80%;
   height: 85vh;
   margin-top: 3vh;
-  background-color: floralwhite;
+  background-color: #FFFFFF;
 }
 
 .flexbox{
@@ -19,13 +20,16 @@ body{
 
 .Box{
   width: 50%;
-  border: 6px solid rgb(225, 209, 255);
+  border: 6px solid  #9fb6f1;
   border-radius: 40px;
 }
+
+
 
 .nav{
   display: flex;
   justify-content: flex-end;
+  background-color: #9fb6f1;
 }
 
 @media (min-width: 320px) {
@@ -86,7 +90,7 @@ body{
 }
 .hometop-text{
   width: 100%;
-  border-bottom: 2px solid rgb(214, 194, 225);
+  border-bottom: 2px solid  #9fb6f1;
   padding-bottom: 50px;
 }
 
@@ -98,11 +102,18 @@ body{
 .boardlist{
   width: 80%;
   height: 70vh;
-  border: 2px solid slategray;
+  border: 2px solid  #9fb6f1;
+}
+.listtop-title{
+  display: flex;
+  background-color: white;
+  height: 5%;
+  border-bottom: 1px solid  #9fb6f1;
+  align-items: center;
 }
 .listtop{
   display: flex;
-  background-color: rgb(225, 209, 255);
+  background-color: white;
   height: 3%;
   border-bottom: 1px solid black;
 }
@@ -131,12 +142,14 @@ body{
   border-bottom: 1px solid black;
   height: 8%;
 }
-.list:last-child{
-  
+
+/*로그인창*/
+
+.Loginbtn{
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
-
-
-
 
 
 
@@ -146,7 +159,7 @@ body{
 }
 .Write-Box{
   width: 70%;
-  border: 6px solid rgb(225, 209, 255);
+  border: 6px solid  #9fb6f1;
   border-radius: 40px;
 }
 .Write-title{
@@ -162,9 +175,9 @@ body{
   width: 98%;
   height: 100%;
   resize: none;
-  border: 2px solid rgb(225, 209, 255);
+  border: 2px solid  #9fb6f1;
   border-radius: 15px;
-  outline-color: #e4aff9;
+  outline-color:  #9fb6f1;
 }
 .Write-btn{
   display: flex;
@@ -214,6 +227,6 @@ body{
 
 
 .btn-hover.color-9 {
-  background-image: linear-gradient(to right, #c285f4, #e4aff9, #ddc0f8, rgb(136, 21, 231));
+  background-image: linear-gradient(to right, rgb(124, 148, 246), #afb6f9, #c0c2f8, rgb(21, 63, 231));
   box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
 }
