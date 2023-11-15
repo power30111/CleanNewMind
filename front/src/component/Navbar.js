@@ -29,12 +29,12 @@ const Navbar = () => {
       <button className="btn-hover color-9" onClick={goHome}>Home</button>
 
       {islogin ? (
-        <button className="btn-hover color-9" onClick={logout}>로그아웃</button>
+        <button className="btn-hover color-9" onClick={logout}>Log Out</button>
       ):(
-        <button className="btn-hover color-9" onClick={goLogin}>로그인</button>
+        <button className="btn-hover color-9" onClick={goLogin}>Log In</button>
       )}
 
-      <button className="btn-hover color-9" onClick={goSignup}>SignUp</button>
+      <button className="btn-hover color-9" onClick={goSignup}>Sign Up</button>
     </div>
   );
 }

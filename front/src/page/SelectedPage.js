@@ -71,3 +71,19 @@ const SelectedPage = () => {
 }
 
 export default SelectedPage
+
+/*                        {(istoken&&(
+                            <div className='Write-btn'>
+                                <button className="btn-hover color-9 " >수정</button>
+                                <button className="btn-hover color-9" onClick={goHome}>삭제</button>
+                            </div>
+                        ))|| (isLogin&&(
+                            <div className='Write-btn'>
+                                <button className="btn-hover color-9 " >수정</button>
+                                <button className="btn-hover color-9" onClick={goHome}>삭제</button>
+                            </div>
+                        ))||
+                            <div></div>
+
+                        }
+*/

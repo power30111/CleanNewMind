@@ -6,7 +6,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 
-const Write = () => {
+const Rewrite = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -71,4 +71,4 @@ const Write = () => {
     )   
 }
 
-export default Write
+export default Rewrite
