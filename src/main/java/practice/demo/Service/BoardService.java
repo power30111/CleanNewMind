@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import practice.demo.Repository.BoardRepository;
 import practice.demo.domain.Board;
+import practice.demo.domain.DTO.BoardDto;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.exception.UserNotFoundException;
 
@@ -29,6 +30,11 @@ public class BoardService {
     }
     public Optional<Board> findOne(Long id){
         return boardRepository.findById(id);
+    }
+    public BoardDto getBoardDto(Long id){
+        return boardRepository.findById(id)
+                .map(BoardDto::of)
+                .orElseThrow(() -> new RuntimeException("해당 게시글의 정보가 없습니다."));
     }
     public void deleteBoard(Long id){
         boardRepository.deleteById(id);
