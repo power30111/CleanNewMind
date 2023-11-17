@@ -64,7 +64,7 @@ public class BoardController {
     @GetMapping("/list/{receiveBoardId}")
     public ResponseEntity<?> readBoard2(@PathVariable String receiveBoardId) {
         log.info(receiveBoardId + " 번호의 게시글 조회 요청");
-        long boardId = Long.parseLong(receiveBoardId);
+        long boardId = Long.parseLong(receiveBoardId.strip());
         BoardDto memberResponseDto = boardService.getBoardDto(boardId);
 
         if (boardService.equalsWriter(boardId)) {
@@ -75,7 +75,7 @@ public class BoardController {
     }
     @GetMapping("/list/{receiveBoardId}/delete")
     public ResponseEntity<Message> deleteBoard(@PathVariable String receiveBoardId){
-        long boardId = Long.parseLong(receiveBoardId);
+        long boardId = Long.parseLong(receiveBoardId.strip());
         log.info(boardId+" 번호의 게시글 삭제 요청");
         HttpHeaders headers = getHttpHeaders();
         if(boardService.findOne(boardId).isPresent() && boardService.equalsWriter(boardId)){
@@ -89,7 +89,7 @@ public class BoardController {
     }
     @PostMapping("/list/{receiveBoardId}/update")
     public ResponseEntity<?> updateBoard(@PathVariable String receiveBoardId, @RequestBody BoardDto boardDto){
-        long boardId = Long.parseLong(receiveBoardId);
+        long boardId = Long.parseLong(receiveBoardId.strip());
         log.info("게시글 수정 요청");
         if(boardService.equalsWriter(boardId)){
             boardService.update(boardId,boardDto);
