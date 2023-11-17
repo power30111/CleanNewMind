@@ -39,6 +39,7 @@ const Rewrite = () => {
                 alert('올리기 성공');
                 console.log("올리기 성공")
                 console.log('내용:',  text)
+                dispatch({type:"reset"})
                 goHome()
         })
         .catch((error) => {

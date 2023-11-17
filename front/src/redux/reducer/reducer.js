@@ -59,6 +59,10 @@ function reducer(state=initialState,action){
             const { name: textName, value: textValue } = action.payload;
             return { ...state, text:{...state.text, [textName]: textValue } };
 
+            case 'reset' :
+                return { ...state, text:{ title : '', content: ''} };
+    
+
         case 'rewrite' :
             const { name: taketextName, value: taketextValue } = action.payload;
             return { ...state, text:{...state.text, [taketextName]: taketextValue } };
