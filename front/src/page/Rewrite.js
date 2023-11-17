@@ -13,6 +13,9 @@ const Rewrite = () => {
 
     const text = useSelector((state) => state.text)
     const token = useSelector((state) => state.token)
+    const taketext = useSelector((state)=>state.taketext)
+
+    const urlid=taketext.id
 
     const goHome = () =>{
         navigate('/')
@@ -20,28 +23,23 @@ const Rewrite = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        dispatch({type:'write',payload:{ name, value }});
+        dispatch({type:'rewrite',payload:{ name, value }});
     };
 
     /* 클릭이벤트 글정보 전달 */
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post('http://localhost:8080/board/write',text,{
+        axios.post(`http://localhost:8080/board/list/${urlid}/update`,text,{
             headers: {
                 Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
             }
         })
         .then((response) => {
-            if (response.status === 200) {
                 alert('올리기 성공');
                 console.log("올리기 성공")
                 console.log('내용:',  text)
                 goHome()
-            }
-            else {
-            alert('전송 실패');
-            }
         })
         .catch((error) => {
         console.error('전송 에러', error);

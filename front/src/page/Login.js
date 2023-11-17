@@ -40,7 +40,6 @@ const Login = () => {
         axios.post('http://localhost:8080/user/login',logininfo)
 
         .then((response) => {
-            if (response.status === 200) {
                 const accessToken=response.data.accessToken
                 dispatch(LoginAction.getToken(accessToken))
                 login()
@@ -48,10 +47,6 @@ const Login = () => {
                 console.log("로그인 성공")
                 console.log(`토큰 데이터 : ${response.data.accessToken}`)
                 goHome()
-            }
-            else {
-            alert('로그인 실패');
-            }
         })
         .catch((error) => {
         console.error('로그인 에러', error);

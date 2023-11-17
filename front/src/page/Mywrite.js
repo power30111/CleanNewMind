@@ -22,16 +22,10 @@ const Mywrite = () => {
     useEffect(()=>{
         axios.get('http://localhost:8080/board/list')
         .then((response) => {
-            if (response.status === 200) {
                 console.log("게시글 조회 성공")
                 dispatch({type:'boardlist',payload:response.data})
                 console.log("수신",response.data)
                 console.log(data)
-            }
-            else {
-            alert('게시글 조회 실패');
-            console.log(data)
-            }
         })
         .catch(error => {
             console.error('게시글 조회 실패 : ', error);
