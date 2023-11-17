@@ -52,11 +52,16 @@ function reducer(state=initialState,action){
             return{...state, islogin: action.payload}
         
         case 'logout':
-            return {...state, islogin: action.payload}
+            localStorage.removeItem("token");
+            return {...state, islogin: action.payload, token:"null"}
 
         case 'write' :
             const { name: textName, value: textValue } = action.payload;
             return { ...state, text:{...state.text, [textName]: textValue } };
+
+        case 'rewrite' :
+            const { name: taketextName, value: taketextValue } = action.payload;
+            return { ...state, text:{...state.text, [taketextName]: taketextValue } };
 
         case 'selectid':
             return {...state, urlid:action.payload}

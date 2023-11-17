@@ -34,15 +34,10 @@ const Write = () => {
             }
         })
         .then((response) => {
-            if (response.status === 200) {
                 alert('올리기 성공');
                 console.log("올리기 성공")
                 console.log('내용:',  text)
                 goHome()
-            }
-            else {
-            alert('전송 실패');
-            }
         })
         .catch((error) => {
         console.error('전송 에러', error);

@@ -13,7 +13,7 @@ const List = (props) => {
     const token = useSelector((state) => state.token)
     const taketext = useSelector((state)=>state.taketext)
 
-    const {id, title, writer} =props
+    const {id, title, writer, index} =props
 
 
     const detailPage = (()=>{
@@ -24,18 +24,11 @@ const List = (props) => {
             Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
         }})
         .then((response) => {
-            if (response.status === 200) {
                 console.log("글 조회 성공")
                 console.log("글 수신",response)
                 dispatch({type:"takecontent",payload:response.data})
                 console.log("taketext",taketext)
                 console.log("url아이디",id)
-        }
-            else {
-            alert('글 조회 실패');
-            console.log("글 수신",response)
-
-            }
         })
         .catch(error => {
             console.error('글 조회 실패 : ', error);
@@ -45,8 +38,8 @@ const List = (props) => {
     })
 
     return (
-        <div className='flexbox list' onClick={detailPage}>
-            <div className='list-No'>{props.index + 1}</div>
+        <div className='listtop-title' onClick={detailPage}>
+            <div className='list-No'>{index + 1}</div>
             <div className='list-title'>{title}</div>
         </div>
     )

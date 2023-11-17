@@ -30,15 +30,10 @@ const SignUp = () => {
     
             axios.post('http://localhost:8080/user/signup',user)
             .then((response) => {
-                if (response.status === 200) {
                 alert('회원가입 성공');
                 console.log("회원가입 성공")
                 goLogin()
-
-    
-                } else {
-                alert('회원가입 실패');
-                }
+                
             })
             .catch((error) => {
             console.error('회원가입 에러', error);

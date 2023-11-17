@@ -22,22 +22,20 @@ const SelectedPage = () => {
             Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
         }})
         .then((response) => {
-            if (response.status === 200) {
                 alert('글 삭제 성공')
                 console.log("글 삭제 성공")
                 navigate('/') 
-        }
-            else {
-            alert('글 삭제 실패');
-            }
         })
         .catch(error => {
             console.error('글 삭제 실패 : ', error);
         });
     })
 
-    const goHome = async() =>{
+    const goHome = () =>{
         deletelist()
+    }
+    const rewrite = () =>{
+        navigate('/Rewrite')
     }
     /*
     const Retouch = () =>{
@@ -61,7 +59,7 @@ const SelectedPage = () => {
                     </div>
 
                     <div className='Write-btn'>
-                        <button className="btn-hover color-9 " >수정</button>
+                        <button className="btn-hover color-9" onClick={rewrite}>수정</button>
                         <button className="btn-hover color-9" onClick={goHome}>삭제</button>
                     </div>
                 </div>
