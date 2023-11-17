@@ -4,6 +4,7 @@ package practice.demo.Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import practice.demo.Repository.BoardRepository;
 import practice.demo.domain.Board;
 import practice.demo.domain.DTO.BoardDto;
@@ -53,12 +54,14 @@ public class BoardService {
             return false;
         }
     }
+    @Transactional
     public void update(Long boardId, BoardDto updateBoardDto){
         Board board = findOne(boardId).orElseThrow(() -> new BoardNotFoundException("해당 게시글이 존재하지않습니다."));
         if(equalsWriter(boardId)){
             board.updateBoard(updateBoardDto.getTitle(),updateBoardDto.getContent());
             log.info(boardId + "게시글이 정상적으로 수정되었습니다.");
+        }else {
+            log.info(boardId + "해당 게시글의 작성자와 요청자간 ID가 서로 다릅니다.");
         }
-        log.info(boardId + "해당 게시글의 작성자와 요청자간 ID가 서로 다릅니다.");
     }
 }
