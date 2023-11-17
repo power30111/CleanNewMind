@@ -46,7 +46,6 @@ public class BoardController {
         MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
         Optional<Member> member = memberService.findByUserId(myInfoBySecurity.getUserId());
         HttpHeaders headers = getHttpHeaders();
-
         if(member.isPresent()){
             Board board = new Board(member.get(), boardDto.getTitle(), boardDto.getContent());
             boardService.saveBoard(board);
@@ -62,24 +61,19 @@ public class BoardController {
             return new ResponseEntity<>(message,headers,HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/list/{boardId}")
-    public ResponseEntity<?> readBoard(@PathVariable String receiveBoardId) {
+    @GetMapping("/list/{receiveBoardId}")
+    public ResponseEntity<?> readBoard2(@PathVariable String receiveBoardId) {
         log.info(receiveBoardId + " 번호의 게시글 조회 요청");
+        long boardId = Long.parseLong(receiveBoardId);
+        BoardDto memberResponseDto = boardService.getBoardDto(boardId);
 
-        Optional<Board> boardOptional = boardService.findOne(Long.parseLong(receiveBoardId));
-        if (boardOptional.isPresent()) {
-            Board board = boardOptional.get();
-            log.info("게시판 조회");
-            BoardDto boardDto = new BoardDto(board.getId(), board.getMember().getName(), board.getTitle(), board.getContent());
-            return ResponseEntity.ok(boardDto);
+        if (boardService.equalsWriter(boardId)) {
+            return ResponseEntity.ok(memberResponseDto);
         } else {
-            log.info("해당 번호의 게시글이 존재하지 않습니다.");
-            Message message = getMessage(StatusEnum.NOT_FOUNT, "해당 게시글이 존재하지 않습니다.");
-            HttpHeaders headers = getHttpHeaders();
-            return new ResponseEntity<>(message, headers, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(memberResponseDto);
         }
     }
-    @GetMapping("/list/{boardId}/delete")
+    @GetMapping("/list/{receiveBoardId}/delete")
     public ResponseEntity<Message> deleteBoard(@PathVariable String receiveBoardId){
         long boardId = Long.parseLong(receiveBoardId);
         log.info(boardId+" 번호의 게시글 삭제 요청");
@@ -93,36 +87,6 @@ public class BoardController {
         Message message = getMessage(StatusEnum.BAD_REQUEST, "게시판 삭제 요청이 실패하였습니다.");
         return new ResponseEntity<>(message,headers,HttpStatus.BAD_REQUEST);
     }
-
-    @GetMapping("/list/{boardId}/validUser")
-    public ResponseEntity<?> validUser(@PathVariable String receiveBoardId){
-        long boardId = Long.parseLong(receiveBoardId);
-        log.info("토큰이 유효한 토큰인지 인증요청");
-        MemberResponseDto memberResponseDto = memberService.getMyInfoBySecurity();
-        log.info("유효한 인증입니다. 현재 아이디의 UserId = "+memberResponseDto.getUserId());
-        log.info("현재 인증완료된 아이디와 수정하려하는 게시판과 같은 ID인지 검사");
-        if(boardService.equalsWriter(boardId)){
-            return ResponseEntity.ok(memberResponseDto);
-        }else{
-            HttpHeaders headers = getHttpHeaders();
-            Message message = getMessage(StatusEnum.BAD_REQUEST, "아이디가 동일하지않습니다.");
-            return new ResponseEntity<>(message,headers,HttpStatus.BAD_REQUEST);
-        }
-    }
-//
-//    @PostMapping("/list/{boardId}/change")
-//    public void changeNoticeBoard(@RequestBody BoardDto boardDto,@PathVariable String receiveBoardId){
-//        long boardId = Long.parseLong(receiveBoardId);
-//        log.info("현재 게시글 변경 요청이 들어옴. 변경할 게시글 ID ="+receiveBoardId);
-//        Optional<Board> board = boardService.findOne(boardId).orElseThrow(
-//
-//        )
-//
-//
-//
-//    }
-
-
 
     private static HttpHeaders getHttpHeaders() {
         HttpHeaders headers= new HttpHeaders();
