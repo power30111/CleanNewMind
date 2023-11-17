@@ -87,6 +87,16 @@ public class BoardController {
         Message message = getMessage(StatusEnum.BAD_REQUEST, "게시판 삭제 요청이 실패하였습니다.");
         return new ResponseEntity<>(message,headers,HttpStatus.BAD_REQUEST);
     }
+    @PostMapping("/list/{receiveBoardId}/update")
+    public ResponseEntity<?> updateBoard(@PathVariable String receiveBoardId, @RequestBody BoardDto boardDto){
+        long boardId = Long.parseLong(receiveBoardId);
+        log.info("게시글 수정 요청");
+        if(boardService.equalsWriter(boardId)){
+            boardService.update(boardId,boardDto);
+            return ResponseEntity.ok(boardService.getBoardDto(boardId));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(boardService.getBoardDto(boardId));
+    }
 
     private static HttpHeaders getHttpHeaders() {
         HttpHeaders headers= new HttpHeaders();

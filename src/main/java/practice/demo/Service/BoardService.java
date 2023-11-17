@@ -8,6 +8,7 @@ import practice.demo.Repository.BoardRepository;
 import practice.demo.domain.Board;
 import practice.demo.domain.DTO.BoardDto;
 import practice.demo.domain.DTO.MemberResponseDto;
+import practice.demo.exception.BoardNotFoundException;
 import practice.demo.exception.UserNotFoundException;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class BoardService {
     public BoardDto getBoardDto(Long id){
         return boardRepository.findById(id)
                 .map(BoardDto::of)
-                .orElseThrow(() -> new RuntimeException("해당 게시글의 정보가 없습니다."));
+                .orElseThrow(() -> new BoardNotFoundException("해당 게시글의 정보가 없습니다."));
     }
     public void deleteBoard(Long id){
         boardRepository.deleteById(id);
@@ -51,5 +52,13 @@ public class BoardService {
             log.info("인증 요청한 UserId와 board를 작성한 UserId가 동일하지않습니다.");
             return false;
         }
+    }
+    public void update(Long boardId, BoardDto updateBoardDto){
+        Board board = findOne(boardId).orElseThrow(() -> new BoardNotFoundException("해당 게시글이 존재하지않습니다."));
+        if(equalsWriter(boardId)){
+            board.updateBoard(updateBoardDto.getTitle(),updateBoardDto.getContent());
+            log.info(boardId + "게시글이 정상적으로 수정되었습니다.");
+        }
+        log.info(boardId + "해당 게시글의 작성자와 요청자간 ID가 서로 다릅니다.");
     }
 }
