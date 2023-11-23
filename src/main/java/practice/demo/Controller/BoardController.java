@@ -14,8 +14,8 @@ import practice.demo.domain.Board;
 import practice.demo.domain.DTO.BoardDto;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.domain.Member;
-import practice.demo.domain.Message;
-import practice.demo.domain.StatusEnum;
+import practice.demo.domain.state.Message;
+import practice.demo.domain.state.StatusEnum;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -78,7 +78,7 @@ public class BoardController {
         long boardId = Long.parseLong(receiveBoardId.strip());
         log.info(boardId+" 번호의 게시글 삭제 요청");
         HttpHeaders headers = getHttpHeaders();
-        if(boardService.findOne(boardId).isPresent() && boardService.equalsWriter(boardId)){
+        if(boardService.equalsWriter(boardId)){
             //게시판 ID를 통해 조회가 가능한지? + 게시판을 작성한 UserId와 게시판을 삭제하려는 UserId가 동일한지?
             boardService.deleteBoard(boardId);
             Message message = getMessage(StatusEnum.OK, "게시판 정상적으로 삭제");

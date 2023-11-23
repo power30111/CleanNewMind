@@ -1,4 +1,4 @@
-package practice.demo.domain;
+package practice.demo.domain.state;
 
 public enum StatusEnum {
     OK(200,"OK"),

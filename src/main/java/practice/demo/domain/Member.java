@@ -3,6 +3,7 @@ package practice.demo.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
+import practice.demo.domain.state.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +42,13 @@ public class Member extends BaseEntity{
     }
     public void setPassword(String pw){
         this.password = pw;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 }

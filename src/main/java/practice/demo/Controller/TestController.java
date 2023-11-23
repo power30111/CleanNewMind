@@ -1,7 +1,6 @@
 package practice.demo.Controller;
 
 
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import practice.demo.domain.Board;
 import practice.demo.domain.DTO.BoardDto;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.domain.Member;
-import practice.demo.domain.Role;
+import practice.demo.domain.state.Role;
 
 import java.util.List;
 

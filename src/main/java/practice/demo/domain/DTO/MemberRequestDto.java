@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import practice.demo.domain.Member;
-import practice.demo.domain.Role;
+import practice.demo.domain.state.Role;
 
 @Getter
 @AllArgsConstructor

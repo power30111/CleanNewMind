@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +21,9 @@ public class Board extends BaseEntity{
 
     private String title;
     private String content;
+
+    @OneToMany(mappedBy = "Comment")
+    private List<Comment> commentList = new ArrayList<>();
 
     public Board() {
     }
