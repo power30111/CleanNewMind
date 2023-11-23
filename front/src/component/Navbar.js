@@ -55,7 +55,7 @@ const Navbar = () => {
         <button className="btn-hover color-9" onClick={goLogin}>Log In</button>
       )}
 
-{islogin ? (
+      {islogin ? (
         <button className="btn-hover color-9"onClick={Mypage}>My Page</button>
       ):(
         <button className="btn-hover color-9" onClick={goSignup}>Sign Up</button>
