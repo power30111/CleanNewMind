@@ -34,7 +34,7 @@ const Home = () => {
     },[])
 
     return (
-        <Container >
+        <Container>
             <div className='hometop'>
                 <h1 className='hometop-text'>게시글</h1>
             </div>

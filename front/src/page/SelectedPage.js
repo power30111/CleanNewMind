@@ -11,6 +11,7 @@ const SelectedPage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = useSelector((state) => state.token)
+    const text = useSelector((state) => state.text)
 
 
     const id = useSelector((state) => state.taketext.id);
@@ -43,18 +44,18 @@ const SelectedPage = () => {
     }*/
 
     return (
-        <Container className='flexbox'>
+        <Container className='flexbox-column'>
             <div className='Write-Box'>
                 <div className='Write-page'>
                     <div className="mb-3 flexbox Write-title" >
                         <div className='text-area' name="title">
-                            {taketext.title}
+                            {text.title}
                         </div>
                     </div>
 
                     <div className="mb-3 flexbox Write-text">
                         <div className='text-area'  name="content">
-                            {taketext.content}
+                            {text.content}
                         </div>
                     </div>
 
@@ -63,6 +64,9 @@ const SelectedPage = () => {
                         <button className="btn-hover color-9" onClick={goHome}>삭제</button>
                     </div>
                 </div>
+            </div>
+            <div className='comment flexbox'>
+                <input className='comment-inputbox underline' type='text' placeholder='댓글 입력'></input>
             </div>
         </Container>
     )

@@ -1,15 +1,15 @@
 body{
   background-color: #FFFFFF;
   /*background-color: rgb(225, 209, 255);*/
-
 }
 
 
 .container{
   width: 80%;
-  height: 85vh;
-  margin-top: 3vh;
+  
+  padding-top: 60px;
   background-color: #FFFFFF;
+
 }
 
 .flexbox{
@@ -18,18 +18,31 @@ body{
   align-items: center;
 }
 
+.flexbox-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*로그인 회원 가입 창*/
+
 .Box{
   width: 50%;
   border: 6px solid  #9fb6f1;
   border-radius: 40px;
 }
 
-
+.infobox{
+  height: 85vh;
+}
 
 .nav{
   display: flex;
   justify-content: flex-end;
   background-color: #9fb6f1;
+  height: 70px;
+  align-items: center;
 }
 
 @media (min-width: 320px) {
@@ -84,7 +97,6 @@ body{
   display: flex;
   padding-left: 5vh;
   margin-bottom: 3vh;
-  padding-top: 2vh;
   height: 5vh;
   box-sizing: content-box;
 }
@@ -186,6 +198,35 @@ body{
 .Write-btn>button{
   width: 100px;
 }
+/*선택 페이지*/
+
+.comment{
+  width: 70%;
+  margin-top: 2vh;
+}
+
+.comment-inputbox{
+  width: 95%;
+  height: 5vh;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+input.underline {
+  border-left:0;
+  border-right:0;
+  border-top:0; 
+  border-bottom :1px solid #afb6f9; 
+  
+}
+input.underline:focus{
+  outline: none;
+  border-bottom :2px solid #5262f1; 
+
+}
+
+
+
+
 
 
 

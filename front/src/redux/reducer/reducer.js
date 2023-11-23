@@ -5,6 +5,12 @@ let initialState={
         name:'',
         Email: ''
     },
+    repair:{
+        password:'',
+        name:'',
+        Email: '',
+        test: false
+    },
     login:{
         userId:'',
         password: '',
@@ -14,7 +20,9 @@ let initialState={
     islogin : false,
 
     text : {
+        id : '',
         title : '',
+        writer : '',
         content : '',
     },
     data:[],
@@ -23,9 +31,6 @@ let initialState={
 
     taketext : {
         id : '',
-        title : '',
-        writer : '',
-        content : '',
     }
 }
 
@@ -33,28 +38,34 @@ let initialState={
 function reducer(state=initialState,action){
 
     switch (action.type) {
+        /* 홈 */
         case 'boardlist':
             return {...state, data:action.payload}
+
+        /* 로그인 */
         case 'Login':
             const { name: loginName, value: loginValue } = action.payload;
             return { ...state, login: { ...state.login, [loginName]: loginValue } };
         
-        case 'userInfo':
-            const { name: userInfoName, value: userInfoValue } = action.payload;
-            return { ...state, user: { ...state.user, [userInfoName]: userInfoValue } };
-    
+        case 'login':
+            return{...state, islogin: action.payload}
+
         case 'setToken':
             const token = action.payload;
             console.log('리듀서 : ', token);
             return { ...state, token: action.payload };
-    
-        case 'login':
-            return{...state, islogin: action.payload}
         
+        /* 회원가입 */
+        case 'userInfo':
+            const { name: userInfoName, value: userInfoValue } = action.payload;
+            return { ...state, user: { ...state.user, [userInfoName]: userInfoValue } };
+
+        /* 네비바 */
         case 'logout':
             localStorage.removeItem("token");
             return {...state, islogin: action.payload, token:"null"}
 
+        /* 글쓰기 */
         case 'write' :
             const { name: textName, value: textValue } = action.payload;
             return { ...state, text:{...state.text, [textName]: textValue } };
@@ -62,15 +73,19 @@ function reducer(state=initialState,action){
             case 'reset' :
                 return { ...state, text:{ title : '', content: ''} };
     
+        /* 글쓰기 수정 */
 
-        case 'rewrite' :
-            const { name: taketextName, value: taketextValue } = action.payload;
-            return { ...state, text:{...state.text, [taketextName]: taketextValue } };
 
-        case 'selectid':
-            return {...state, urlid:action.payload}
+        /* 리스트 */
         case 'takecontent':
-            return {...state, taketext:action.payload}
+            return {...state, text:action.payload}
+        
+        case 'urlid':
+            return {...state, urlid:action.payload}
+
+        /* 회원정보수정 */
+        case 'testPassword':
+            return {...state, repair:{...state.repair, test : action.payload} }
 
 
         default:

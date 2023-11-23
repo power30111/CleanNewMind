@@ -41,7 +41,7 @@ const SignUp = () => {
             });
         }
     return (
-        <Container className='flexbox' >
+        <Container className='flexbox infobox' >
             <Form className='Box userinfo' onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formID">
                     <Form.Label>아이디</Form.Label>

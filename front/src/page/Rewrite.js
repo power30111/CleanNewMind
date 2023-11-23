@@ -13,9 +13,7 @@ const Rewrite = () => {
 
     const text = useSelector((state) => state.text)
     const token = useSelector((state) => state.token)
-    const taketext = useSelector((state)=>state.taketext)
-
-    const urlid=taketext.id
+    const urlid = useSelector((state)=>state.urlid)
 
     const goHome = () =>{
         navigate('/')
@@ -23,7 +21,7 @@ const Rewrite = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        dispatch({type:'rewrite',payload:{ name, value }});
+        dispatch({type:'write',payload:{ name, value }});
     };
 
     /* 클릭이벤트 글정보 전달 */
@@ -44,6 +42,7 @@ const Rewrite = () => {
         })
         .catch((error) => {
         console.error('전송 에러', error);
+        console.log('urlid', urlid)
         console.log('내용:',  text)
         });
     }
@@ -53,11 +52,11 @@ const Rewrite = () => {
             <Form className='Write-Box' onSubmit={handleSubmit}>
                 <Form.Group className='Write-page'>
                     <Form.Group className="mb-3 flexbox Write-title" >
-                        <Form.Control className='text-area' placeholder="제목" name="title" value={text.title} onChange={handleInputChange}/>
+                        <Form.Control className='text-area'  name="title" value={text.title} onChange={handleInputChange}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3 flexbox Write-text">
-                        <Form.Control className='text-area' placeholder="내용" name="content" value={text.content} onChange={handleInputChange}/>
+                        <Form.Control className='text-area'  name="content" value={text.content} onChange={handleInputChange}/>
                     </Form.Group>
 
                     <div className='Write-btn'>

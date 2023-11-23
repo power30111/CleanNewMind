@@ -27,6 +27,7 @@ const List = (props) => {
                 console.log("글 조회 성공")
                 console.log("글 수신",response)
                 dispatch({type:"takecontent",payload:response.data})
+                dispatch({type:"urlid",payload:id})
                 console.log("taketext",taketext)
                 console.log("url아이디",id)
         })
@@ -38,9 +39,11 @@ const List = (props) => {
     })
 
     return (
-        <div className='listtop-title' onClick={detailPage}>
-            <div className='list-No'>{index + 1}</div>
-            <div className='list-title'>{title}</div>
+        <div>
+            <div className='listtop-title' onClick={detailPage}>
+                <div className='list-No'>{index + 1}</div>
+                <div className='list-title'>{title}</div>
+            </div>
         </div>
     )
 }
