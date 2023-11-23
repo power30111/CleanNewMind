@@ -1,4 +1,4 @@
-package practice.demo.domain;
+package practice.demo.domain.state;
 
 
 import lombok.Data;
