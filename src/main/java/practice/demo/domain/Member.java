@@ -7,6 +7,7 @@ import practice.demo.domain.state.Role;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -21,8 +22,11 @@ public class Member extends BaseEntity{
     private String name;
     private String Email;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private List<Board> boardList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
+    private List<Comment> commentList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role role;    //권한

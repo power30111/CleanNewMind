@@ -12,6 +12,7 @@ import practice.demo.Service.BoardService;
 import practice.demo.Service.MemberService;
 import practice.demo.domain.Board;
 import practice.demo.domain.DTO.BoardDto;
+import practice.demo.domain.DTO.CommentDto;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.domain.Member;
 import practice.demo.domain.state.Message;
@@ -33,9 +34,11 @@ public class BoardController {
     public List<BoardDto> boardDtoList() {
         List<BoardDto> boardList = new ArrayList<>();
         for (Board board : boardService.getBoardList()) {
-            BoardDto boardDto = new BoardDto(board.getId(),
-                    board.getMember().getUserId(),
-                    board.getTitle());
+            BoardDto boardDto = BoardDto.builder()
+                    .id(board.getId())
+                    .title(board.getTitle())
+                    .writer(board.getMember().getUserId())
+                    .build();
             boardList.add(boardDto);
         }
         return boardList;
@@ -65,12 +68,12 @@ public class BoardController {
     public ResponseEntity<?> readBoard2(@PathVariable String receiveBoardId) {
         log.info(receiveBoardId + " 번호의 게시글 조회 요청");
         long boardId = Long.parseLong(receiveBoardId.strip());
-        BoardDto memberResponseDto = boardService.getBoardDto(boardId);
+        BoardDto boardResponseDto = boardService.getBoardDto(boardId);
 
         if (boardService.equalsWriter(boardId)) {
-            return ResponseEntity.ok(memberResponseDto);
+            return ResponseEntity.ok(boardResponseDto);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(memberResponseDto);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(boardResponseDto);
         }
     }
     @GetMapping("/list/{receiveBoardId}/delete")
@@ -96,6 +99,18 @@ public class BoardController {
             return ResponseEntity.ok(boardService.getBoardDto(boardId));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(boardService.getBoardDto(boardId));
+    }
+    @PostMapping("/comment/{receiveBoardId}")
+    public HttpStatus writeComment(@PathVariable String receiveBoardId, @RequestBody CommentDto commentDto){
+        long boardId = Long.parseLong(receiveBoardId.strip());
+        log.info(boardId + " 게시글 댓글 작성");
+        try {
+            boardService.writeComment(commentDto, boardId);
+        }catch (RuntimeException e){
+            return HttpStatus.BAD_REQUEST;
+        }
+        log.info("댓글작성 로직끝");
+        return HttpStatus.OK;
     }
 
     private static HttpHeaders getHttpHeaders() {

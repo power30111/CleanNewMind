@@ -5,9 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import practice.demo.Configure.SecurityUtil;
 import practice.demo.Repository.BoardRepository;
+import practice.demo.Repository.CommentRepository;
 import practice.demo.domain.Board;
+import practice.demo.domain.Comment;
 import practice.demo.domain.DTO.BoardDto;
+import practice.demo.domain.DTO.CommentDto;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.exception.BoardNotFoundException;
 import practice.demo.exception.UserNotFoundException;
@@ -18,10 +22,9 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class BoardService {
-    @Autowired
     private BoardRepository boardRepository;
-    @Autowired
     private MemberService memberService;
+    private CommentRepository commentRepository;
 
     public List<Board> getBoardList(){
         return boardRepository.findAll();
@@ -63,5 +66,15 @@ public class BoardService {
         }else {
             log.info(boardId + "해당 게시글의 작성자와 요청자간 ID가 서로 다릅니다.");
         }
+    }
+    @Transactional
+    public void writeComment(CommentDto commentDto,Long boardId){
+        commentRepository.save(
+            Comment.builder()
+                    .board(boardRepository.getReferenceById(boardId))
+                    .member(memberService.findById(SecurityUtil.getCurrentMemberId())
+                            .orElseThrow(() -> new RuntimeException("인증정보에서 해당 유저를 찾을수없습니다.")))
+                    .content(commentDto.getContent())
+                    .build());
     }
 }

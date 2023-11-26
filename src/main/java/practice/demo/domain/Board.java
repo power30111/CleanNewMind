@@ -22,7 +22,9 @@ public class Board extends BaseEntity{
     private String title;
     private String content;
 
-    @OneToMany(mappedBy = "Comment")
+    //댓글이 작성되면 바로보이도록 EAGER. 게시글이 삭제될시 같이 없어지도록 cascade REMOVE.
+    @OneToMany(mappedBy = "board",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @OrderBy("id")
     private List<Comment> commentList = new ArrayList<>();
 
     public Board() {
