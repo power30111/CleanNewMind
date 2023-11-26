@@ -16,7 +16,7 @@ const List = (props) => {
     const {id, title, writer, index} =props
 
 
-    const detailPage = (()=>{
+    const selectedPage = (()=>{
         navigate(`/board/list/${id}`)
         dispatch({type:'urlid',payload:id})
 
@@ -40,7 +40,7 @@ const List = (props) => {
 
     return (
         <div>
-            <div className='listtop-title' onClick={detailPage}>
+            <div className='listtop-title' onClick={selectedPage}>
                 <div className='list-No'>{index + 1}</div>
                 <div className='list-title'>{title}</div>
             </div>

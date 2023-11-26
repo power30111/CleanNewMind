@@ -3,14 +3,17 @@ let initialState={
         userId:'',
         password: '',
         name:'',
-        Email: ''
+        Email: '',
     },
-    repair:{
-        password:'',
+    edit : {
+        userId:'',
+        password: '',
         name:'',
         Email: '',
-        test: false
+        exPassword:'',
+        newPassword: '',
     },
+    testpassword:false,
     login:{
         userId:'',
         password: '',
@@ -70,8 +73,8 @@ function reducer(state=initialState,action){
             const { name: textName, value: textValue } = action.payload;
             return { ...state, text:{...state.text, [textName]: textValue } };
 
-            case 'reset' :
-                return { ...state, text:{ title : '', content: ''} };
+        case 'reset' :
+            return { ...state, text:{ title : '', content: ''} };
     
         /* 글쓰기 수정 */
 
@@ -84,9 +87,16 @@ function reducer(state=initialState,action){
             return {...state, urlid:action.payload}
 
         /* 회원정보수정 */
-        case 'testPassword':
-            return {...state, repair:{...state.repair, test : action.payload} }
 
+        case 'testPassword':
+            return {...state, testpassword:action.payload}
+
+        case 'edit':
+            const { name: editName, value: editValue } = action.payload;
+            return { ...state, edit: { ...state.edit, [editName]: editValue } };
+
+        case 'delete-edit' :
+            return { ...state, edit:{ userId:'', password: '', name:'', Email: '', exPassword:'', newPassword: '',} };
 
         default:
             return state;
