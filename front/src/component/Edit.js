@@ -10,6 +10,7 @@ const Edit = () => {
     /* 리듀서 */
     const testpassword = useSelector((state) => state.testpassword);
     const edit = useSelector((state) => state.edit);
+    const token = useSelector((state) => state.token)
 
     const dispatch = useDispatch()
 
@@ -47,23 +48,30 @@ const Edit = () => {
             comparePassword()
         
         if (testpassword == false) {
-            axios.get('http://localhost:8080/user/signup',edit)
+            axios.get('http://localhost:8080/ user/accountUpdate',edit,{
+                headers: {
+                    Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+                }
+            })
             .then((response) => {
                 alert('변경 성공');
                 console.log("회원 정보 수정 성공")
                 goHome()
                 dispatch({type:"testPassword", payload: false})
+                deleteedit()
             })
             .catch((error) => {
             console.error('변경 에러', error);
             console.log(edit)
             dispatch({type:"testPassword", payload: false})
+            deleteedit()
             });
         }
         else {
             alert ('비밀번호가 일치 하지 않습니다.')
             console.log(edit)
             dispatch({type:"testPassword", payload: false})
+            deleteedit()
         }
             
         }
@@ -103,7 +111,7 @@ const Edit = () => {
             </Form.Group >
 
             <div className='flexbox'>
-                    <button className="btn-hover color-9" type='submit' onClick={deleteedit}>Complete!!</button>
+                    <button className="btn-hover color-9" type='submit' >Complete!!</button>
                 </div>
         </Form>
     </Container>
