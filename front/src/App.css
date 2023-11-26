@@ -221,10 +221,87 @@ input.underline {
 input.underline:focus{
   outline: none;
   border-bottom :2px solid #5262f1; 
+}
 
+.comment-btn{
+  width: 80px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  height: 40px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  
+}
+
+.comment-btn:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.comment-btn:focus {
+  outline: none;
 }
 
 
+.comment-btn.color-9 {
+  background-image: linear-gradient(to right, rgb(124, 148, 246), #afb6f9, #c0c2f8, rgb(21, 63, 231));
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+
+/*Mypage*/
+
+.mypage-text{
+  display: flex;
+  border-bottom: 1px solid #E1E3E1;
+  align-items: center;
+  height: 4vh;
+}
+
+.mypage-text-label{
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  border-right:1px solid #afb6f9 ;
+}
+
+.mypage-text>div{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+/*Edit*/
+
+.Edit-inputbox{
+  width: 95%;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.Edit-underline {
+  border-left:0;
+  border-right:0;
+  border-top:0; 
+  border-bottom: 0;
+}
+
+.Edit-underline:focus{
+  outline: none;
+  border-bottom :1px solid #5262f1; 
+}
 
 
 

@@ -39,9 +39,20 @@ const SelectedPage = () => {
         navigate('/Rewrite')
     }
     /*
-    const Retouch = () =>{
-        navigate('/')
-    }*/
+        useEffect(()=>{
+        axios.get('http://localhost:8080/board/list')
+        .then((response) => {
+                console.log("댓글 조회 성공")
+                dispatch({type:'boardlist',payload:response.data})
+                console.log("수신",response.data)
+                console.log(data)
+        })
+        .catch(error => {
+            console.error('댓글 조회 실패 : ', error);
+            console.log(data)
+        });
+    },[])
+    */
 
     return (
         <Container className='flexbox-column'>
@@ -67,12 +78,24 @@ const SelectedPage = () => {
             </div>
             <div className='comment flexbox'>
                 <input className='comment-inputbox underline' type='text' placeholder='댓글 입력'></input>
+                <button className=" color-9 comment-btn" >등록</button>
             </div>
+
+            
         </Container>
     )
 }
 
 export default SelectedPage
+
+/*
+            <div>
+                {data.map((item,) => (
+                    <Comment key={item}/>
+                ))}
+            </div>
+*/
+
 
 /*                        {(istoken&&(
                             <div className='Write-btn'>

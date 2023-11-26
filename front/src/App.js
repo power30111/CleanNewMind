@@ -8,8 +8,10 @@ import Home from './page/Home';
 import { Routes, Route} from 'react-router-dom'
 import Write from './page/Write';
 import SelectedPage from './page/SelectedPage';
-import Userpage from './page/Userpage';
+import Mypage from './page/Mypage';
 import Rewrite from './page/Rewrite';
+import Edit from './component/Edit';
+
 
 
 function App() {
@@ -23,8 +25,9 @@ function App() {
         <Route path="/Signup" element={<SignUp/>}/>
         <Route path="/Write" element={<Write/>}/>
         <Route path="/board/list/:id" element={<SelectedPage/>}/>
-        <Route path="/Mypage" element={<Userpage/>}/>
+        <Route path="/Mypage" element={<Mypage/>}/>
         <Route path="/Rewrite" element={<Rewrite/>}/>
+        <Route path="/Edit" element={<Edit/>}/>
       </Routes>
     </div>
   );
