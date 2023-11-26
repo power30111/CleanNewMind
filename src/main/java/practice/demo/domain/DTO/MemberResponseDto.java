@@ -13,11 +13,13 @@ import practice.demo.domain.Member;
 public class MemberResponseDto {
     private String userId;
     private String name;
+    private String email;
 
     public static MemberResponseDto of(Member member) {
         return MemberResponseDto.builder()
                 .userId(member.getUserId())
                 .name(member.getName())
+                .email(member.getEmail())
                 .build();
 
     }

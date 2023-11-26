@@ -38,6 +38,9 @@ public class MemberService {
     public Optional<Member> findByUserId(String userId){
         return memberRepository.findByUserId(userId);
     }
+    public Optional<Member> findById(Long id){
+        return memberRepository.findById(id);
+    }
 
     @Transactional
     public MemberResponseDto changeMemberId(String userId) {

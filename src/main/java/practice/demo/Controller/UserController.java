@@ -75,4 +75,9 @@ public class UserController {
         return HttpStatus.OK;
     }
 
+    @GetMapping("/getMyInfo")
+    public ResponseEntity<MemberResponseDto> getMyInfo(){
+        return ResponseEntity.ok(memberService.getMyInfoBySecurity());
+    }
+
 }

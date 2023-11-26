@@ -55,14 +55,14 @@ public class TestController {
         boardService.saveBoard(board);
         log.info(board.toString());
     }
-    @GetMapping("/test/boardList")
-    public void boardList(){
-        for(Board board : boardService.getBoardList()){
-            BoardDto boardDto = new BoardDto(board.getId(),board.getMember().getUserId(),board.getTitle(),board.getContent());
-            log.info(String.valueOf(boardDto.getId()));
-            log.info(boardDto.getWriter());
-            log.info(boardDto.getTitle());
-            log.info(boardDto.getContent());
-        }
-    }
+//    @GetMapping("/test/boardList")
+//    public void boardList(){
+//        for(Board board : boardService.getBoardList()){
+//            BoardDto boardDto = new BoardDto(board.getId(),board.getMember().getUserId(),board.getTitle(),board.getContent());
+//            log.info(String.valueOf(boardDto.getId()));
+//            log.info(boardDto.getWriter());
+//            log.info(boardDto.getTitle());
+//            log.info(boardDto.getContent());
+//        }
+//    }
 }
