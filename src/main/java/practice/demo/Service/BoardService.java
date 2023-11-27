@@ -22,8 +22,11 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class BoardService {
+    @Autowired
     private BoardRepository boardRepository;
+    @Autowired
     private MemberService memberService;
+    @Autowired
     private CommentRepository commentRepository;
 
     public List<Board> getBoardList(){
