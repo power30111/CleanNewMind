@@ -44,6 +44,10 @@ const SelectedPage = (props) => {
     const rewrite = () =>{
         navigate('/Rewrite')
     }
+
+    const commentReset = ()=>{
+        dispatch({type:'comment-reset'})
+    }
     
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -64,8 +68,9 @@ const SelectedPage = (props) => {
                 alert('올리기 성공');
                 console.log("올리기 성공")
                 console.log('내용:',  comment)  
-                dispatch({type:"reset"})
-                goHome()
+                commentReset()
+                
+
         })
         .catch((error) => {
         console.error('전송 에러', error);
@@ -96,8 +101,15 @@ const SelectedPage = (props) => {
                     </Form>
 
                     <div>
-                        {commentList.map((commentItem) => (
-                            <Comment key={commentItem.id} comment={commentItem} />
+                        {commentList.map((Item) => (
+                            <div>
+                                <div className='comment flexbox'>
+                                    <div className='comment-inputbox underline'>
+                                        <div className='flexbox comment-name'>{Item.name}</div>
+                                        <div>{Item.content}</div>
+                                    </div>
+                                </div>
+                            </div>
                         ))}
                     </div>
 
@@ -159,4 +171,10 @@ export default SelectedPage
                 console.log(data)
             });
         },[])
+
+
+
+        {commentList.map((commentItem) => (
+                            <Comment key={commentItem.name} comment={commentItem} />
+                        ))}
 */

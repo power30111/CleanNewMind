@@ -120,7 +120,7 @@ const Mypage = () => {
 
                 <div className="mb-3 mypage-text" controlId="formEmail">
                     <label className='mypage-text-label'>이메일</label>
-                    <div>{edit.Email}</div>
+                    <div>{edit.email}</div>
                     <button className="color-9 mypage-btn" onClick={() => openModal('Email')}>Edit</button>
                 </div>
 
@@ -136,7 +136,9 @@ const Mypage = () => {
 
         {/*팝업창*/}
         
-        <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <Modal isOpen={modalIsOpen} onRequestClose={closeModal}
+            className="modal-custom"
+        >
 
         {editField === 'Id' && (
             <Form.Group className="mb-3 mypage-text" controlId="formId">
@@ -158,7 +160,7 @@ const Mypage = () => {
             <Form.Group className="mb-3 mypage-text" controlId="formEmail">
                 <div>{editField}변경</div>
                 <Form.Label className='mypage-text-label'>이메일</Form.Label>
-                <Form.Control className='Edit-inputbox Edit-underline' type="email" placeholder="Enter Email" name="Email" value={edit.Email} onChange={handleInputChange} />
+                <Form.Control className='Edit-inputbox Edit-underline' type="email" placeholder="Enter Email" name="Email" value={edit.email} onChange={handleInputChange} />
             </Form.Group >
                     )}
 
