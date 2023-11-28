@@ -11,7 +11,7 @@ public class MemberUpdateDto {
     private String userId;
     private String exPassword;
     private String newPassword;
-    private String Email;
+    private String email;
     private String name;
 
 

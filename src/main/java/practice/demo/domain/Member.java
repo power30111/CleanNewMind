@@ -20,7 +20,7 @@ public class Member extends BaseEntity{
     private String userId;
     private String password;
     private String name;
-    private String Email;
+    private String email;
 
     @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private List<Board> boardList = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Member extends BaseEntity{
         this.userId = userid;
         this.password = password;
         this.name = name;
-        this.Email = email;
+        this.email = email;
         this.role = role;
     }
 
@@ -53,6 +53,6 @@ public class Member extends BaseEntity{
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 }
