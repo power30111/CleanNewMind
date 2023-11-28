@@ -3,7 +3,7 @@ import React from 'react'
 import {Form, Container } from 'react-bootstrap';
 import { useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import Modal from 'react-modal';
 
 const Edit = () => {
 
@@ -20,8 +20,6 @@ const Edit = () => {
     const goHome = () =>{
         navigate('/')
     }
-
-
 
     const deleteedit = () =>{
         dispatch({type:"delete-edit"})

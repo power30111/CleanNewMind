@@ -46,6 +46,7 @@ const List = (props) => {
             <div className='listtop-title' onClick={selectedPage}>
                 <div className='list-No'>{index + 1}</div>
                 <div className='list-title'>{title}</div>
+                <div className='list-writer'>{writer}</div>
             </div>
         </div>
     )
