@@ -2,14 +2,14 @@ import React from 'react'
 
 const Comment = (props) => {
 
-    const { comment,userId } = props
+    const { comment,name } = props
 
 
     return (
         <div>
             <div className='comment flexbox'>
                 <div className='comment-inputbox underline'>
-                    <div>{userId}</div>
+                    <div>{name}</div>
                     <div>{comment}</div>
                 </div>
             </div>

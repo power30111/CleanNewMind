@@ -3,13 +3,13 @@ let initialState={
         userId:'',
         password: '',
         name:'',
-        Email: '',
+        email: '',
     },
     edit : {
         userId:'',
         password: '',
         name:'',
-        Email: '',
+        email: '',
         exPassword:'',
         newPassword: '',
     },
@@ -85,7 +85,10 @@ function reducer(state=initialState,action){
         case 'comment':
             const { name: commentName, value: commentValue } = action.payload;
             return {...state, comment : { ...state.comment, [commentName]: commentValue }}
-    
+
+        case 'comment-reset':
+            return {...state, comment : {...state.comment, content : '' }}
+
         /* 글쓰기 수정 */
 
 

@@ -252,6 +252,12 @@ input.underline:focus{
   border-bottom :1px solid #5262f1; 
 }
 
+.comment-name{
+  margin-right: 50px;
+}
+
+
+
 .comment-btn{
   width: 80px;
   font-size: 16px;
@@ -350,6 +356,13 @@ input.underline:focus{
 .mypage-btn.color-9 {
   background-image: linear-gradient(to right, rgb(124, 148, 246), #afb6f9, #c0c2f8, rgb(91, 120, 235));
   box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+/*팝업창*/
+.modal-custom{
+  
+  justify-content: center;
+  align-items: center;
+  background-color: #255be3;
 }
 
 /*Edit*/

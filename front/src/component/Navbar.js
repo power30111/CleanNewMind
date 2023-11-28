@@ -30,7 +30,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       if (islogin) {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
       }
     };
 
@@ -42,7 +42,7 @@ const Navbar = () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [islogin]); // islogin이 변경될 때만 useEffect 실행
-  
+
 
 
   return (

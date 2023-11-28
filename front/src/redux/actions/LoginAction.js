@@ -1,6 +1,6 @@
 function getToken(accessToken) {
     return (dispatch,getstate) =>{
-        localStorage.setItem('token',accessToken);
+        sessionStorage.setItem('token',accessToken);
         dispatch({type:'setToken',payload:accessToken});
     };
 }
