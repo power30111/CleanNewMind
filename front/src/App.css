@@ -29,7 +29,7 @@ body{
 
 .Box{
   width: 50%;
-  border: 6px solid  #9fb6f1;
+  border: 3px solid  #9fb6f1;
   border-radius: 40px;
 }
 
@@ -77,7 +77,7 @@ body{
       max-width:1280px
   }
   .userinfo{
-    padding: 50px 150px;
+    padding: 50px 100px;
   }
 }
 
@@ -86,7 +86,7 @@ body{
       max-width:1536px
   }
   .userinfo{
-    padding: 50px 150px;
+    padding: 50px 100px;
   }
 }
 
@@ -120,24 +120,30 @@ body{
   display: flex;
   background-color: white;
   height: 5%;
+  text-align: center;
   border-bottom: 1px solid  #9fb6f1;
   align-items: center;
-}
-.listtop{
-  display: flex;
-  background-color: white;
-  height: 3%;
-  border-bottom: 1px solid black;
 }
 .list-No{
   width: 4vh;
   text-align: center;
+  height: 100%;
+  padding-top: 0.5vh;
   border-right: 1px solid rgb(0, 0, 0);
 }
 .list-title{
+  display: flex;
   text-align: center;
-  width: 80vh;
-  
+  justify-content: flex-start;
+  width: 70vh;
+  height: 100%;
+  padding-top: 0.5vh;
+  padding-left: 5%;
+  border-right: 1px solid rgb(0, 0, 0);
+}
+.list-writer{
+  width: 10vh;
+  text-align: center;
 }
 .homebot{
   padding-right: 12vh;
@@ -168,6 +174,7 @@ body{
 /*글쓰기탭*/
 .Write-page{
   padding: 13px 13px;
+  box-shadow:  0 0 5px #255be3;
 }
 .Write-Box{
   width: 70%;
@@ -179,7 +186,8 @@ body{
   margin-bottom: 2vh;
 } 
 .Write-text{
-  height: 60vh;
+  height: fit-content;
+  margin-top: 5vh;
 
 }
 .text-area{
@@ -190,17 +198,37 @@ body{
   border-left:0;
   border-right:0;
   border-top:0; 
+  padding-bottom: 5vh;
   border-bottom :1px solid #afb6f9; 
+  border-radius: 0;
+
 }
 .Write-btn{
   display: flex;
   justify-content: flex-end;
+  margin-top: 2vh;
 }
 .Write-btn>button{
   width: 100px;
 }
-/*선택 페이지*/
 
+.rewite-border{
+  border-radius: 0;
+}
+/*선택 페이지*/
+.selectedpage-title-size{
+  height: fit-content;
+}
+
+.selectedpage-title{
+  font-size: 26px;
+  font-weight: 400;
+}
+.selectedpage-content{
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 5vh;
+}
 .comment{
   width: 70%;
   margin-top: 2vh;
@@ -263,6 +291,12 @@ input.underline:focus{
 
 
 /*Mypage*/
+.mypage-box{
+  margin-top: 2vh;
+  width: 50%;
+  border: 3px solid  #9fb6f1;
+  border-radius: 20px;
+}
 
 .mypage-text{
   display: flex;
@@ -283,7 +317,40 @@ input.underline:focus{
   width: 100%;
   justify-content: center;
 }
+.mypage-btn{
+  width: 60px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  height: 40px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+.mypage-btn-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
 
+.mypage-btn:focus {
+  outline: none;
+}
+
+
+.mypage-btn.color-9 {
+  background-image: linear-gradient(to right, rgb(124, 148, 246), #afb6f9, #c0c2f8, rgb(91, 120, 235));
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
 
 /*Edit*/
 

@@ -39,6 +39,8 @@ let initialState={
         content:''
     },
     commentList : [],
+    editField : '',
+    modalIsOpen:false
 }
 
 
@@ -112,6 +114,17 @@ function reducer(state=initialState,action){
 
         case 'delete-edit' :
             return { ...state, edit:{ userId:'', password: '', name:'', Email: '', exPassword:'', newPassword: '',} };
+
+        /*팝업창 설정*/
+
+        case 'openModal':
+            return { ...state, modalIsOpen : action.payload}
+
+        case 'closeModal':
+            return { ...state, modalIsOpen : action.payload}
+        case 'getEditField':
+            return {...state, editField : action.payload}
+
 
         default:
             return state;

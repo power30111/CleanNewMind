@@ -17,9 +17,7 @@ const SelectedPage = (props) => {
     const isLogin = useSelector((state)=>state.isLogin)
     const comment = useSelector((state)=>state.comment)
     const commentList = useSelector((state)=>state.commentList)
-
-
-    const id = useSelector((state) => state.taketext.id);
+    const id = useSelector((state) => state.urlid);
 
 
 
@@ -56,10 +54,10 @@ const SelectedPage = (props) => {
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post(`http://localhost:8080/board/comment/${id}`,JSON.stringify({ content: comment.content }),{
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+        axios.post(`http://localhost:8080/board/comment/${id}`, comment.content, {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
             }
         })
         .then((response) => {
@@ -80,16 +78,27 @@ const SelectedPage = (props) => {
         <Container className='flexbox-column'>
             <div className='Write-Box'>
                 <div className='Write-page'>
-                    <div className="mb-3 flexbox Write-title" >
-                        <div className='text-area' name="title">
+                    <div className="flexbox Write-title selectedpage-title-size" >
+                        <div className='text-area selectedpage-title' name="title">
                             {text.title}
                         </div>
                     </div>
 
-                    <div className="mb-3 flexbox Write-text">
-                        <div className='text-area'  name="content">
+                    <div className=" flexbox Write-text selectedpage-content">
+                        <div className='text-area '  name="content">
                             {text.content}
                         </div>
+                    </div>
+
+                    <Form className='flexbox' onSubmit={handleSubmit}>
+                        <input type='text'  className='comment-inputbox underline'placeholder='댓글 입력' name="content" value={comment.content} onChange={handleInputChange} />
+                        <button type="submit" className="color-9 comment-btn" >등록</button>
+                    </Form>
+
+                    <div>
+                        {commentList.map((commentItem) => (
+                            <Comment key={commentItem.id} comment={commentItem} />
+                        ))}
                     </div>
 
                     <div className='Write-btn'>
@@ -99,17 +108,7 @@ const SelectedPage = (props) => {
                 </div>
             </div>
             
-            <form  onSubmit={handleSubmit}>
-                <input type='text'  className='comment-inputbox underline'placeholder='댓글 입력' name="content" value={comment.content} onChange={handleInputChange} />
-                <button type="submit" className="color-9 comment-btn">등록</button>
-                
-            </form>
-
-            <div>
-                {commentList.map((commentItem) => (
-                    <Comment key={commentItem.id} comment={commentItem} />
-                ))}
-            </div>
+            
 
             
         </Container>
