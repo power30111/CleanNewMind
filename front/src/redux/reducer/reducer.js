@@ -13,7 +13,7 @@ let initialState={
         exPassword:'',
         newPassword: '',
     },
-    testpassword:false,
+    testpassword:'',
     login:{
         userId:'',
         password: '',
@@ -34,7 +34,11 @@ let initialState={
 
     taketext : {
         id : '',
-    }
+    },
+    comment:{
+        content:''
+    },
+    commentList : [],
 }
 
 
@@ -75,6 +79,10 @@ function reducer(state=initialState,action){
 
         case 'reset' :
             return { ...state, text:{ title : '', content: ''} };
+
+        case 'comment':
+            const { name: commentName, value: commentValue } = action.payload;
+            return {...state, comment : { ...state.comment, [commentName]: commentValue }}
     
         /* 글쓰기 수정 */
 
@@ -86,10 +94,17 @@ function reducer(state=initialState,action){
         case 'urlid':
             return {...state, urlid:action.payload}
 
+        case 'getcommentList':
+            console.log('댓글조회 성공')
+            return {...state, commentList:action.payload}
+
         /* 회원정보수정 */
 
         case 'testPassword':
             return {...state, testpassword:action.payload}
+
+        case 'getMyInfo':
+            return { ...state, edit : action.payload}
 
         case 'edit':
             const { name: editName, value: editValue } = action.payload;

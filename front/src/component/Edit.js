@@ -23,7 +23,6 @@ const Edit = () => {
 
     const deleteedit = () =>{
         dispatch({type:"delete-edit"})
-        
     }
 
     /* 정보저장 */
@@ -47,33 +46,32 @@ const Edit = () => {
             e.preventDefault();
             comparePassword()
         
-        if (testpassword == false) {
-            axios.get('http://localhost:8080/ user/accountUpdate',edit,{
-                headers: {
-                    Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
-                }
-            })
-            .then((response) => {
-                alert('변경 성공');
-                console.log("회원 정보 수정 성공")
-                goHome()
-                dispatch({type:"testPassword", payload: false})
+            if (testpassword == true) {
+                axios.get('http://localhost:8080/user/accountUpdate',edit,{
+                    headers: {
+                        Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+                    }
+                })
+                .then((response) => {
+                    alert('변경 성공');
+                    console.log("회원 정보 수정 성공")
+                    goHome()
+                    dispatch({type:"testPassword", payload: false})
+                    deleteedit()
+                })
+                .catch((error) => {
+                    console.error('변경 에러', error);
+                    console.log(edit)
+                    dispatch({type:"testPassword", payload: true})
+                    deleteedit()
+                });
+            }
+            else {
+                alert ('비밀번호가 일치 하지 않습니다.')
+                console.log(edit)
+                dispatch({type:"testPassword", payload: true})
                 deleteedit()
-            })
-            .catch((error) => {
-            console.error('변경 에러', error);
-            console.log(edit)
-            dispatch({type:"testPassword", payload: false})
-            deleteedit()
-            });
-        }
-        else {
-            alert ('비밀번호가 일치 하지 않습니다.')
-            console.log(edit)
-            dispatch({type:"testPassword", payload: false})
-            deleteedit()
-        }
-            
+            }
         }
     return (
         <Container className='flexbox infobox' >
@@ -111,7 +109,7 @@ const Edit = () => {
             </Form.Group >
 
             <div className='flexbox'>
-                    <button className="btn-hover color-9" type='submit' >Complete!!</button>
+                    <button className="btn-hover color-9" type='submit'>Complete!!</button>
                 </div>
         </Form>
     </Container>

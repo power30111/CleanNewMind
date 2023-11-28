@@ -1,23 +1,31 @@
 import React from 'react'
 import axios from 'axios'
-import { Container } from 'react-bootstrap'
+import {Form, Container } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux/'
-import { Await } from 'react-router-dom'
+import { useEffect } from 'react';
+import Comment from '../component/Comment'
 
 
-const SelectedPage = () => {
+const SelectedPage = (props) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = useSelector((state) => state.token)
     const text = useSelector((state) => state.text)
+    const data = useSelector((state)=> state.data)
+    const isLogin = useSelector((state)=>state.isLogin)
+    const comment = useSelector((state)=>state.comment)
+    const commentList = useSelector((state)=>state.commentList)
 
 
     const id = useSelector((state) => state.taketext.id);
-    const taketext = useSelector((state)=>state.taketext)
-    console.log("url아이디",id)
 
+
+
+
+
+    /* 삭제요청 */
     const deletelist = (() => {
         axios.get(`http://localhost:8080/board/list/${id}/delete`,{headers: {
             Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
@@ -38,21 +46,34 @@ const SelectedPage = () => {
     const rewrite = () =>{
         navigate('/Rewrite')
     }
-    /*
-        useEffect(()=>{
-        axios.get('http://localhost:8080/board/list')
-        .then((response) => {
-                console.log("댓글 조회 성공")
-                dispatch({type:'boardlist',payload:response.data})
-                console.log("수신",response.data)
-                console.log(data)
+    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        dispatch({type:'comment',payload:{ name, value }});
+    };
+
+        /* 댓글 달기 */
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+
+        axios.post('http://localhost:8080/board/comment/{게시글번호}',comment.content,{
+            headers: {
+                Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+            }
         })
-        .catch(error => {
-            console.error('댓글 조회 실패 : ', error);
-            console.log(data)
+        .then((response) => {
+                alert('올리기 성공');
+                console.log("올리기 성공")
+                console.log('내용:',  comment)
+                dispatch({type:"reset"})
+                goHome()
+        })
+        .catch((error) => {
+        console.error('전송 에러', error);
+        console.log('내용:',  comment)
         });
-    },[])
-    */
+    }
+    
 
     return (
         <Container className='flexbox-column'>
@@ -76,9 +97,17 @@ const SelectedPage = () => {
                     </div>
                 </div>
             </div>
-            <div className='comment flexbox'>
-                <input className='comment-inputbox underline' type='text' placeholder='댓글 입력'></input>
-                <button className=" color-9 comment-btn" >등록</button>
+            
+            <form  onSubmit={handleSubmit}>
+                <input type='text'  className='comment-inputbox underline'placeholder='댓글 입력' name="content" value={comment.content} onChange={handleInputChange} />
+                <button type="submit" className="color-9 comment-btn">등록</button>
+                
+            </form>
+
+            <div>
+                {commentList.map((commentItem) => (
+                    <Comment key={commentItem.id} comment={commentItem} />
+                ))}
             </div>
 
             
@@ -111,4 +140,23 @@ export default SelectedPage
                             <div></div>
 
                         }
+                        
+
+
+
+
+                                
+        useEffect(()=>{
+            axios.get('http://localhost:8080/board/comment/{id}')
+            .then((response) => {
+                    console.log("댓글 조회 성공")
+                    dispatch({type:'comment',payload:response.data})
+                    console.log("수신",response.data)
+                    console.log(data)
+            })
+            .catch(error => {
+                console.error('댓글 조회 실패 : ', error);
+                console.log(data)
+            });
+        },[])
 */
