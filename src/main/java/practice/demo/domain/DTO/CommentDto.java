@@ -22,5 +22,7 @@ public class CommentDto {
                 .content(comment.getContent())
                 .build();
     }
-
+    public CommentDto(String content) {
+        this.content = content;
+    }
 }

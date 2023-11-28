@@ -18,10 +18,10 @@ public class MemberRequestDto {
     private String userId;
     private String password;
     private String name;
-    private String Email;
+    private String email;
 
     public Member toMember(PasswordEncoder passwordEncoder){
-        return new Member(userId,passwordEncoder.encode(password),name,Email, Role.ROLE_USER);
+        return new Member(userId,passwordEncoder.encode(password),name,email, Role.ROLE_USER);
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication(){
