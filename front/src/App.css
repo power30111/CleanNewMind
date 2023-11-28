@@ -114,7 +114,7 @@ body{
 .boardlist{
   width: 80%;
   height: 70vh;
-  border: 2px solid  #9fb6f1;
+  
 }
 .listtop-title{
   display: flex;
@@ -171,7 +171,6 @@ body{
 }
 .Write-Box{
   width: 70%;
-  border: 6px solid  #9fb6f1;
   border-radius: 40px;
 }
 .Write-title{
@@ -187,9 +186,11 @@ body{
   width: 98%;
   height: 100%;
   resize: none;
-  border: 2px solid  #9fb6f1;
-  border-radius: 15px;
   outline-color:  #9fb6f1;
+  border-left:0;
+  border-right:0;
+  border-top:0; 
+  border-bottom :1px solid #afb6f9; 
 }
 .Write-btn{
   display: flex;
@@ -220,7 +221,7 @@ input.underline {
 }
 input.underline:focus{
   outline: none;
-  border-bottom :2px solid #5262f1; 
+  border-bottom :1px solid #5262f1; 
 }
 
 .comment-btn{
@@ -282,6 +283,7 @@ input.underline:focus{
   width: 100%;
   justify-content: center;
 }
+
 
 /*Edit*/
 

@@ -26,6 +26,7 @@ const Home = () => {
                 dispatch({type:'boardlist',payload:response.data})
                 console.log("수신",response.data)
                 console.log(data)
+                console.log ('리스폰', response)
         })
         .catch(error => {
             console.error('게시글 조회 실패 : ', error);

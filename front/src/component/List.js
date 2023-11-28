@@ -12,6 +12,7 @@ const List = (props) => {
 
     const token = useSelector((state) => state.token)
     const taketext = useSelector((state)=>state.taketext)
+    const commentList = useSelector((state) => state.commentList)
 
     const {id, title, writer, index} =props
 
@@ -27,8 +28,10 @@ const List = (props) => {
                 console.log("글 조회 성공")
                 console.log("글 수신",response)
                 dispatch({type:"takecontent",payload:response.data})
+                dispatch({type:"getcommentList",payload:response.data.commentList})
                 dispatch({type:"urlid",payload:id})
                 console.log("taketext",taketext)
+                console.log("taketext",commentList)
                 console.log("url아이디",id)
         })
         .catch(error => {
