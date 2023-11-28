@@ -56,15 +56,16 @@ const SelectedPage = (props) => {
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post('http://localhost:8080/board/comment/{게시글번호}',comment.content,{
+        axios.post(`http://localhost:8080/board/comment/${id}`,JSON.stringify({ content: comment.content }),{
             headers: {
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
             }
         })
         .then((response) => {
                 alert('올리기 성공');
                 console.log("올리기 성공")
-                console.log('내용:',  comment)
+                console.log('내용:',  comment)  
                 dispatch({type:"reset"})
                 goHome()
         })
