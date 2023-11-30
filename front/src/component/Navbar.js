@@ -11,6 +11,7 @@ const Navbar = () => {
   const isLogin = useSelector((state=> state.isLogin))
 
 
+
   const goHome = () =>{
       navigate('/')
   }
@@ -33,6 +34,7 @@ const Navbar = () => {
     if (storedToken) {
       // 토큰이 세션 스토리지에 저장되어 있다면 로그인 상태로 설정
       dispatch({ type: 'login', payload: true });
+      dispatch({ type: 'setToken', payload: storedToken })
     }
   }, [dispatch]);
 
