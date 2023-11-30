@@ -13,30 +13,10 @@ const SelectedPage = (props) => {
     const dispatch = useDispatch()
     const token = useSelector((state) => state.token)
     const text = useSelector((state) => state.text)
-    const data = useSelector((state)=> state.data)
-    const isLogin = useSelector((state)=>state.isLogin)
     const comment = useSelector((state)=>state.comment)
     const commentList = useSelector((state)=>state.commentList)
     const id = useSelector((state) => state.urlid);
 
-
-
-
-
-    /* 삭제요청 */
-    const deletelist = (() => {
-        axios.get(`http://localhost:8080/board/list/${id}/delete`,{headers: {
-            Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
-        }})
-        .then((response) => {
-                alert('글 삭제 성공')
-                console.log("글 삭제 성공")
-                navigate('/') 
-        })
-        .catch(error => {
-            console.error('글 삭제 실패 : ', error);
-        });
-    })
 
     const goHome = () =>{
         deletelist()
@@ -54,6 +34,21 @@ const SelectedPage = (props) => {
         dispatch({type:'comment',payload:{ name, value }});
     };
 
+    /* 삭제요청 */
+    const deletelist = (() => {
+        axios.get(`http://localhost:8080/board/list/${id}/delete`,{headers: {
+            Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+        }})
+        .then((response) => {
+                alert('글 삭제 성공')
+                console.log("글 삭제 성공")
+                navigate('/') 
+        })
+        .catch(error => {
+            console.error('글 삭제 실패 : ', error);
+        });
+    })
+
         /* 댓글 달기 */
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -69,14 +64,32 @@ const SelectedPage = (props) => {
                 console.log("올리기 성공")
                 console.log('내용:',  comment)  
                 commentReset()
+                recall()
                 
+
 
         })
         .catch((error) => {
         console.error('전송 에러', error);
         console.log('내용:',  comment)
         });
-    }
+    }   
+        /* 서버에 전송 후 댓글 받기 */
+    const recall = (()=>{
+
+        axios.get(`http://localhost:8080/board/list/${id}`,{headers: {
+            Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+        }})
+        .then((response) => {
+                console.log("댓글 조회 성공")
+                console.log("댓글 수신",response)
+                dispatch({type:"getcommentList",payload:response.data.commentList})
+                console.log("댓글",commentList)
+        })
+        .catch(error => {
+            console.error('댓글 조회 실패 : ', error);
+        });
+    })
     
 
     return (
@@ -95,18 +108,20 @@ const SelectedPage = (props) => {
                         </div>
                     </div>
 
-                    <Form className='flexbox' onSubmit={handleSubmit}>
+                    <Form className='flexbox comment-submit' onSubmit={handleSubmit}>
                         <input type='text'  className='comment-inputbox underline'placeholder='댓글 입력' name="content" value={comment.content} onChange={handleInputChange} />
                         <button type="submit" className="color-9 comment-btn" >등록</button>
                     </Form>
 
-                    <div>
+                    <div> 
+                        <div className='comment-title'>Comments</div>
                         {commentList.map((Item) => (
-                            <div>
+                            <div key={Item.id} className='underline'>
                                 <div className='comment flexbox'>
-                                    <div className='comment-inputbox underline'>
-                                        <div className='flexbox comment-name'>{Item.name}</div>
+                                    <div className='comment-inputbox'>
+                                        <div className='comment-name'>{Item.name}</div>
                                         <div>{Item.content}</div>
+                                        
                                     </div>
                                 </div>
                             </div>

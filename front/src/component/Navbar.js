@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const islogin = useSelector((state=> state.islogin))
+  const isLogin = useSelector((state=> state.isLogin))
 
 
   const goHome = () =>{
@@ -28,34 +28,39 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      if (islogin) {
-        sessionStorage.removeItem('token');
-      }
-    };
+    // 페이지 로딩 시 실행
+    const storedToken = sessionStorage.getItem('token');
+    if (storedToken) {
+      // 토큰이 세션 스토리지에 저장되어 있다면 로그인 상태로 설정
+      dispatch({ type: 'login', payload: true });
+    }
+  }, [dispatch]);
 
-    // 이벤트 리스너 등록
-    window.addEventListener('beforeunload', handleBeforeUnload);
+  const handleBeforeUnload = () => {
+    if (isLogin) {
+      // 로그인 상태일 때만 세션 스토리지의 토큰 삭제
+      sessionStorage.removeItem('token');
+    }
+  };
 
+  useEffect(() => {
     // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [islogin]); // islogin이 변경될 때만 useEffect 실행
-
-
+  }, [isLogin]); // isLogin이 변경될 때만 useEffect 실행
 
   return (
     <div className='nav'>
       <button className="btn-hover color-9" onClick={goHome}>Home</button>
 
-      {islogin ? (
+      {isLogin ? (
         <button className="btn-hover color-9"onClick={logout}>Log Out</button>
       ):(
         <button className="btn-hover color-9" onClick={goLogin}>Log In</button>
       )}
 
-      {islogin ? (
+      {isLogin ? (
         <button className="btn-hover color-9"onClick={Mypage}>My Page</button>
       ):(
         <button className="btn-hover color-9" onClick={goSignup}>Sign Up</button>

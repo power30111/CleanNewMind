@@ -20,7 +20,7 @@ let initialState={
     },
     token:'null',
 
-    islogin : false,
+    isLogin : false,
 
     text : {
         id : '',
@@ -57,7 +57,7 @@ function reducer(state=initialState,action){
             return { ...state, login: { ...state.login, [loginName]: loginValue } };
         
         case 'login':
-            return{...state, islogin: action.payload}
+            return{...state, isLogin: action.payload}
 
         case 'setToken':
             const token = action.payload;
@@ -72,7 +72,7 @@ function reducer(state=initialState,action){
         /* 네비바 */
         case 'logout':
             localStorage.removeItem("token");
-            return {...state, islogin: action.payload, token:"null"}
+            return {...state, isLogin: action.payload, token:"null"}
 
         /* 글쓰기 */
         case 'write' :
