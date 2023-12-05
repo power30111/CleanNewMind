@@ -140,7 +140,7 @@ const Mypage = () => {
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 },
                 content: {
-                    width: '25%',
+                    width: '15%',
                     height: '40%',
                     margin: 'auto',
                     borderRadius: '10px',

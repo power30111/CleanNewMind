@@ -145,10 +145,44 @@ body{
   width: 10vh;
   text-align: center;
 }
-.homebot{
+.homebot-btn{
   padding-right: 12vh;
   display: flex;
   justify-content: flex-end;
+}
+.homebot-btn>button{
+  width: 100px;
+}
+.homebot-page{
+  margin-right: 350px;
+  align-items: center;
+  width: 100%;
+
+}
+.homebot-page>button{
+  background-color: rgb(255, 255, 255);
+  border:1px solid #9fb6f1;
+  outline: none;
+  height: 100%;
+  width: 7%;
+  margin: 6px;
+  font-size: 18px;
+  font-weight: 400;
+  border-radius: 30px;
+  text-align: center;
+}
+
+.homebot-input{
+  width: 30%;
+  height: 40px;
+  border:1px solid #afb6f9; 
+  outline: none;
+  border-radius: 20px;
+  padding: 0px 10px;
+  
+}
+.homebot-search{
+  width: 100px
 }
 
 /*게시글 리스트*/
@@ -182,13 +216,12 @@ body{
 }
 .Write-title{
   height: 5vh;
-  padding: 1px;
-  margin-bottom: 2vh;
+  margin-bottom: 7vh;
+  
 } 
 .Write-text{
   height: fit-content;
-  margin-top: 5vh;
-
+  height: 3vh;
 }
 .text-area{
   width: 98%;
@@ -198,7 +231,6 @@ body{
   border-left:0;
   border-right:0;
   border-top:0; 
-  padding-bottom: 5vh;
   border-bottom :1px solid #afb6f9; 
   border-radius: 0;
 
@@ -207,6 +239,7 @@ body{
   display: flex;
   justify-content: flex-end;
   margin-top: 2vh;
+  
 }
 .Write-btn>button{
   width: 100px;

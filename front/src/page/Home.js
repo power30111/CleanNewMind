@@ -56,10 +56,19 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-
             </div>
-            <div className='homebot Write-btn'>
-            <button className="btn-hover color-9" onClick={goWrite}>글쓰기</button>
+
+            <div>
+                <div className='homebot-btn'>
+                    <div className='flexbox'>
+                        
+                        <button className="btn-hover color-9" onClick={goWrite}>글쓰기</button>
+                    </div>
+                </div>
+                <div className='flexbox '>
+                    <input className='homebot-input' name="search" placeholder='검색창' />
+                    <button className="btn-hover color-9 homebot-search">검색</button>
+                </div>
             </div>
         </Container>
         

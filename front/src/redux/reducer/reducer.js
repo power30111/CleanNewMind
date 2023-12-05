@@ -32,6 +32,8 @@ let initialState={
 
     urlid : '',
 
+    getStatus : '',
+
     taketext : {
         id : '',
     },
@@ -102,6 +104,9 @@ function reducer(state=initialState,action){
         case 'getcommentList':
             console.log('댓글조회 성공')
             return {...state, commentList:action.payload}
+
+        case 'getStatus':
+            return {...state, getStatus:action.payload}
 
         /* 회원정보수정 */
 

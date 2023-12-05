@@ -50,11 +50,11 @@ const Write = () => {
         <Container className='flexbox'>
             <Form className='Write-Box' onSubmit={handleSubmit}>
                 <Form.Group className='Write-page'>
-                    <Form.Group className="mb-3 flexbox Write-title" >
+                    <Form.Group className=" flexbox Write-title" >
                         <Form.Control className='text-area' placeholder="제목" name="title" value={text.title} onChange={handleInputChange}/>
                     </Form.Group>
 
-                    <Form.Group className="mb-3 flexbox Write-text">
+                    <Form.Group className="flexbox Write-text">
                         <Form.Control className='text-area' placeholder="내용" name="content" value={text.content} onChange={handleInputChange}/>
                     </Form.Group>
 
