@@ -2,6 +2,8 @@ package practice.demo.Controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import practice.demo.Service.BoardService;
 import practice.demo.Service.MemberService;
 import practice.demo.domain.Board;
 import practice.demo.domain.DTO.BoardDto;
+import practice.demo.domain.DTO.BoardSearchCond;
 import practice.demo.domain.DTO.CommentDto;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.domain.Member;
@@ -43,6 +46,23 @@ public class BoardController {
         }
         return boardList;
     }
+
+    @GetMapping("/list/Page")
+    public Page<BoardDto> searchBoard(BoardSearchCond cond, Pageable pageable){
+        log.info(cond.getBoardName()+"+"+cond.getWriterName()+" 의 조건으로 검색된 게시글들");
+        return boardService.searchPage(cond,pageable);
+        /**
+         * Pageable 관련.
+         * getTotalPages -> 총 페이지 수
+         * getTotalElements -> 전체 개수
+         * getNumber -> 현재 페이지 번호
+         * getSize -> 페이지당 데이터 개수
+         * hasNext() -> 다음 페이지 존재여부
+         * isFirst() -> 시작 페이지(0) 여부
+         */
+    }
+
+
     @PostMapping("/write")
     public ResponseEntity<Message> writeBoard(@RequestBody BoardDto boardDto){
         log.info("게시글 작성 요청이 들어옴");
@@ -65,7 +85,7 @@ public class BoardController {
         }
     }
     @GetMapping("/list/{receiveBoardId}")
-    public ResponseEntity<?> readBoard2(@PathVariable String receiveBoardId) {
+    public ResponseEntity<?> readBoard2(@PathVariable String receiveBoardId){
         log.info(receiveBoardId + " 번호의 게시글 조회 요청");
         long boardId = Long.parseLong(receiveBoardId.strip());
         BoardDto boardResponseDto = boardService.getBoardDto(boardId);
