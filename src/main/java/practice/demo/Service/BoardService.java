@@ -3,20 +3,25 @@ package practice.demo.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import practice.demo.Configure.SecurityUtil;
 import practice.demo.Repository.BoardRepository;
 import practice.demo.Repository.CommentRepository;
 import practice.demo.domain.Board;
 import practice.demo.domain.Comment;
 import practice.demo.domain.DTO.BoardDto;
+import practice.demo.domain.DTO.BoardSearchCond;
 import practice.demo.domain.DTO.CommentDto;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.exception.BoardNotFoundException;
 import practice.demo.exception.UserNotFoundException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -48,27 +53,28 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
     public Boolean equalsWriter(Long boardId){
-        MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
-        Board board = findOne(boardId).orElseThrow(() -> new UserNotFoundException("해당 유저가 존재하지않습니다."));
+        if(!SecurityUtil.isAnonymousUser()) {
+            MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
+            Board board = findOne(boardId).orElseThrow(() -> new UserNotFoundException("해당 유저가 존재하지않습니다."));
 
-        if(myInfoBySecurity.getUserId().
-                equals(board.getMember().getUserId())){
-            log.info("인증 요청한 UserId와 board를 작성한 UserId가 동일합니다.");
-            return true;
-        }else{
-            log.info("인증 요청한 UserId와 board를 작성한 UserId가 동일하지않습니다.");
-            return false;
+            if (myInfoBySecurity.getUserId().
+                    equals(board.getMember().getUserId())) {
+                log.info("인증 요청한 UserId와 board를 작성한 UserId가 동일합니다.");
+                return true;
+            } else {
+                log.info("인증 요청한 UserId와 board를 작성한 UserId가 동일하지않습니다.");
+                return false;
+            }
         }
+        return false;
     }
     @Transactional
     public void update(Long boardId, BoardDto updateBoardDto){
         Board board = findOne(boardId).orElseThrow(() -> new BoardNotFoundException("해당 게시글이 존재하지않습니다."));
-        if(equalsWriter(boardId)){
-            board.updateBoard(updateBoardDto.getTitle(),updateBoardDto.getContent());
-            log.info(boardId + "게시글이 정상적으로 수정되었습니다.");
-        }else {
-            log.info(boardId + "해당 게시글의 작성자와 요청자간 ID가 서로 다릅니다.");
-        }
+
+        board.updateBoard(updateBoardDto.getTitle(),updateBoardDto.getContent());
+        log.info(boardId + "게시글이 정상적으로 수정되었습니다.");
+
     }
     @Transactional
     public void writeComment(CommentDto commentDto,Long boardId){
@@ -79,5 +85,9 @@ public class BoardService {
                             .orElseThrow(() -> new RuntimeException("인증정보에서 해당 유저를 찾을수없습니다.")))
                     .content(commentDto.getContent())
                     .build());
+    }
+
+    public Page<BoardDto> searchPage(BoardSearchCond cond, Pageable pageable){
+       return boardRepository.searchPage(cond,pageable);
     }
 }

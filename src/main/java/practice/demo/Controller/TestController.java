@@ -2,16 +2,20 @@ package practice.demo.Controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import practice.demo.Repository.BoardRepository;
 import practice.demo.Repository.MemberRepository;
 import practice.demo.Service.BoardService;
 import practice.demo.Service.MemberService;
 import practice.demo.domain.Board;
 import practice.demo.domain.DTO.BoardDto;
+import practice.demo.domain.DTO.BoardSearchCond;
 import practice.demo.domain.DTO.MemberResponseDto;
 import practice.demo.domain.Member;
 import practice.demo.domain.state.Role;
@@ -29,14 +33,14 @@ public class TestController {
     @Autowired
     BoardService boardService;
 
+    @Autowired
+    BoardRepository boardRepository;
+
     @GetMapping("/test/findUser")
     public List<Member> testFindUser(){
         log.info("유저 찾기");
-        List<Member> all = memberRepository.findAll();
-        for(Member a : all){
-            log.info(String.valueOf(a));
-        }
-        return all;
+
+        return memberRepository.findAll();
     }
 
     @GetMapping("/test/getInfoMe")
@@ -55,6 +59,13 @@ public class TestController {
         boardService.saveBoard(board);
         log.info(board.toString());
     }
+
+    @GetMapping("/test/Page")
+    public Page<BoardDto> searchBoard(BoardSearchCond cond, Pageable pageable){
+        log.info(cond.getBoardName()+"+"+cond.getWriterName()+" 의 조건으로 검색된 게시글들");
+        return boardRepository.searchPage(cond,pageable);
+    }
+
 //    @GetMapping("/test/boardList")
 //    public void boardList(){
 //        for(Board board : boardService.getBoardList()){
