@@ -49,7 +49,7 @@ public class BoardController {
 
     @GetMapping("/list/Page")
     public Page<BoardDto> searchBoard(BoardSearchCond cond, Pageable pageable){
-        log.info(cond.getBoardName()+"+"+cond.getWriterName()+" 의 조건으로 검색된 게시글들");
+        log.info(cond.getBn()+"+"+cond.getWn()+" 의 조건으로 검색된 게시글들");
         return boardService.searchPage(cond,pageable);
         /**
          * Pageable 관련.
