@@ -37,8 +37,8 @@ public class BoardRepositoryImpl implements  BoardRepositoryCustom{
                 .from(board)
                 .leftJoin(board.member, member)
                 .where(
-                        writerNameEq(boardSearchCond.getWriterName()),
-                        boardNameEq(boardSearchCond.getBoardName())
+                        writerNameLike(boardSearchCond.getWn()),
+                        boardNameLike(boardSearchCond.getBn())
                 )
                 .offset(pageable.getOffset())
                 .limit(10)
@@ -49,19 +49,20 @@ public class BoardRepositoryImpl implements  BoardRepositoryCustom{
                 .from(board)
                 .leftJoin(board.member, member)
                 .where(
-                        writerNameEq(boardSearchCond.getWriterName()),
-                        boardNameEq(boardSearchCond.getBoardName())
+                        writerNameLike(boardSearchCond.getWn()),
+                        boardNameLike(boardSearchCond.getBn())
                 );
 
         return PageableExecutionUtils.getPage(result,pageable,totalCount::fetchOne);
 
     }
 
-    private BooleanExpression boardNameEq(String boardName) {
-        return StringUtils.hasText(boardName) ? board.title.eq(boardName) : null;
+    private BooleanExpression boardNameLike(String boardName) {
+        //contains -> like %boardName% 검색
+        return StringUtils.hasText(boardName) ? board.title.contains(boardName) : null;
     }
 
-    private BooleanExpression writerNameEq(String writerName) {
-        return StringUtils.hasText(writerName) ? member.name.eq(writerName) : null;
+    private BooleanExpression writerNameLike(String writerName) {
+        return StringUtils.hasText(writerName) ? member.name.contains(writerName) : null;
     }
 }
