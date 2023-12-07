@@ -30,7 +30,15 @@ let initialState={
     },
     data:[],
 
+    paging : {
+        totalElements: '',
+        totalPages : '',
+        number : '',
+    },
+
     urlid : '',
+
+    getStatus : '',
 
     taketext : {
         id : '',
@@ -50,6 +58,9 @@ function reducer(state=initialState,action){
         /* 홈 */
         case 'boardlist':
             return {...state, data:action.payload}
+
+        case 'paging' :
+            return {...state, paging: action.payload}
 
         /* 로그인 */
         case 'Login':
@@ -102,6 +113,9 @@ function reducer(state=initialState,action){
         case 'getcommentList':
             console.log('댓글조회 성공')
             return {...state, commentList:action.payload}
+
+        case 'getStatus':
+            return {...state, getStatus:action.payload}
 
         /* 회원정보수정 */
 

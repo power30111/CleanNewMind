@@ -5,10 +5,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import List from '../component/List';
+import Paging from '../component/Paging';
 
 
 
 const Home = () => {
+
+    const data = useSelector((state) => state.data)
+    const paging = useSelector((state) => state.paging)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -17,15 +21,16 @@ const Home = () => {
         navigate('/Write')
     }
 
-    const data = useSelector((state) => state.data)
+
 /**/
     useEffect(()=>{
-        axios.get('http://localhost:8080/board/list')
+        axios.get('http://localhost:8080/board/list/Page')
         .then((response) => {
                 console.log("게시글 조회 성공")
-                dispatch({type:'boardlist',payload:response.data})
+                dispatch({type:'boardlist',payload:response.data.content})
                 console.log("수신",response.data)
                 console.log(data)
+                console.log(paging)
                 console.log ('리스폰', response)
         })
         .catch(error => {
@@ -56,10 +61,20 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-
             </div>
-            <div className='homebot Write-btn'>
-            <button className="btn-hover color-9" onClick={goWrite}>글쓰기</button>
+
+            <div className='homebot'>
+                <div className='homebot-btn'>
+                    <div className='flexbox'>
+                        
+                        <button className="btn-hover color-9" onClick={goWrite}>글쓰기</button>
+                    </div>
+                </div>
+                <div className='flexbox '>
+                    <input className='homebot-input' name="search" placeholder='검색창' />
+                    <button className="btn-hover color-9 homebot-search">검색</button>
+                </div>
+                <Paging/>
             </div>
         </Container>
         

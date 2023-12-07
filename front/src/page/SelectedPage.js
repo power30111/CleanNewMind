@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux/'
 import { useEffect } from 'react';
 import Comment from '../component/Comment'
+import Paging from '../component/Paging'
 
 
 const SelectedPage = (props) => {
@@ -16,6 +17,8 @@ const SelectedPage = (props) => {
     const comment = useSelector((state)=>state.comment)
     const commentList = useSelector((state)=>state.commentList)
     const id = useSelector((state) => state.urlid);
+    const getStatus = useSelector((state)=>state.getStatus)
+
 
 
     const goHome = () =>{
@@ -66,8 +69,6 @@ const SelectedPage = (props) => {
                 commentReset()
                 recall()
                 
-
-
         })
         .catch((error) => {
         console.error('전송 에러', error);
@@ -113,6 +114,14 @@ const SelectedPage = (props) => {
                         <button type="submit" className="color-9 comment-btn" >등록</button>
                     </Form>
 
+                    {getStatus === 200 && (
+                        <div className='Write-btn'>
+                            <button className="btn-hover color-9">수정</button>
+                            <button className="btn-hover color-9" onClick={goHome}>삭제</button>
+                        </div>
+                    )}
+                    {getStatus === 400 && <div></div>}
+
                     <div> 
                         <div className='comment-title'>Comments</div>
                         {commentList.map((Item) => (
@@ -126,11 +135,6 @@ const SelectedPage = (props) => {
                                 </div>
                             </div>
                         ))}
-                    </div>
-
-                    <div className='Write-btn'>
-                        <button className="btn-hover color-9" onClick={rewrite}>수정</button>
-                        <button className="btn-hover color-9" onClick={goHome}>삭제</button>
                     </div>
                 </div>
             </div>
@@ -165,7 +169,6 @@ export default SelectedPage
                             </div>
                         ))||
                             <div></div>
-
                         }
                         
 
