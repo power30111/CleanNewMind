@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux/'
 import { useEffect } from 'react';
 import Comment from '../component/Comment'
+import Paging from '../component/Paging'
 
 
 const SelectedPage = (props) => {
@@ -17,6 +18,7 @@ const SelectedPage = (props) => {
     const commentList = useSelector((state)=>state.commentList)
     const id = useSelector((state) => state.urlid);
     const getStatus = useSelector((state)=>state.getStatus)
+
 
 
     const goHome = () =>{

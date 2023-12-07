@@ -30,6 +30,12 @@ let initialState={
     },
     data:[],
 
+    paging : {
+        totalElements: '',
+        totalPages : '',
+        number : '',
+    },
+
     urlid : '',
 
     getStatus : '',
@@ -52,6 +58,9 @@ function reducer(state=initialState,action){
         /* 홈 */
         case 'boardlist':
             return {...state, data:action.payload}
+
+        case 'paging' :
+            return {...state, paging: action.payload}
 
         /* 로그인 */
         case 'Login':

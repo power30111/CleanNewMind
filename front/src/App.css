@@ -113,8 +113,7 @@ body{
 }
 .boardlist{
   width: 80%;
-  height: 70vh;
-  
+  height: auto;
 }
 .listtop-title{
   display: flex;
@@ -145,6 +144,11 @@ body{
   width: 10vh;
   text-align: center;
 }
+
+.homebot{
+  z-index: 999;
+}
+
 .homebot-btn{
   padding-right: 12vh;
   display: flex;
@@ -184,6 +188,66 @@ body{
 .homebot-search{
   width: 100px
 }
+
+/*페이징*/
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+ul {
+  padding: 0;
+}
+
+ul.pagination li {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-left: 1px solid #e2e2e2;
+  border-right: 1px solid #e2e2e2;
+  border-top : 1px solid #9FB6F1;
+  border-bottom : 1px solid #9FB6F1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+ul.pagination li:first-child{
+  border-radius: 10px 0 0 10px;
+  border-left: 1px solid #9FB6F1;
+  border-top : 1px solid #9FB6F1;
+  border-bottom : 1px solid #9FB6F1;
+}
+
+ul.pagination li:last-child{
+  border-radius: 0 10px 10px 0;
+  border-right: 1px solid #9FB6F1;
+  border-top : 1px solid #9FB6F1;
+  border-bottom : 1px solid #9FB6F1;
+}
+
+ul.pagination li a {
+  text-decoration: none;
+  color: #337ab7;
+  font-size: 1rem;
+}
+
+ul.pagination li.active a {
+  color: white;
+}
+
+ul.pagination li.active {
+  background-color: #9FB6F1;
+}
+
+ul.pagination li a:hover,
+ul.pagination li a.active {
+  color: blue;
+}
+
 
 /*게시글 리스트*/
 .max{

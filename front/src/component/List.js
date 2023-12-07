@@ -13,6 +13,7 @@ const List = (props) => {
     const token = useSelector((state) => state.token)
     const taketext = useSelector((state)=>state.taketext)
     const commentList = useSelector((state) => state.commentList)
+    const paging = useSelector((state)=>state.paging)
 
     const {id, title, writer, index} =props
 
@@ -20,6 +21,8 @@ const List = (props) => {
     const selectedPage = (()=>{
         navigate(`/board/list/${id}`)
         dispatch({type:'urlid',payload:id})
+
+        console.log("페이징",paging)
 
         axios.get(`http://localhost:8080/board/list/${id}`,{headers: {
             Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
@@ -31,7 +34,7 @@ const List = (props) => {
                 dispatch({type:"takecontent",payload:response.data})
                 dispatch({type:"getcommentList",payload:response.data.commentList})
                 dispatch({type:"urlid",payload:id})
-
+                
                 console.log(response.status)
                 console.log("taketext",taketext)
                 console.log("taketext",commentList)
