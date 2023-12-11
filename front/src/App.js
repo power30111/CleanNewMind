@@ -10,7 +10,7 @@ import Write from './page/Write';
 import SelectedPage from './page/SelectedPage';
 import Mypage from './page/Mypage';
 import Rewrite from './page/Rewrite';
-import Edit from './component/Edit';
+
 
 
 
@@ -27,7 +27,6 @@ function App() {
         <Route path="/board/list/:id" element={<SelectedPage/>}/>
         <Route path="/Mypage" element={<Mypage/>}/>
         <Route path="/Rewrite" element={<Rewrite/>}/>
-        <Route path="/Edit" element={<Edit/>}/>
       </Routes>
     </div>
   );

@@ -164,10 +164,10 @@ const Mypage = () => {
         )}
 
         {editField === '이름' && (
-            <Form.Group className="mb-3 mypage-text" controlId="formName">
-                <div>{editField} 변경</div>
-                <Form.Label className='mypage-text-label'>이름</Form.Label>
-                <Form.Control className='Edit-inputbox Edit-underline' type="text" placeholder="Enter Name" name="name" value={edit.name} onChange={handleInputChange} />
+            <Form.Group  controlId="formName">
+                <div className='editField-title'>{editField} 변경</div>
+                <Form.Label className=''>이름</Form.Label>
+                <Form.Control className='' type="text" placeholder="Enter Name" name="name" value={edit.name} onChange={handleInputChange} />
                 <div className='editField-btn-duo'>
                     <div className='editField-btn-left' onClick={closeModal}>닫기</div>
                     <div className='editField-btn-right' onClick={handleSubmit}>변경</div>
@@ -176,10 +176,10 @@ const Mypage = () => {
             )}
 
         {editField === '이메일' && (
-            <Form.Group className="mb-3 mypage-text" controlId="formEmail">
-                <div>{editField} 변경</div>
-                <Form.Label className='mypage-text-label'>이메일</Form.Label>
-                <Form.Control className='Edit-inputbox Edit-underline' type="email" placeholder="Enter Email" name="Email" value={edit.email} onChange={handleInputChange} />
+            <Form.Group  controlId="formEmail">
+                <div className='editField-title'>{editField} 변경</div>
+                <Form.Label className=''>이메일</Form.Label>
+                <Form.Control className='' type="email" placeholder="Enter Email" name="Email" value={edit.email} onChange={handleInputChange} />
                 <div className='editField-btn-duo'>
                     <div className='editField-btn-left' onClick={closeModal}>닫기</div>
                     <div className='editField-btn-right' onClick={handleSubmit}>변경</div>
@@ -189,16 +189,16 @@ const Mypage = () => {
 
         {editField === '비밀번호' && (
             <div>
-                <div>{editField} 변경</div>
+                <div className='editField-title'>{editField} 변경</div>
                 <Form>
-                    <Form.Group className="mb-3 mypage-text" controlId="formPassword">
-                        <Form.Label className='mypage-text-label'>새 비밀번호</Form.Label>
-                        <Form.Control className='Edit-inputbox Edit-underline' type="password" placeholder="newPassword" name="password" value={edit.password} onChange={handleInputChange} />
+                    <Form.Group controlId="formPassword">
+                        <Form.Label className=''>새 비밀번호</Form.Label>
+                        <Form.Control className='' type="password" placeholder="newPassword" name="password" value={edit.password} onChange={handleInputChange} />
                     </Form.Group>
         
-                    <Form.Group className="mb-3 mypage-text" controlId="formPassword">
-                        <Form.Label className='mypage-text-label'>재확인</Form.Label>
-                        <Form.Control className='Edit-inputbox Edit-underline' type="password" placeholder="newPassword" name="newPassword" value={edit.newPassword} onChange={handleInputChange} /> 
+                    <Form.Group className="" controlId="formPassword">
+                        <Form.Label className=''>재확인</Form.Label>
+                        <Form.Control className='' type="password" placeholder="newPassword" name="newPassword" value={edit.newPassword} onChange={handleInputChange} /> 
                     </Form.Group>
 
                     <div className='editField-btn-duo'>

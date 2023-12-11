@@ -30,6 +30,8 @@ let initialState={
     },
     data:[],
 
+    searchValue : '',
+
     paging : {
         totalElements: '',
         totalPages : '',
@@ -61,6 +63,10 @@ function reducer(state=initialState,action){
 
         case 'paging' :
             return {...state, paging: action.payload}
+
+        /* 검색어 */
+        case 'searchValue' :
+            return {...state, searchValue: action.payload}
 
         /* 로그인 */
         case 'Login':
@@ -100,7 +106,7 @@ function reducer(state=initialState,action){
         case 'comment-reset':
             return {...state, comment : {...state.comment, content : '' }}
 
-        /* 글쓰기 수정 */
+
 
 
         /* 리스트 */
