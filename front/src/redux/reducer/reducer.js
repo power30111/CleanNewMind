@@ -13,6 +13,11 @@ let initialState={
         exPassword:'',
         newPassword: '',
     },
+    myInfo :{
+        userId:'',
+        name:'',
+        email: '',
+    },
     testpassword:'',
     login:{
         userId:'',
@@ -33,9 +38,9 @@ let initialState={
     searchValue : '',
 
     paging : {
-        totalElements: '',
-        totalPages : '',
-        number : '',
+        totalElements: 0,
+        totalPages : 0,
+        number : 0,
     },
 
     urlid : '',
@@ -62,8 +67,14 @@ function reducer(state=initialState,action){
             return {...state, data:action.payload}
 
         case 'paging' :
-            return {...state, paging: action.payload}
-
+            return {
+                ...state,
+                paging: {
+                    totalElements: parseInt(action.payload.totalElements, 10) || 0,
+                    totalPages: action.payload.totalPages || 0,
+                    number: action.payload.number || 0,
+                }
+            };
         /* 검색어 */
         case 'searchValue' :
             return {...state, searchValue: action.payload}
@@ -129,7 +140,8 @@ function reducer(state=initialState,action){
             return {...state, testpassword:action.payload}
 
         case 'getMyInfo':
-            return { ...state, edit : action.payload}
+            return { ...state, myInfo : action.payload}
+        
 
         case 'edit':
             const { name: editName, value: editValue } = action.payload;
