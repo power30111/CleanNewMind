@@ -23,7 +23,7 @@ const Home = () => {
 
     /*페이징*/
 
-    // 페이징 처리 함수
+  // 페이징 처리 함수
     const handlePageChange = (selectedPage) => {
         setpage(selectedPage);
     };
@@ -51,7 +51,7 @@ const Home = () => {
         axios.get(`http://localhost:8080/board/list/Page?page=${page}&${searchquery}`)
         .then((response) => {
             dispatch({ type: 'boardlist', payload: response.data.content });
-            dispatch({ type: 'paging', payload: response.data.number });
+            dispatch({ type: 'paging', payload: response.data});
         })
         .catch((error) => {
             console.error('요청 실패: ', error);
@@ -131,7 +131,7 @@ const Home = () => {
                     </div>
                 </div>
                 
-                <Paging onPageChange={handlePageChange} totalElements={paging.totalElements}/>
+                <Paging onPageChange={handlePageChange} totalElements={paging.totalElements} page={page} />
             </div>
         </Container>
         

@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 const Mypage = () => {
 
     /* 리듀서 */
+    const myInfo = useSelector((state) => state.myInfo);
     const edit = useSelector((state) => state.edit);
     const token = useSelector((state) => state.token)
     const editField = useSelector((state) => state.editField)
@@ -62,41 +63,42 @@ const Mypage = () => {
         });
         },[])
 
-        /* 정보저장 */
-        const handleInputChange = (e) => {
-            const { name, value } = e.target;
-            dispatch({type:'edit',payload:{ name, value }});
-            };
-        
-        /* 클릭이벤트 유저정보 전달(수정 필) */
-        const handleSubmit=(e)=>{
-            e.preventDefault();
-            comparePassword()
-        
-            if (testpassword == true) {
-                axios.get('http://localhost:8080/user/accountUpdate',edit,{
-                    headers: {
-                        Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
-                    }
-                })
-                .then((response) => {
-                    alert('변경 성공');
-                    console.log("회원 정보 수정 성공")
-                    deleteedit()
-                })
-                .catch((error) => {
-                    console.error('변경 에러', error);
-                    console.log(edit)
-                    deleteedit()
-                });
-            }
-            else {
-                alert ('비밀번호가 일치 하지 않습니다.')
+    /* 정보저장 */
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        dispatch({type:'edit',payload:{ name, value }});
+        };
+    
+    // editField에 따라 서버로 전송할 필드를 동적으로 결정합니다.
+    const updateData = {
+        [editField]: edit[editField],
+
+    };
+
+    /* 클릭이벤트 유저정보 전달(수정 필) */
+    const handleSubmit=(e)=>{
+        dispatch({type:'getmyInfo', payload:updateData})
+        e.preventDefault();
+        comparePassword()
+    
+            axios.post('http://localhost:8080/user/accountUpdate',updateData,{
+                headers: {
+                    Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+                }
+            })
+            .then((response) => {
+                alert('변경 성공');
+                console.log("회원 정보 수정 성공")
                 console.log(edit)
-                dispatch({type:"testPassword", payload: true})
                 deleteedit()
-            }
+            })
+            .catch((error) => {
+                console.error('변경 에러', error);
+                console.log(edit)
+                deleteedit()
+            });
         }
+    
 
 
     return (
@@ -104,22 +106,22 @@ const Mypage = () => {
             <div className='Box userinfo'>
                 <div className="mb-3 mypage-text" controlId="formID">
                     <label className='mypage-text-label'>아이디</label>
-                    <div>{edit.userId}</div>
-                    <button className="color-9 mypage-btn" onClick={() => openModal('아이디')}>Edit</button>
+                    <div>{myInfo.userId}</div>
+                    <button className="color-9 mypage-btn" onClick={() => openModal('userId')}>Edit</button>
                 </div>
 
                 
 
                 <div className="mb-3 mypage-text" controlId="formName">
                     <label className='mypage-text-label'>이름</label>
-                    <div>{edit.name}</div>
-                    <button className="color-9 mypage-btn" onClick={() => openModal('이름')}>Edit</button>
+                    <div>{myInfo.name}</div>
+                    <button className="color-9 mypage-btn" onClick={() => openModal('name')}>Edit</button>
                 </div>
 
                 <div className="mb-3 mypage-text" controlId="formEmail">
                     <label className='mypage-text-label'>이메일</label>
-                    <div>{edit.email}</div>
-                    <button className="color-9 mypage-btn" onClick={() => openModal('이메일')}>Edit</button>
+                    <div>{myInfo.email}</div>
+                    <button className="color-9 mypage-btn" onClick={() => openModal('email')}>Edit</button>
                 </div>
 
             </div>
@@ -127,7 +129,7 @@ const Mypage = () => {
                 <div className=" mypage-text" controlId="formPassword">
                     <label className='mypage-text-label'>비밀번호</label>
                     <div type='password'>********</div>
-                    <button className="color-9 mypage-btn" onClick={() => openModal('비밀번호')}>Edit</button>
+                    <button className="color-9 mypage-btn" onClick={() => openModal('newPassword')}>Edit</button>
                 </div>
             </div>
 
@@ -151,9 +153,9 @@ const Mypage = () => {
             
         >
 
-        {editField === '아이디' && (
+        {editField === 'userId' && (
             <Form.Group className="" controlId="formId">
-                <div className='editField-title'>{editField} 변경</div>
+                <div className='editField-title'>아이디 변경</div>
                 <Form.Label className=''>아이디</Form.Label>
                 <Form.Control className='' type="text" placeholder="Enter Id" name="userId" value={edit.userId} onChange={handleInputChange} />
                 <div className='editField-btn-duo'>
@@ -163,9 +165,9 @@ const Mypage = () => {
             </Form.Group>
         )}
 
-        {editField === '이름' && (
+        {editField === 'name' && (
             <Form.Group  controlId="formName">
-                <div className='editField-title'>{editField} 변경</div>
+                <div className='editField-title'>이름 변경</div>
                 <Form.Label className=''>이름</Form.Label>
                 <Form.Control className='' type="text" placeholder="Enter Name" name="name" value={edit.name} onChange={handleInputChange} />
                 <div className='editField-btn-duo'>
@@ -175,9 +177,9 @@ const Mypage = () => {
             </Form.Group>
             )}
 
-        {editField === '이메일' && (
+        {editField === 'email' && (
             <Form.Group  controlId="formEmail">
-                <div className='editField-title'>{editField} 변경</div>
+                <div className='editField-title'>이메일 변경</div>
                 <Form.Label className=''>이메일</Form.Label>
                 <Form.Control className='' type="email" placeholder="Enter Email" name="Email" value={edit.email} onChange={handleInputChange} />
                 <div className='editField-btn-duo'>
@@ -187,9 +189,9 @@ const Mypage = () => {
             </Form.Group >
                     )}
 
-        {editField === '비밀번호' && (
+        {editField === 'newPassword' && (
             <div>
-                <div className='editField-title'>{editField} 변경</div>
+                <div className='editField-title'>비밀번호 변경</div>
                 <Form>
                     <Form.Group controlId="formPassword">
                         <Form.Label className=''>새 비밀번호</Form.Label>

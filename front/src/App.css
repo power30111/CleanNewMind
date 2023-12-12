@@ -238,11 +238,7 @@ body{
   margin-top: 15px;
 }
 
-ul {
-  padding: 0;
-}
-
-ul.pagination li {
+.pagination li {
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -254,38 +250,39 @@ ul.pagination li {
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+  padding: 0;
 }
 
-ul.pagination li:first-child{
+.pagination li:first-child{
   border-radius: 10px 0 0 10px;
   border-left: 1px solid #9FB6F1;
   border-top : 1px solid #9FB6F1;
   border-bottom : 1px solid #9FB6F1;
 }
 
-ul.pagination li:last-child{
+.pagination li:last-child{
   border-radius: 0 10px 10px 0;
   border-right: 1px solid #9FB6F1;
   border-top : 1px solid #9FB6F1;
   border-bottom : 1px solid #9FB6F1;
 }
 
-ul.pagination li a {
+.pagination li a {
   text-decoration: none;
   color: #337ab7;
   font-size: 1rem;
 }
 
-ul.pagination li.active a {
+.pagination li.active a {
   color: white;
 }
 
-ul.pagination li.active {
+.pagination li.active {
   background-color: #9FB6F1;
 }
 
-ul.pagination li a:hover,
-ul.pagination li a.active {
+.pagination li a:hover,
+.pagination li a.active {
   color: blue;
 }
 
