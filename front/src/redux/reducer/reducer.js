@@ -31,8 +31,9 @@ let initialState={
         id : '',
         title : '',
         writer : '',
-        content : '',
+        content : [],
     },
+    inputtext : '',
     data:[],
 
     searchValue : '',
@@ -55,7 +56,9 @@ let initialState={
     },
     commentList : [],
     editField : '',
-    modalIsOpen:false
+    modalIsOpen:false,
+
+    comparetext:''
 }
 
 
@@ -105,7 +108,7 @@ function reducer(state=initialState,action){
         /* 글쓰기 */
         case 'write' :
             const { name: textName, value: textValue } = action.payload;
-            return { ...state, text:{...state.text, [textName]: textValue } };
+            return { ...state, text:{...state.text, [textName]: textValue } ,inputtext:textValue};
 
         case 'reset' :
             return { ...state, text:{ title : '', content: ''} };
@@ -116,7 +119,8 @@ function reducer(state=initialState,action){
 
         case 'comment-reset':
             return {...state, comment : {...state.comment, content : '' }}
-
+        case 'comparetext':
+            return {...state, comparetext : action.payload}
 
 
 

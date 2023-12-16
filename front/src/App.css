@@ -323,7 +323,7 @@ body{
 } 
 .Write-text{
   height: fit-content;
-  height: 3vh;
+  height: auto;
 }
 .text-area{
   width: 98%;
@@ -350,6 +350,44 @@ body{
 .rewite-border{
   border-radius: 0;
 }
+/*이미지 업로드*/
+
+.preview {
+  width: 300px;
+  height: 150px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 3px dashed #eee;
+  padding: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.preview:hover {
+  border-color: #111;
+}
+
+.preview_msg {
+  font-weight: 500;
+  font-size: 18px;
+  margin: 20px 0 10px;
+}
+
+.preview_desc {
+  margin: 0;
+  font-size: 14px;
+}
+.preview.active {
+  background-color: #efeef3;
+  border-color: #111;
+}
+
+
+
 /*선택 페이지*/
 .selectedpage-title-size{
   height: fit-content;
