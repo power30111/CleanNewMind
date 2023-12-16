@@ -19,7 +19,7 @@ const Mypage = () => {
     const dispatch = useDispatch()
 
     /*회원가입 성공시 로그인창으로 이동*/
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
 
     const openModal=(field)=>{
         dispatch({type : 'openModal', payload : true})
@@ -61,7 +61,7 @@ const Mypage = () => {
         console.error('회원조회 에러', error);
         console.log(edit)
         });
-        },[])
+    },[])
 
     /* 정보저장 */
     const handleInputChange = (e) => {
@@ -129,7 +129,7 @@ const Mypage = () => {
                 <div className=" mypage-text" controlId="formPassword">
                     <label className='mypage-text-label'>비밀번호</label>
                     <div type='password'>********</div>
-                    <button className="color-9 mypage-btn" onClick={() => openModal('newPassword')}>Edit</button>
+                    <button className="color-9 mypage-btn" onClick={() => openModal('password')}>Edit</button>
                 </div>
             </div>
 
@@ -189,18 +189,23 @@ const Mypage = () => {
             </Form.Group >
                     )}
 
-        {editField === 'newPassword' && (
+        {editField === 'password' && (
             <div>
                 <div className='editField-title'>비밀번호 변경</div>
                 <Form>
                     <Form.Group controlId="formPassword">
+                        <Form.Label className=''>이전 비밀번호</Form.Label>
+                        <Form.Control className='' type="password" placeholder="exPassword" name="exPassword" value={edit.exPassword} onChange={handleInputChange} />
+                    </Form.Group>
+
+                    <Form.Group controlId="formPassword">
                         <Form.Label className=''>새 비밀번호</Form.Label>
-                        <Form.Control className='' type="password" placeholder="newPassword" name="password" value={edit.password} onChange={handleInputChange} />
+                        <Form.Control className='' type="password" placeholder="newPassword" name="newPassword" value={edit.newPassword} onChange={handleInputChange} />
                     </Form.Group>
         
                     <Form.Group className="" controlId="formPassword">
                         <Form.Label className=''>재확인</Form.Label>
-                        <Form.Control className='' type="password" placeholder="newPassword" name="newPassword" value={edit.newPassword} onChange={handleInputChange} /> 
+                        <Form.Control className='' type="password" placeholder="password" name="password" value={edit.password} onChange={handleInputChange} /> 
                     </Form.Group>
 
                     <div className='editField-btn-duo'>
