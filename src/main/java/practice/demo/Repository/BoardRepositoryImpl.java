@@ -37,8 +37,8 @@ public class BoardRepositoryImpl implements  BoardRepositoryCustom{
                 .from(board)
                 .leftJoin(board.member, member)
                 .where(
-                        writerNameLike(boardSearchCond.getWn()),
-                        boardNameLike(boardSearchCond.getBn())
+                        writerNameLike(boardSearchCond.getWriterName()),
+                        boardNameLike(boardSearchCond.getBoardName())
                 )
                 .offset(pageable.getOffset())
                 .limit(10)
@@ -49,8 +49,8 @@ public class BoardRepositoryImpl implements  BoardRepositoryCustom{
                 .from(board)
                 .leftJoin(board.member, member)
                 .where(
-                        writerNameLike(boardSearchCond.getWn()),
-                        boardNameLike(boardSearchCond.getBn())
+                        writerNameLike(boardSearchCond.getWriterName()),
+                        boardNameLike(boardSearchCond.getBoardName())
                 );
 
         return PageableExecutionUtils.getPage(result,pageable,totalCount::fetchOne);

@@ -9,20 +9,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import practice.demo.Service.BoardService;
+import practice.demo.Service.ContentService;
 import practice.demo.Service.MemberService;
 import practice.demo.domain.Board;
-import practice.demo.domain.DTO.BoardDto;
-import practice.demo.domain.DTO.BoardSearchCond;
-import practice.demo.domain.DTO.CommentDto;
-import practice.demo.domain.DTO.MemberResponseDto;
+import practice.demo.domain.Content;
+import practice.demo.domain.DTO.*;
 import practice.demo.domain.Member;
 import practice.demo.domain.state.Message;
 import practice.demo.domain.state.StatusEnum;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Controller
 @RequestMapping("board")
@@ -32,6 +34,8 @@ public class BoardController {
     BoardService boardService;
     @Autowired
     MemberService memberService;
+    @Autowired
+    ContentService contentService;
 
     @GetMapping("/list")
     public List<BoardDto> boardDtoList() {
@@ -49,9 +53,11 @@ public class BoardController {
 
     @GetMapping("/list/Page")
     public Page<BoardDto> searchBoard(BoardSearchCond cond, Pageable pageable){
-        log.info(cond.getBn()+"+"+cond.getWn()+" 의 조건으로 검색된 게시글들");
-        return boardService.searchPage(cond,pageable);
-        /**
+
+        BoardSearchCond boardSearchCond = getBoardSearchCond(cond);
+        log.info("게시글 이름 = "+ boardSearchCond.getBoardName()+" 작성자 이름 = "+boardSearchCond.getWriterName()+" 의 조건으로 검색된 게시글들");
+        return boardService.searchPage(boardSearchCond,pageable);
+        /*
          * Pageable 관련.
          * getTotalPages -> 총 페이지 수
          * getTotalElements -> 전체 개수
@@ -62,6 +68,27 @@ public class BoardController {
          */
     }
 
+    /**
+     * encode되어있는 한글로된 검색어들을 decode해주는 메서드
+     * @param cond
+     * @return
+     */
+    private static BoardSearchCond getBoardSearchCond(BoardSearchCond cond) {
+        String decodeBn = cond.getBoardName();;
+        String decodeWn = cond.getWriterName();
+
+        log.info("boardName = "+cond.getBoardName());
+        log.info("WriterName = "+cond.getWriterName());
+
+        if(cond.getBoardName() != null && cond.getBoardName().length() > 1){
+            decodeBn = new String(Base64.getDecoder().decode(cond.getBoardName()),StandardCharsets.UTF_8);
+        }
+        if(cond.getWriterName() != null && cond.getWriterName().length() > 1){
+            decodeWn = new String(Base64.getDecoder().decode(cond.getWriterName()),StandardCharsets.UTF_8);
+        }
+        return new BoardSearchCond(decodeBn,decodeWn);
+    }
+
 
     @PostMapping("/write")
     public ResponseEntity<Message> writeBoard(@RequestBody BoardDto boardDto){
@@ -70,9 +97,19 @@ public class BoardController {
         Optional<Member> member = memberService.findByUserId(myInfoBySecurity.getUserId());
         HttpHeaders headers = getHttpHeaders();
         if(member.isPresent()){
-            Board board = new Board(member.get(), boardDto.getTitle(), boardDto.getContent());
+            Board tempBoard = new Board(member.get(), boardDto.getTitle());
+
+            List<Content> contentList = boardDto.getContent().stream().
+                    map((ContentDto contentDto) -> ContentDto.toEntity(contentDto,tempBoard))
+                    .toList();
+
+            Board board = new Board(tempBoard.getMember(),tempBoard.getTitle(),contentList, tempBoard.getUuid());
+
             boardService.saveBoard(board);
-            log.info("게시글 작성이 완료되었습니다.");
+            log.info("게시글 저장이 완료되었습니다.");
+            contentService.saveAllEntity(contentList,board);
+            contentService.saveAllImageInFolder(boardDto,board.getUuid());
+            log.info("content 저장이 완료되었습니다.");
 
             Message message = getMessage(StatusEnum.OK,"게시글 작성이 정상적으로 완료되었습니다.");
             return new ResponseEntity<>(message,headers,HttpStatus.OK);
@@ -89,6 +126,11 @@ public class BoardController {
         log.info(receiveBoardId + " 번호의 게시글 조회 요청");
         long boardId = Long.parseLong(receiveBoardId.strip());
         BoardDto boardResponseDto = boardService.getBoardDto(boardId);
+        for (ContentDto contentDto : boardResponseDto.getContent()) {
+            log.info("order = "+contentDto.getOrder());
+            log.info("text = "+contentDto.getText());
+            log.info("Image is Empty? = "+contentDto.getImage().isEmpty());
+        }
 
         if (boardService.equalsWriter(boardId)) {
             return ResponseEntity.ok(boardResponseDto);

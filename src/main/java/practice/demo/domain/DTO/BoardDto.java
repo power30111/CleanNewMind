@@ -20,7 +20,8 @@ public class BoardDto {
     private Long id;
     private String writer;
     private String title;
-    private String content;
+
+    private List<ContentDto> content = new ArrayList<>();
 
     private List<CommentDto> commentList = new ArrayList<>();
 
@@ -29,16 +30,16 @@ public class BoardDto {
                 .id(board.getId())
                 .writer(board.getMember().getUserId())
                 .title(board.getTitle())
-                .content(board.getContent())
+                .contentList(board.getContentList().stream().map(ContentDto::of).collect(Collectors.toList()))
                 .commentList(board.getCommentList().stream().map(CommentDto::of).collect(Collectors.toList()))
                 .build();
     }
     @Builder
-    public BoardDto(Long id,String writer, String title, String content, List<CommentDto> commentList) {
+    public BoardDto(Long id,String writer, String title, List<ContentDto> contentList, List<CommentDto> commentList) {
         this.id = id;
         this.writer = writer;
         this.title = title;
-        this.content = content;
+        this.content = contentList;
         this.commentList = commentList;
     }
 

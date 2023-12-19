@@ -13,16 +13,15 @@ import practice.demo.Repository.BoardRepository;
 import practice.demo.Repository.CommentRepository;
 import practice.demo.domain.Board;
 import practice.demo.domain.Comment;
-import practice.demo.domain.DTO.BoardDto;
-import practice.demo.domain.DTO.BoardSearchCond;
-import practice.demo.domain.DTO.CommentDto;
-import practice.demo.domain.DTO.MemberResponseDto;
+import practice.demo.domain.Content;
+import practice.demo.domain.DTO.*;
 import practice.demo.exception.BoardNotFoundException;
 import practice.demo.exception.UserNotFoundException;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -72,7 +71,13 @@ public class BoardService {
     public void update(Long boardId, BoardDto updateBoardDto){
         Board board = findOne(boardId).orElseThrow(() -> new BoardNotFoundException("해당 게시글이 존재하지않습니다."));
 
-        board.updateBoard(updateBoardDto.getTitle(),updateBoardDto.getContent());
+        List<Content> contentList = updateBoardDto.getContent().stream().
+                map((ContentDto contentDto) -> ContentDto.toEntity(contentDto, board))
+                .toList();
+
+        //List<ContentDto> -> List<Content> 로 변경해줘!;
+        board.updateBoard(updateBoardDto.getTitle(),contentList);
+
         log.info(boardId + "게시글이 정상적으로 수정되었습니다.");
 
     }
