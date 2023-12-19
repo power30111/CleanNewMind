@@ -16,7 +16,6 @@ const Write = () => {
     const text = useSelector((state) => state.text);
     const token = useSelector((state) => state.token);
     const quillRef = useRef(null);
-
     const [images, setImages] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
 
@@ -29,7 +28,8 @@ const Write = () => {
 
     //제목 수정 
     const handleInputChange = (e) => {
-        dispatch({ type: 'write', payload: { name:'title', value: text.title} });
+        const {value} = e.target;
+        dispatch({ type: 'title', payload: value });
     };
     // 내용 수정
     const handleEditorChange = (content, delta, source, editor) => {
@@ -110,7 +110,7 @@ const Write = () => {
             }
         } else if (newImages.length === 0) {
             const data ={
-                order: '1',
+                order: '0',
                 text: text.content,
                 image: 'null',
             }
@@ -124,10 +124,15 @@ const Write = () => {
     
         if (images.length > 0) {
             const formDataArray = await readyformdata(images);
-    
+            const dataToSend = []
+            const setData = {
+                title : text.title,
+                content : formDataArray
+            }
+            dataToSend.push(setData)
             // 이미지 인코딩이 완료된 상태이므로 서버로 전송
             try {
-                const response = await axios.post('http://localhost:8080/board/write', formDataArray, {
+                const response = await axios.post('http://localhost:8080/board/write', setData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -135,11 +140,36 @@ const Write = () => {
     
                 console.log('전송 성공');
                 console.log('응답 데이터:', response.data);
-                console.log(formDataArray)
+                console.log(setData)
             } catch (error) {
                 console.log('전송 실패');
                 console.error('에러', error);
-                console.log(formDataArray)
+                console.log(setData)
+            }
+        }else if (images.length ===0) {
+
+            const formDataArray = await readyformdata(images);
+            const dataToSend = []
+            const setData = {
+                title : text.title,
+                content : formDataArray
+            }
+            dataToSend.push(setData)
+            // 보낼 데이터를 완성후 전송 
+            try {
+                const response = await axios.post('http://localhost:8080/board/write', setData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+    
+                console.log('전송 성공');
+                console.log('응답 데이터:', response.data);
+                console.log(setData)
+            } catch (error) {
+                console.log('전송 실패');
+                console.error('에러', error);
+                console.log(setData)
             }
         }
     };
