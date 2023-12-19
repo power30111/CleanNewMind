@@ -106,6 +106,9 @@ function reducer(state=initialState,action){
             return {...state, isLogin: action.payload, token:"null"}
 
         /* 글쓰기 */
+        case 'title' : 
+            return {...state, text : {title : action.payload}}
+
         case 'write' :
             const { name: textName, value: textValue } = action.payload;
             return { ...state, text:{...state.text, [textName]: textValue } ,inputtext:textValue};
