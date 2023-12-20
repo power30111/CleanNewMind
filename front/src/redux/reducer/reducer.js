@@ -33,6 +33,7 @@ let initialState={
         writer : '',
         content : [],
     },
+    isimage : false,
     inputtext : '',
     data:[],
 
@@ -48,8 +49,13 @@ let initialState={
 
     getStatus : '',
 
-    taketext : {
-        id : '',
+    takeboard : {
+        title:'',
+        content : [{
+            order:'',
+            text:'',
+            image:'',
+        }],
     },
     comment:{
         content:''
@@ -125,11 +131,12 @@ function reducer(state=initialState,action){
         case 'comparetext':
             return {...state, comparetext : action.payload}
 
-
+        case 'isimage' :
+            return {...state, isimage: action.payload}
 
         /* 리스트 */
         case 'takecontent':
-            return {...state, text:action.payload}
+            return {...state, takeboard:action.payload}
         
         case 'urlid':
             return {...state, urlid:action.payload}

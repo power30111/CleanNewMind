@@ -104,8 +104,8 @@ const Home = () => {
                     </div>
 
                     <div className='max'>
-                        {data && data.map((item, index) => (
-                            <List key={item.id} {...item} index={index}/>
+                        {data && data.map((item) => (
+                            <List key={item.id} {...item}/>
                         ))}
                     </div>
                 </div>

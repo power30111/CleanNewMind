@@ -34,10 +34,34 @@ const Mypage = () => {
     const comparePassword = () =>{
         if (edit.newPassword !== edit.password) {
             dispatch({type:"testPassword", payload: false})
+            console.log('비밀번호 일치하지 않음')
+            console.log(testpassword)
         }
         else {
             dispatch({type:"testPassword", payload: true})
+            console.log(testpassword)
+
+            dispatch({type:'getmyInfo', payload:updateData})
+            
+
+            axios.post('http://localhost:8080/user/accountUpdate',updateData,{
+                headers: {
+                    Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
+                }
+            })
+            .then((response) => {
+                alert('변경 성공');
+                console.log("회원 정보 수정 성공")
+                console.log(edit)
+                deleteedit()
+            })
+            .catch((error) => {
+                console.error('변경 에러', error);
+                console.log(edit)
+                deleteedit()
+            });
         }
+        
     }
     
     const deleteedit = () =>{
@@ -79,7 +103,6 @@ const Mypage = () => {
     const handleSubmit=(e)=>{
         dispatch({type:'getmyInfo', payload:updateData})
         e.preventDefault();
-        comparePassword()
     
             axios.post('http://localhost:8080/user/accountUpdate',updateData,{
                 headers: {
@@ -142,8 +165,8 @@ const Mypage = () => {
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
                 },
                 content: {
-                    width: '15%',
-                    height: '40%',
+                    width: '300px',
+                    height: '500px',
                     margin: 'auto',
                     borderRadius: '10px',
                     padding: '20px',
@@ -181,7 +204,7 @@ const Mypage = () => {
             <Form.Group  controlId="formEmail">
                 <div className='editField-title'>이메일 변경</div>
                 <Form.Label className=''>이메일</Form.Label>
-                <Form.Control className='' type="email" placeholder="Enter Email" name="Email" value={edit.email} onChange={handleInputChange} />
+                <Form.Control className='' type="email" placeholder="Enter Email" name="email" value={edit.email} onChange={handleInputChange} />
                 <div className='editField-btn-duo'>
                     <div className='editField-btn-left' onClick={closeModal}>닫기</div>
                     <div className='editField-btn-right' onClick={handleSubmit}>변경</div>
@@ -195,29 +218,30 @@ const Mypage = () => {
                 <Form>
                     <Form.Group controlId="formPassword">
                         <Form.Label className=''>이전 비밀번호</Form.Label>
-                        <Form.Control className='' type="password" placeholder="exPassword" name="exPassword" value={edit.exPassword} onChange={handleInputChange} />
+                        <Form.Control  type="password" placeholder="exPassword" name="exPassword" value={edit.exPassword} onChange={handleInputChange} />
                     </Form.Group>
 
                     <Form.Group controlId="formPassword">
                         <Form.Label className=''>새 비밀번호</Form.Label>
-                        <Form.Control className='' type="password" placeholder="newPassword" name="newPassword" value={edit.newPassword} onChange={handleInputChange} />
+                        <Form.Control  type="password" placeholder="newPassword" name="newPassword" value={edit.newPassword} onChange={handleInputChange} />
                     </Form.Group>
         
                     <Form.Group className="" controlId="formPassword">
                         <Form.Label className=''>재확인</Form.Label>
-                        <Form.Control className='' type="password" placeholder="password" name="password" value={edit.password} onChange={handleInputChange} /> 
+                        <Form.Control  type="password" placeholder="password" name="password" value={edit.password} onChange={handleInputChange} /> 
                     </Form.Group>
-
-                    <div className='editField-btn-duo'>
-                        <div className='editField-btn-left' onClick={closeModal}>닫기</div>
-                        <div className='editField-btn-right' onClick={handleSubmit}>변경</div>
-                    </div>
 
                     {testpassword && (
                         <div style={{ color: 'skyblue', marginBottom: '10px' }}>
                             새 비밀번호와 재확인 비밀번호가 일치하지 않습니다.
                         </div>
                     )}
+
+                    <div className='editField-btn-duo'>
+                        <div className='editField-btn-left' onClick={closeModal}>닫기</div>
+                        <div className='editField-btn-right' onClick={comparePassword}>변경</div>
+                    </div>
+
                 </Form>
             </div>
             )}
