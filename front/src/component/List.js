@@ -15,7 +15,7 @@ const List = (props) => {
     const commentList = useSelector((state) => state.commentList)
     const paging = useSelector((state)=>state.paging)
 
-    const {id, title, writer, index} =props
+    const {id, title, writer} =props
 
 
     const selectedPage = (()=>{
@@ -65,7 +65,7 @@ const List = (props) => {
     return (
         <div>
             <div className='listtop-title' onClick={selectedPage}>
-                <div className='list-No'>{index + 1}</div>
+                <div className='list-No'>{id}</div>
                 <div className='list-title'>{title}</div>
                 <div className='list-writer'>{writer}</div>
             </div>

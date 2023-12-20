@@ -4,8 +4,7 @@ import {Form, Container } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux/'
 import { useEffect } from 'react';
-import Comment from '../component/Comment'
-import Paging from '../component/Paging'
+import ImageDecoding from '../component/ImageDecoding'
 
 
 const SelectedPage = (props) => {
@@ -13,13 +12,15 @@ const SelectedPage = (props) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const token = useSelector((state) => state.token)
-    const text = useSelector((state) => state.text)
+    const takeboard = useSelector((state) => state.takeboard)
     const comment = useSelector((state)=>state.comment)
     const commentList = useSelector((state)=>state.commentList)
     const id = useSelector((state) => state.urlid);
     const getStatus = useSelector((state)=>state.getStatus)
-
-
+    const isimage = useSelector((state) => state.isimage);
+    
+    const takeContent=[]
+        takeContent.push(takeboard.content)
 
     const goHome = () =>{
         deletelist()
@@ -36,6 +37,15 @@ const SelectedPage = (props) => {
         const { name, value } = e.target;
         dispatch({type:'comment',payload:{ name, value }});
     };
+
+    useEffect (()=>{
+        if (takeboard.content[0].image!=null) {
+            dispatch({type:'isimage',payload:true});
+        }
+        else if (takeboard.content[0].image===null) {
+            dispatch({type:'isimage',payload:false});
+        }
+    })
 
     /* 삭제요청 */
     const deletelist = (() => {
@@ -99,14 +109,29 @@ const SelectedPage = (props) => {
                 <div className='Write-page'>
                     <div className="flexbox Write-title selectedpage-title-size" >
                         <div className='text-area selectedpage-title' name="title">
-                            {text.title}
+                            {takeboard.title}
                         </div>
                     </div>
 
                     <div className=" flexbox Write-text selectedpage-content">
-                        <div className='text-area '  name="content">
-                            {text.content}
-                        </div>
+                        {takeContent.map((item) => (
+                            <div key={item.order} className="text-area" name="content">
+                                {item && ( // item이 정의되어 있는지 확인
+                                    <div>
+                                        {isimage ? (
+                                            <div>
+                                                <div>{item.text}</div>
+                                                {isimage && item.image && <ImageDecoding base64Data={item.image} />}
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <div>{takeboard.content.text}</div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
                     </div>
 
                     <Form className='flexbox comment-submit' onSubmit={handleSubmit}>
