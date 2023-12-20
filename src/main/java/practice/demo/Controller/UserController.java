@@ -39,6 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/IsLogin")
+    @ResponseBody
     public HttpStatus isLogin(){
         log.info("로그인되어있는지에 대한 검증요청");
 
@@ -52,6 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/accountUpdate")
+    @ResponseBody
     public HttpStatus accountUpdate(@RequestBody MemberUpdateDto memberUpdateDto){
         try {
             if (memberUpdateDto.getUserId() != null) {
