@@ -132,7 +132,10 @@ function reducer(state=initialState,action){
             return {...state, comparetext : action.payload}
 
         case 'isimage' :
-            return {...state, isimage: action.payload}
+            return {...state, isimage: true}
+            
+        case 'noimage' :
+            return {...state, isimage: false}
 
         /* 리스트 */
         case 'takecontent':

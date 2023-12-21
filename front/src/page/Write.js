@@ -141,6 +141,7 @@ const Write = () => {
                 console.log('전송 성공');
                 console.log('응답 데이터:', response.data);
                 console.log(setData)
+                goHome()
             } catch (error) {
                 console.log('전송 실패');
                 console.error('에러', error);
@@ -166,6 +167,7 @@ const Write = () => {
                 console.log('전송 성공');
                 console.log('응답 데이터:', response.data);
                 console.log(setData)
+                goHome()
             } catch (error) {
                 console.log('전송 실패');
                 console.error('에러', error);

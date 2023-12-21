@@ -38,14 +38,7 @@ const SelectedPage = (props) => {
         dispatch({type:'comment',payload:{ name, value }});
     };
 
-    useEffect (()=>{
-        if (takeboard.content[0].image!=null) {
-            dispatch({type:'isimage',payload:true});
-        }
-        else if (takeboard.content[0].image===null) {
-            dispatch({type:'isimage',payload:false});
-        }
-    })
+    
 
     /* 삭제요청 */
     const deletelist = (() => {
@@ -114,24 +107,26 @@ const SelectedPage = (props) => {
                     </div>
 
                     <div className=" flexbox Write-text selectedpage-content">
-                        {takeContent.map((item) => (
-                            <div key={item.order} className="text-area" name="content">
-                                {item && ( // item이 정의되어 있는지 확인
-                                    <div>
-                                        {isimage ? (
+                            <div  className="text-area" name="content">
+                                {takeboard.content.map((item) => (
+                                    <div key={item.order} className="text-area" name="content">
+                                        {item && ( // item이 정의되어 있는지 확인
                                             <div>
-                                                <div>{item.text}</div>
-                                                {isimage && item.image && <ImageDecoding base64Data={item.image} />}
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <div>{takeboard.content.text}</div>
+                                                {isimage ? (
+                                                    <div>
+                                                        {item.text}
+                                                        {isimage && <ImageDecoding base64Data={item.image} />}
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        {item.text}
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </div>
-                                )}
+                                ))}
                             </div>
-                        ))}
                     </div>
 
                     <Form className='flexbox comment-submit' onSubmit={handleSubmit}>
@@ -141,7 +136,7 @@ const SelectedPage = (props) => {
 
                     {getStatus === 200 && (
                         <div className='Write-btn'>
-                            <button className="btn-hover color-9">수정</button>
+                            <button className="btn-hover color-9" onClick={rewrite}>수정</button>
                             <button className="btn-hover color-9" onClick={goHome}>삭제</button>
                         </div>
                     )}
@@ -174,50 +169,26 @@ const SelectedPage = (props) => {
 export default SelectedPage
 
 /*
-            <div>
-                {data.map((item,) => (
-                    <Comment key={item}/>
-                ))}
-            </div>
-*/
-
-
-/*                        {(istoken&&(
-                            <div className='Write-btn'>
-                                <button className="btn-hover color-9 " >수정</button>
-                                <button className="btn-hover color-9" onClick={goHome}>삭제</button>
+{takeContent.map((item) => (
+                            <div key={item.order} className="text-area" name="content">
+                                {item && ( // item이 정의되어 있는지 확인
+                                    <div>
+                                        {isimage ? (
+                                            <div>
+                                                {takeboard.text}
+                                                {isimage && <ImageDecoding base64Data={takeboard.image} />}
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                {takeboard.content[0].text}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
-                        ))|| (isLogin&&(
-                            <div className='Write-btn'>
-                                <button className="btn-hover color-9 " >수정</button>
-                                <button className="btn-hover color-9" onClick={goHome}>삭제</button>
-                            </div>
-                        ))||
-                            <div></div>
-                        }
-                        
-
-
-
-
-                                
-        useEffect(()=>{
-            axios.get('http://localhost:8080/board/comment/{id}')
-            .then((response) => {
-                    console.log("댓글 조회 성공")
-                    dispatch({type:'comment',payload:response.data})
-                    console.log("수신",response.data)
-                    console.log(data)
-            })
-            .catch(error => {
-                console.error('댓글 조회 실패 : ', error);
-                console.log(data)
-            });
-        },[])
-
-
-
-        {commentList.map((commentItem) => (
-                            <Comment key={commentItem.name} comment={commentItem} />
                         ))}
+
+
+    {takeboard.content[0].text}
+    {takeboard.content[0].image && <ImageDecoding base64Data={takeboard.content[0].image} />}
 */
