@@ -28,6 +28,9 @@ public class Member extends BaseEntity{
     @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private List<Comment> commentList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
+    private List<Message> messageList = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private Role role;    //권한
     public Member(){

@@ -25,6 +25,9 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class InitBoard {
+    /*
+    테스트용 게시글들 양산하는 곳.
+     */
 
     private final InitBoardService initBoardService;
 
