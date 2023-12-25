@@ -64,7 +64,9 @@ let initialState={
     editField : '',
     modalIsOpen:false,
 
-    comparetext:''
+    comparetext:'',
+    chat:'',
+    previewBox: false,
 }
 
 
@@ -177,6 +179,12 @@ function reducer(state=initialState,action){
         case 'getEditField':
             return {...state, editField : action.payload}
 
+        //채팅
+        case 'chat':
+            return {...state, chat : action.payload}
+
+        case 'preveiwBox':
+            return {...state, preveiwBox : action.payload}
 
         default:
             return state;

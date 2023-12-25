@@ -124,12 +124,10 @@ const Write = () => {
     
         if (images.length > 0) {
             const formDataArray = await readyformdata(images);
-            const dataToSend = []
             const setData = {
                 title : text.title,
                 content : formDataArray
             }
-            dataToSend.push(setData)
             // 이미지 인코딩이 완료된 상태이므로 서버로 전송
             try {
                 const response = await axios.post('http://localhost:8080/board/write', setData, {
@@ -150,12 +148,10 @@ const Write = () => {
         }else if (images.length ===0) {
 
             const formDataArray = await readyformdata(images);
-            const dataToSend = []
             const setData = {
                 title : text.title,
                 content : formDataArray
             }
-            dataToSend.push(setData)
             // 보낼 데이터를 완성후 전송 
             try {
                 const response = await axios.post('http://localhost:8080/board/write', setData, {
