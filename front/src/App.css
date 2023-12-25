@@ -143,6 +143,8 @@ body{
 .list-writer{
   width: 10vh;
   text-align: center;
+  text-decoration: end;
+
 }
 
 .homebot{
@@ -212,8 +214,6 @@ body{
   outline: none;
   box-shadow: none;
 }
-
-
 
 .search-btn{
   width: 85px;
@@ -291,6 +291,51 @@ body{
   font-size: 23px;
   color: white;
   font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.chat-recipient>input{
+  outline: none;
+  border : 0px ;
+  background-color: #9FB6F1;
+  color: white;
+  font-size: 23px;
+  font-weight: 800;
+  width: 40%;
+  padding: 0;
+}
+.chat-recipient>button{
+  width: auto;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  height: 40px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%; 
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  background-image: linear-gradient(to right, rgb(124, 148, 246), #afb6f9, #c0c2f8, rgb(21, 63, 231));
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.chat-recipient>button:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.chat-recipient>button:focus {
+  outline: none;
 }
 
 .chat-main{
@@ -362,9 +407,6 @@ body{
   margin-left: 5%;
   font-weight: 800;
 }
-.chat-image{
-  
-}
 
 .chat-bot{
   height: 7%;
@@ -400,9 +442,86 @@ body{
 /*쪽지*/
 
 .mail-Box{
-  height: 50vh;
+  height: 75vh;
+  width: 35vw;
+  margin-top: 10vh;
+  border: 4px solid #9FB6F1;
+}
+.mail-top{
+  border:  2px solid red;
+  height: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mail-top>div{
   width: 100%;
-  margin-top: 10%;
+  display: flex;
+  font-size: 15px;
+  font-weight: 700;
+  justify-content: space-between;
+  height: 40%;
+}
+.mail-top-input{
+  border-left: 0;
+  border-right: 0;
+  border-top : 0;
+  border-bottom : 1px solid #9FB6F1;
+  outline: none;
+  color: black;
+  width: 70%;
+  line-height: 20px;
+  margin-right: 5%;
+}
+.mail-top-title{
+  margin-left: 5%;
+  text-align: center;
+}
+.mail-main{
+  border:  2px solid green;
+  height: 80%;
+}
+.mail-main>input{
+  width: 100%;
+  height: 100%;
+}
+.mail-bot{
+  border:  2px solid blue;
+  height: 10%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.mail-bot>button{
+  width: 30%;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  height: 40px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%; 
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  background-image: linear-gradient(to right, rgb(124, 148, 246), #afb6f9, #c0c2f8, rgb(21, 63, 231));
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.mail-bot>button:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.mail-bot>button:focus {
+  outline: none;
 }
 
 /*페이징*/

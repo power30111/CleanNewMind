@@ -29,6 +29,7 @@ function App() {
         <Route path="/Mypage" element={<Mypage/>}/>
         <Route path="/Rewrite" element={<Rewrite/>}/>
         <Route path="/Chat" element={<Chat/>}/>
+        <Route path="/Mail" element={<Mail/>}/>
       </Routes>
     </div>
   );

@@ -32,6 +32,9 @@ const Navbar = () => {
   const goChat = () =>{
     navigate('/Chat')
   }
+  const goMail = () =>{
+    navigate('/Mail')
+  }
 
   useEffect(() => {
     // 페이지 로딩 시 실행
@@ -59,23 +62,8 @@ const Navbar = () => {
 
   return (
     <div className='nav'>
-      <button className="btn-hover color-9" onClick={goHome}>Home</button>
-
-      {isLogin ? (
-        <button className="btn-hover color-9"onClick={logout}>Log Out</button>
-      ):(
-        <button className="btn-hover color-9" onClick={goLogin}>Log In</button>
-      )}
-
-      {isLogin ? (
-        <button className="btn-hover color-9"onClick={Mypage}>My Page</button>
-      ):(
-        <button className="btn-hover color-9" onClick={goSignup}>Sign Up</button>
-      )}
-      
+      <button className="btn-hover color-9" onClick={goHome}>Home</button>      
       <Sidebar width={320}>
-        <button className="btn-hover color-9" onClick={goHome}>Home</button>
-
         {isLogin ? (
           <button className="btn-hover color-9"onClick={logout}>Log Out</button>
         ):(
@@ -89,9 +77,12 @@ const Navbar = () => {
         )}
 
         <button className="btn-hover color-9" onClick={goChat}>Chat</button>
-        
-        
-        <Mail/>
+        <button className="btn-hover color-9" onClick={goMail}>Mail</button>
+
+        <div>
+          
+
+        </div>
       </Sidebar>
     </div>
   );
