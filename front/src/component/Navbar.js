@@ -2,6 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Sidebar from './Sidebar';
+import Mail from './Mail';
 
 
 const Navbar = () => {
@@ -26,6 +28,9 @@ const Navbar = () => {
   }
   const Mypage = ()=>{
     navigate('/Mypage')
+  }
+  const goChat = () =>{
+    navigate('/Chat')
   }
 
   useEffect(() => {
@@ -68,6 +73,26 @@ const Navbar = () => {
         <button className="btn-hover color-9" onClick={goSignup}>Sign Up</button>
       )}
       
+      <Sidebar width={320}>
+        <button className="btn-hover color-9" onClick={goHome}>Home</button>
+
+        {isLogin ? (
+          <button className="btn-hover color-9"onClick={logout}>Log Out</button>
+        ):(
+          <button className="btn-hover color-9" onClick={goLogin}>Log In</button>
+        )}
+
+        {isLogin ? (
+          <button className="btn-hover color-9"onClick={Mypage}>My Page</button>
+        ):(
+          <button className="btn-hover color-9" onClick={goSignup}>Sign Up</button>
+        )}
+
+        <button className="btn-hover color-9" onClick={goChat}>Chat</button>
+        
+        
+        <Mail/>
+      </Sidebar>
     </div>
   );
 }
