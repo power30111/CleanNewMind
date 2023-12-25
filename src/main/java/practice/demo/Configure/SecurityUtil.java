@@ -1,6 +1,5 @@
 package practice.demo.Configure;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 public class SecurityUtil {
@@ -11,7 +10,7 @@ public class SecurityUtil {
     }
 
     public static Boolean isAnonymousUser(){
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();   //현재 사용자 인증정보를 가져온다.
         if (authentication.getName().equals("anonymousUser")){
             return true;
         }else{
@@ -20,11 +19,11 @@ public class SecurityUtil {
     }
 
     public static Long getCurrentMemberId(){
-        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();   //현재 사용자 인증정보를 가져온다.
 
-        if(authentication == null || authentication.getName() == null){
-            throw new RuntimeException("Security Context에 인증 정보가 없습니다.");
+        if(authentication == null || authentication.getName() == null){             //인증정보가 없거나, null일경우
+            throw new RuntimeException("Security Context에 인증 정보가 없습니다.");   //예외발생 #RuntimerException은 바꿔야하긴함..
         }
-        return Long.parseLong(authentication.getName());
+        return Long.parseLong(authentication.getName());        //인증정보의 이름을 Long 형태로 반환.
     }
 }
