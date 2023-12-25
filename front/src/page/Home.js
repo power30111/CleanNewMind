@@ -99,7 +99,7 @@ const Home = () => {
                         <div className='list-No'>No</div>
 
                         <div className='list-title'>제목</div>
-
+                        
                         <div className='list-writer'>작성자</div>
                     </div>
 
