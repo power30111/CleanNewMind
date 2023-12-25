@@ -65,8 +65,12 @@ let initialState={
     modalIsOpen:false,
 
     comparetext:'',
-    chat:'',
+    chat:{
+        text:'',
+        receiver:'상대방',
+    },
     previewBox: false,
+    mail:''
 }
 
 
@@ -180,8 +184,11 @@ function reducer(state=initialState,action){
             return {...state, editField : action.payload}
 
         //채팅
-        case 'chat':
-            return {...state, chat : action.payload}
+        case 'chat-text':
+            return {...state, chat : {...state.chat, text: action.payload}}
+
+        case 'chat-receiver':
+            return {...state, chat : {...state.chat, receiver: action.payload}}
 
         case 'preveiwBox':
             return {...state, preveiwBox : action.payload}
