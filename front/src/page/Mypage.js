@@ -29,6 +29,10 @@ const Mypage = () => {
         dispatch({type : 'closeModal', payload : false})
     }
 
+    // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
 
 
     const comparePassword = () =>{
@@ -44,7 +48,7 @@ const Mypage = () => {
             dispatch({type:'getmyInfo', payload:updateData})
             
 
-            axios.post('http://localhost:8080/user/accountUpdate',updateData,{
+            api.post('/user/accountUpdate',updateData,{
                 headers: {
                     Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
                 }
@@ -70,7 +74,7 @@ const Mypage = () => {
 
 
     useEffect(()=>{
-        axios.get('http://localhost:8080/user/getMyInfo',{
+        api.get('/user/getMyInfo',{
             headers: {
                 Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
             }
@@ -104,7 +108,7 @@ const Mypage = () => {
         dispatch({type:'getmyInfo', payload:updateData})
         e.preventDefault();
     
-            axios.post('http://localhost:8080/user/accountUpdate',updateData,{
+            api.post('/user/accountUpdate',updateData,{
                 headers: {
                     Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
                 }

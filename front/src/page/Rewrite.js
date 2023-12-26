@@ -8,6 +8,12 @@ import { useEffect } from 'react';
 
 const Rewrite = () => {
 
+    // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
+
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -28,7 +34,7 @@ const Rewrite = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post(`http://localhost:8080/board/list/${urlid}/update`,text,{
+        api.post(`/board/list/${urlid}/update`,text,{
             headers: {
                 Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
             }

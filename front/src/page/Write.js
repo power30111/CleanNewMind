@@ -19,6 +19,10 @@ const Write = () => {
     const [images, setImages] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
 
+    // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
 
 
     const goHome = () => {
@@ -130,7 +134,7 @@ const Write = () => {
             }
             // 이미지 인코딩이 완료된 상태이므로 서버로 전송
             try {
-                const response = await axios.post('http://localhost:8080/board/write', setData, {
+                const response = await api.post('/board/write', setData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -154,7 +158,7 @@ const Write = () => {
             }
             // 보낼 데이터를 완성후 전송 
             try {
-                const response = await axios.post('http://localhost:8080/board/write', setData, {
+                const response = await api.post('/board/write', setData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

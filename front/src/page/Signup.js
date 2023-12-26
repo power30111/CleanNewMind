@@ -23,12 +23,17 @@ const SignUp = () => {
         navigate('/login')
     }
 
-    
+    // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
+
+
         /* 클릭이벤트 유저정보 전달(수정 필) */
         const handleSubmit=(e)=>{
             e.preventDefault();
     
-            axios.post('http://localhost:8080/user/signup',user)
+            api.post('/user/signup',user)
             .then((response) => {
                 alert('회원가입 성공');
                 console.log("회원가입 성공")

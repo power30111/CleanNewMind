@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch ,useSelector } from 'react-redux'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
@@ -9,12 +8,9 @@ import SockJS from 'sockjs-client';
 const Chat = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
 
     const chat = useSelector((state)=>state.chat);
     const token = useSelector((state) => state.token);
-    const inputRef = useRef(null);  // Ref 생성
     const [open, setOpen] = useState(false);
 
     //웹소켓 변수 
@@ -28,32 +24,39 @@ const Chat = () => {
         // SockJS를 사용하여 WebSocket 연결
         const socket = new SockJS('http://localhost:8080/ws');
         const stomp = Stomp.over(socket);
-
-        // WebSocket 연결 시
-        stomp.connect(
-            // 헤더에 토큰 추가
-            {Authorization: `Bearer ${token}`},
-            () => {
-              console.log('WebSocket 연결 성공');
-              setStompClient(stomp);
-      
-              // /topic/public 토픽을 구독하여 새로운 메시지 수신
-              stomp.subscribe('/topic/room1', (message) => {
-                console.log('Received message:', message);
-              });
-            }
-          );
     
-        // 컴포넌트 언마운트 시 WebSocket 연결 해제
-        return () => {
-            stomp.disconnect();
-        };
-    }, []);
+        // WebSocket 연결 시
+        stomp.connect({
+            //헤더
+            Authorization: `Bearer ${token}`
+        }, () => {
+            console.log('WebSocket 연결 성공 ');
+            setStompClient(stomp);
+        
+            // /topic/public 토픽을 구독하여 새로운 메시지 수신
+            stomp.subscribe('http://localhost:8080/pub', (message) => {
+                const newMessage = JSON.parse(message.body);
+                setMessages((prevMessages) => [...prevMessages, newMessage]);
+            });
+        },
+        (error) => {
+            console.error('WebSocket 연결 실패:', error);
+            console.log(token)
+            // 여기서 에러를 콘솔에 출력하거나 사용자에게 알림을 추가할 수 있습니다.
+        }
+    );
+
+    // 컴포넌트 언마운트 시 WebSocket 연결 해제
+    return () => {
+        stomp.disconnect();
+    };
+}, []);
 
     // 메시지 전송 함수
     const sendMessage = () => {
+        console.log('클릭!')
         // /app/chat.sendMessage 엔드포인트로 메시지 전송
-        stompClient.send('/pub/chat', {}, JSON.stringify({ content: chat.text }));
+        stompClient.send('http://localhost:8080/ws/app/chat.sendMessage', {}, JSON.stringify({ content: chat.text }));
         dispatch({type:'chat-text',payload:''})
     };
 
