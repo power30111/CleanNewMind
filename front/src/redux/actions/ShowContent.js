@@ -1,4 +1,9 @@
+import { useDispatch, useSelector } from 'react-redux/'
+
+
 function image(takeboard) {
+
+
     return (dispatch) =>{
         
         if (takeboard.content.length > 0) {
