@@ -10,6 +10,11 @@ import List from '../component/List';
 
 const Mywrite = () => {
 
+        // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -20,7 +25,7 @@ const Mywrite = () => {
     const data = useSelector((state) => state.data)
 /**/
     useEffect(()=>{
-        axios.get('http://localhost:8080/board/list')
+        api.get('/board/list')
         .then((response) => {
                 console.log("게시글 조회 성공")
                 dispatch({type:'boardlist',payload:response.data})

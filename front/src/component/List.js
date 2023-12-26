@@ -19,11 +19,17 @@ const List = (props) => {
 
 
     const selectedPage = (()=>{
+
+        // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
+
         dispatch({type:'urlid',payload:id})
 
         console.log("페이징",paging)
 
-        axios.get(`http://localhost:8080/board/list/${id}`,{headers: {
+        api.get(`/board/list/${id}`,{headers: {
             Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
         }})
         .then((response) => {

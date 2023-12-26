@@ -19,6 +19,13 @@ const SelectedPage = (props) => {
     const getStatus = useSelector((state)=>state.getStatus)
     const isimage = useSelector((state) => state.isimage);
     
+
+        // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
+
+
     const takeContent=[]
         takeContent.push(takeboard.content)
 
@@ -42,7 +49,7 @@ const SelectedPage = (props) => {
 
     /* 삭제요청 */
     const deletelist = (() => {
-        axios.get(`http://localhost:8080/board/list/${id}/delete`,{headers: {
+        api.get(`/board/list/${id}/delete`,{headers: {
             Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
         }})
         .then((response) => {
@@ -59,7 +66,7 @@ const SelectedPage = (props) => {
     const handleSubmit=(e)=>{
         e.preventDefault();
 
-        axios.post(`http://localhost:8080/board/comment/${id}`, comment.content, {
+        api.post(`/board/comment/${id}`, comment.content, {
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
@@ -81,7 +88,7 @@ const SelectedPage = (props) => {
         /* 서버에 전송 후 댓글 받기 */
     const recall = (()=>{
 
-        axios.get(`http://localhost:8080/board/list/${id}`,{headers: {
+        api.get(`/board/list/${id}`,{headers: {
             Authorization: `Bearer ${token}` // Bearer 토큰 방식 사용
         }})
         .then((response) => {

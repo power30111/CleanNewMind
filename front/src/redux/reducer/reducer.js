@@ -126,7 +126,7 @@ function reducer(state=initialState,action){
             return { ...state, text:{...state.text, [textName]: textValue } ,inputtext:textValue};
 
         case 'reset' :
-            return { ...state, text:{ title : '', content: ''} };
+            return { ...state, text:{ id : '', title : '', writer : '', content : [],} };
 
         case 'comment':
             const { name: commentName, value: commentValue } = action.payload;

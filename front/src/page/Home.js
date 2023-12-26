@@ -9,6 +9,11 @@ import Paging from '../component/Paging';
 
 const Home = () => {
 
+    // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
+
     const [page,setpage] = useState(1);
     const data = useSelector((state) => state.data)
     const paging = useSelector((state) => state.paging)
@@ -48,7 +53,7 @@ const Home = () => {
     // 검색 및 페이징 정보를 이용하여 데이터를 가져오는 함수
     const fetchData = (searchquery) => {
     
-        axios.get(`http://localhost:8080/board/list/Page?page=${page}&${searchquery}`)
+        api.get(`/board/list/Page?page=${page}&${searchquery}`)
         .then((response) => {
             dispatch({ type: 'boardlist', payload: response.data.content });
             dispatch({ type: 'paging', payload: response.data});

@@ -20,9 +20,14 @@ const Write = () => {
     const [previewImages, setPreviewImages] = useState([]);
 
 
+    // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
 
     const goHome = () => {
         navigate('/');
+        dispatch({ type: 'reset'});
     };
     
 
@@ -109,9 +114,10 @@ const Write = () => {
                 }
             }
         } else if (newImages.length === 0) {
+            const message = text.content.replace(/<[^>]+>/g, ''); // 정규 표현식을 사용하여 HTML 태그 제거
             const data ={
                 order: '0',
-                text: text.content,
+                text: message,
                 image: 'null',
             }
             formDataArray.push(data);//어레이에 데이터 전달 
@@ -130,7 +136,7 @@ const Write = () => {
             }
             // 이미지 인코딩이 완료된 상태이므로 서버로 전송
             try {
-                const response = await axios.post('http://localhost:8080/board/write', setData, {
+                const response = await api.post('/board/write', setData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -154,7 +160,7 @@ const Write = () => {
             }
             // 보낼 데이터를 완성후 전송 
             try {
-                const response = await axios.post('http://localhost:8080/board/write', setData, {
+                const response = await api.post('/board/write', setData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -178,7 +184,7 @@ const Write = () => {
             ['bold', 'italic', 'underline', 'strike'],
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
             [{ list: 'ordered' }, { list: 'bullet' }],
-            ['link', 'image'],
+            ['link'],
             ['clean'],
         ],
         // 이미지 드롭 모듈 활성화
