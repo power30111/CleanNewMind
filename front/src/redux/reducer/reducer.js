@@ -70,7 +70,9 @@ let initialState={
         receiver:'상대방',
     },
     previewBox: false,
-    mail:''
+    mail:'',
+    prevmessage:[],
+    stompClient:'null'
 }
 
 
@@ -193,6 +195,12 @@ function reducer(state=initialState,action){
         case 'preveiwBox':
             return {...state, preveiwBox : action.payload}
 
+        case 'prevmessage':
+            return {...state, prevmessage: action.payload}
+        
+        case 'stompClient':
+        return {...state, stompClient: action.payload}
+        
         default:
             return state;
     }
