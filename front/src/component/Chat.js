@@ -32,12 +32,8 @@ const Chat = () => {
         }, () => {
             console.log('WebSocket 연결 성공 ');
             setStompClient(stomp);
+            getmessage(stomp)
         
-            // /topic/public 토픽을 구독하여 새로운 메시지 수신
-            stomp.subscribe('/pub', (message) => {
-                const newMessage = JSON.parse(message.body);
-                setMessages((prevMessages) => [...prevMessages, newMessage]);
-            });
         },
         (error) => {
             console.error('WebSocket 연결 실패:', error);
@@ -52,11 +48,21 @@ const Chat = () => {
     };
 }, []);
 
+const getmessage = (stomp) => {
+    // /topic/public 토픽을 구독하여 새로운 메시지 수신
+    stomp.subscribe('/pub', (message) => {
+        const newMessage = JSON.parse(message.body);
+        console.log('새로운 메세지', newMessage);
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+};
+
     // 메시지 전송 함수
-    const sendMessage = () => {
+    const sendMessage = (e) => {
+        e.preventDefault();
         console.log('클릭!')
         // /app/chat.sendMessage 엔드포인트로 메시지 전송
-        stompClient.send('ws/app/chat.sendMessage', {}, JSON.stringify({ content: chat.text }));
+        stompClient.send('/pub/chat', {}, JSON.stringify({ content: chat.text }));
         dispatch({type:'chat-text',payload:''})
     };
 
