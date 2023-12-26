@@ -21,6 +21,7 @@ import practice.demo.domain.state.Role;
 import practice.demo.jwt.TokenProvider;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Configuration
@@ -29,77 +30,14 @@ import java.util.List;
 public class ChatPreHandler implements ChannelInterceptor {
 
     private final TokenProvider tokenProvider;
-    long memberId = 0L;
 
     @Override
-    public Message<?> preSend(Message<?> message, MessageChannel channel){
-        try{
-            // StompHeaderAccessor를 통해 메시지의 헤더 정보를 얻는다.
-            StompHeaderAccessor headerAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-            
-            //Command(메시지 타입)확인
-            StompCommand command = headerAccessor.getCommand();
+    public Message<?> preSend(Message<?> message, MessageChannel channel) {
+        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
 
-            if(command.equals(StompCommand.UNSUBSCRIBE) || command.equals(StompCommand.MESSAGE) ||
-                    (command.equals(StompCommand.CONNECTED) || command.equals(StompCommand.SEND))){
-                return message;
-            } else if (command.equals(StompCommand.ERROR)) {
-                // ERROR Command인 경우 예외를 던진다.
-                throw new MessageDeliveryException("error");
-            }
-
-            //Authorization 헤더 확인
-            String authorizationHeader = headerAccessor.getFirstNativeHeader("Authorization");
-            log.info("1번지점. authorizationHeader = "+authorizationHeader);
-            if(!StringUtils.hasText(authorizationHeader)){
-                log.info("chat header가 없는 요청입니다.");
-                throw new MalformedJwtException("jwt");
-            }
-
-            // Token 분리 및 유효성 검사
-            String token = "";
-
-            String authorizationHeaderStr = authorizationHeader.replace("[","").replace("]","");
-            log.info("2번 지점. authorizationHeaderStr = "+authorizationHeaderStr);
-            if(authorizationHeaderStr.startsWith("Bearer ")){
-                log.info("Bearer로 시작하는거확인해서 token 수정");
-                token = authorizationHeaderStr.replace("Bearer ","");
-            }else{
-                log.error("Authorization 헤더 형식이 다릅니다. : {}",authorizationHeaderStr);
-                throw new MalformedJwtException("jwt");
-            }
-
-            log.info("3번지점 token = "+token);
-            //JWT 에서 MemberId를 얻는다.
-            memberId = SecurityUtil.getCurrentMemberId();
-
-            //Token 유효성 검사
-            boolean isTokenValid = tokenProvider.validateToken(token);
-
-            // 토큰이 유효한 경우 인증 정보 설정
-            if(isTokenValid){
-                setAuthentication(message,headerAccessor);
-            }
-        }catch (MessageDeliveryException e){
-            //메시지 에러 발생
-            log.error("메시지 에러 발생",e);
-            throw new MessageDeliveryException("error");
+        if(accessor.getCommand() == StompCommand.CONNECT){
+            tokenProvider.validateToken(Objects.requireNonNull(accessor.getFirstNativeHeader("Authorization")).substring(7));
         }
-        //최종적으로 처리된 메시지 반환.
         return message;
-    }
-
-    private void setAuthentication(Message<?> message, StompHeaderAccessor headerAccessor) {
-        //JWT에서 얻은 MemberId를 사용하여 인증토큰생성
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                memberId, null, List.of(new SimpleGrantedAuthority(Role.ROLE_USER.name()))
-        );
-        //SecurityContextHolder에 인증 정보 설정
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        
-        // StompHedaerAccessor에 사용자 정보 설정
-        headerAccessor.setUser(authentication);
-        
-        
     }
 }
