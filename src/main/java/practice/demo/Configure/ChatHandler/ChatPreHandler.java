@@ -31,7 +31,7 @@ public class ChatPreHandler implements ChannelInterceptor {
     long memberId = 0L;
 
     @Override
-    public Message<?> preSend(Message<?> message, MessageChannel channel) {
+    public Message<?> preSend(Message<?> message, MessageChannel channel){
         try{
             // StompHeaderAccessor를 통해 메시지의 헤더 정보를 얻는다.
             StompHeaderAccessor headerAccessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
