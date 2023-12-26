@@ -25,8 +25,8 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        //stomp접속을 위한 Endpoint 설정.
-        registry.addEndpoint("/ws").setAllowedOriginPatterns("http://localhost:3000").withSockJS();
+        //stomp 접속을 위한 Endpoint 설정.
+        registry.addEndpoint("/ws").setAllowedOriginPatterns("*").withSockJS();
         registry.setErrorHandler(chatErrorHandler);
     }
 
@@ -34,7 +34,8 @@ public class ChatConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         //클라이언트 에서 보내는 send 요청 처리
         registry.setApplicationDestinationPrefixes("/pub");
-        //sub 되어있는 클라이언트 메시지 전달
+
+        //spring 에서 제공하는 내장 broker 사용. queue -> 1:1, topic -> 1:N
         registry.enableSimpleBroker("/sub","/sub/list");
 
     }
