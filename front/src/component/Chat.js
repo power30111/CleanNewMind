@@ -26,20 +26,23 @@ const Chat = () => {
     
     useEffect(() => {
         // SockJS를 사용하여 WebSocket 연결
-        const socket = new SockJS('http://localhost:8080/websocket-endpoint');
+        const socket = new SockJS('http://localhost:8080/ws');
         const stomp = Stomp.over(socket);
-    
+
         // WebSocket 연결 시
-        stomp.connect({}, () => {
-            console.log('WebSocket 연결 성공 ');
-            setStompClient(stomp);
-        
-            // /topic/public 토픽을 구독하여 새로운 메시지 수신
-            stomp.subscribe('/topic/public', (message) => {
-                const newMessage = JSON.parse(message.body);
-                setMessages((prevMessages) => [...prevMessages, newMessage]);
-            });
-        });
+        stomp.connect(
+            // 헤더에 토큰 추가
+            {Authorization: `Bearer ${token}`},
+            () => {
+              console.log('WebSocket 연결 성공');
+              setStompClient(stomp);
+      
+              // /topic/public 토픽을 구독하여 새로운 메시지 수신
+              stomp.subscribe('/topic/room1', (message) => {
+                console.log('Received message:', message);
+              });
+            }
+          );
     
         // 컴포넌트 언마운트 시 WebSocket 연결 해제
         return () => {
@@ -50,7 +53,7 @@ const Chat = () => {
     // 메시지 전송 함수
     const sendMessage = () => {
         // /app/chat.sendMessage 엔드포인트로 메시지 전송
-        stompClient.send('/app/chat.sendMessage', {}, JSON.stringify({ content: chat.text }));
+        stompClient.send('/pub/chat', {}, JSON.stringify({ content: chat.text }));
         dispatch({type:'chat-text',payload:''})
     };
 
@@ -106,14 +109,14 @@ return (
                 </div>
             </div>
             
-            <div className='chat-bot' onSubmit={sendMessage}>
+            <form className='chat-bot' onSubmit={sendMessage}>
                 <input 
                     alt='입력창'
                     value={chat.text} 
                     onChange={handleInputChange}>
                 </input>
                 <button type='submit'>전송</button>
-            </div>
+            </form>
         </div>
 
     </div>

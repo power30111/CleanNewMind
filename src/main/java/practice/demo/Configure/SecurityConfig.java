@@ -53,6 +53,7 @@ public class SecurityConfig {
                                 request
                                         .requestMatchers("/user/**","/test/**").permitAll()
                                         .requestMatchers("/board/list/**").permitAll()
+                                        .requestMatchers("/ws/**").permitAll()
                                         .anyRequest().authenticated()
                                         .and()
                                         .apply(new JwtSecurityConfig(tokenProvider));
