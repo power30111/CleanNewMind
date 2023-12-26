@@ -30,7 +30,12 @@ public class ChatController {
         //채팅방 입장 메시지를 특정 채널에 전송하는 메서드.
         template.convertAndSend("/sub/chat/room/"+chatRequest.getId(),chatRequest);
     }
+    @MessageMapping("/chat")
+    public void chat(@Payload ChatRequest chatRequest){
+        log.info("chat 접속");
 
+        template.convertAndSend("/topic/room1",chatRequest);
+    }
 
 
 }

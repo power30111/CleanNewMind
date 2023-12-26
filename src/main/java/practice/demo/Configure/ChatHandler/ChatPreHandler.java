@@ -15,6 +15,7 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import practice.demo.Configure.SecurityUtil;
 import practice.demo.domain.state.Role;
 import practice.demo.jwt.TokenProvider;
@@ -49,7 +50,8 @@ public class ChatPreHandler implements ChannelInterceptor {
 
             //Authorization 헤더 확인
             String authorizationHeader = headerAccessor.getFirstNativeHeader("Authorization");
-            if(authorizationHeader == null){
+            log.info("1번지점. authorizationHeader = "+authorizationHeader);
+            if(!StringUtils.hasText(authorizationHeader)){
                 log.info("chat header가 없는 요청입니다.");
                 throw new MalformedJwtException("jwt");
             }
@@ -58,13 +60,16 @@ public class ChatPreHandler implements ChannelInterceptor {
             String token = "";
 
             String authorizationHeaderStr = authorizationHeader.replace("[","").replace("]","");
+            log.info("2번 지점. authorizationHeaderStr = "+authorizationHeaderStr);
             if(authorizationHeaderStr.startsWith("Bearer ")){
+                log.info("Bearer로 시작하는거확인해서 token 수정");
                 token = authorizationHeaderStr.replace("Bearer ","");
             }else{
                 log.error("Authorization 헤더 형식이 다릅니다. : {}",authorizationHeaderStr);
                 throw new MalformedJwtException("jwt");
             }
 
+            log.info("3번지점 token = "+token);
             //JWT 에서 MemberId를 얻는다.
             memberId = SecurityUtil.getCurrentMemberId();
 
