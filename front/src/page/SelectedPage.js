@@ -19,6 +19,13 @@ const SelectedPage = (props) => {
     const getStatus = useSelector((state)=>state.getStatus)
     const isimage = useSelector((state) => state.isimage);
     
+
+        // Axios 인스턴스 생성 및 기본 URL 설정
+    const api = axios.create({
+        baseURL: 'http://localhost:8080',
+    });
+
+
     const takeContent=[]
         takeContent.push(takeboard.content)
 
