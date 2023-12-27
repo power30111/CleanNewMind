@@ -50,7 +50,7 @@ const Chat = () => {
 
 const getmessage = (stomp) => {
     // /topic/public 토픽을 구독하여 새로운 메시지 수신
-    stomp.subscribe('/pub', (message) => {
+    stomp.subscribe('/topic/room1', (message) => {
         const newMessage = JSON.parse(message.body);
         console.log('새로운 메세지', newMessage);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -62,7 +62,7 @@ const getmessage = (stomp) => {
         e.preventDefault();
         console.log('클릭!')
         // /app/chat.sendMessage 엔드포인트로 메시지 전송
-        stompClient.send('/pub/chat', {}, JSON.stringify({ content: chat.text }));
+        stompClient.send('/app/chat', {}, JSON.stringify({  content: chat.text }));
         dispatch({type:'chat-text',payload:''})
     };
 
@@ -113,7 +113,10 @@ return (
 
                 <div>
                     {messages.map((message, index) => (
-                        <div className='chat-content-2' key={index}>{message.content}</div>
+                        <div className='chat-content-right'>
+                            <div className='chat-content-2' key={index}>{message.content}</div>
+                        </div>
+                        
                     ))}
                 </div>
             </div>

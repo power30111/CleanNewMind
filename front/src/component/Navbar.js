@@ -62,7 +62,21 @@ const Navbar = () => {
 
   return (
     <div className='nav'>
-      <button className="btn-hover color-9" onClick={goHome}>Home</button>      
+      <button className="btn-hover color-9" onClick={goHome}>Home</button>  
+      {isLogin ? (
+          <button className="btn-hover color-9"onClick={logout}>Log Out</button>
+        ):(
+          <button className="btn-hover color-9" onClick={goLogin}>Log In</button>
+        )}
+
+        {isLogin ? (
+          <button className="btn-hover color-9"onClick={Mypage}>My Page</button>
+        ):(
+          <button className="btn-hover color-9" onClick={goSignup}>Sign Up</button>
+        )}
+
+        <button className="btn-hover color-9" onClick={goChat}>Chat</button>
+        <button className="btn-hover color-9" onClick={goMail}>Mail</button>    
       <Sidebar width={320}>
         {isLogin ? (
           <button className="btn-hover color-9"onClick={logout}>Log Out</button>
@@ -79,10 +93,6 @@ const Navbar = () => {
         <button className="btn-hover color-9" onClick={goChat}>Chat</button>
         <button className="btn-hover color-9" onClick={goMail}>Mail</button>
 
-        <div>
-          
-
-        </div>
       </Sidebar>
     </div>
   );
