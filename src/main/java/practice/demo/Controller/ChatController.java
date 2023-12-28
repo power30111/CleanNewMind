@@ -23,19 +23,34 @@ public class ChatController {
      * @param chatRequest 사용자가 보낸 메시지 내용. (id, sender, content)
      * @param headerAccessor websocket 메시지의 헤더에 접근할수있는 객체.
      */
+
     @MessageMapping("/chat/enter")
     public void chatEnter(@Payload ChatRequest chatRequest, SimpMessageHeaderAccessor headerAccessor){
-        log.info("Chat Enter : {}", chatRequest);
+        log.info("Chat Enter : {}", chatRequest.getSender());
 
-        //채팅방 입장 메시지를 특정 채널에 전송하는 메서드.
-        template.convertAndSend("/sub/chat/room/"+chatRequest.getId(),chatRequest);
-    }
-    @MessageMapping("/chat")
-    public void chat(@Payload ChatRequest chatRequest){
-        log.info("chat 접속");
+        chatRequest.setContent(chatRequest.getSender() + "님이 채팅방에 참여하였습니다.");
 
-        template.convertAndSend("/topic/room1",chatRequest);
+        template.convertAndSend("/topic/room1",chatRequest.getContent());
     }
+    @MessageMapping("/chat/message")
+    public void chat(@Payload ChatRequest chatRequest,SimpMessageHeaderAccessor headerAccessor){
+
+        log.info(chatRequest.getSender()+" --chatting >> "+chatRequest.getContent());
+
+        template.convertAndSend("/topic/room1",chatRequest.getContent());
+    }
+
+    @MessageMapping("/chat/unSub")
+    public void chatOut(@Payload ChatRequest chatRequest){
+        log.info("Chat Out : {}",chatRequest.getSender());
+
+        chatRequest.setContent(chatRequest.getSender() + "님이 채팅방에서 나갔습니다.");
+
+        template.convertAndSend("/topic/room1",chatRequest.getContent());
+    }
+
+
+
 
 
 }
