@@ -228,6 +228,13 @@ body{
   border-top:0px; 
   border-bottom: 0px;
 }
+.chatposition{
+  position: absolute;
+  bottom: 40%;
+  right: 20%;
+}
+
+
 /*사이드메뉴*/
 
 .sidebar-container {
@@ -267,11 +274,39 @@ body{
   align-items: center;
 }
 /*채팅*/
+.chaticon{
+  border: 2px solid #88aaff;
+  border-radius: 20px;
+  padding: 15px;
+}
+.chaticon:hover{
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.chatdiv{
+  padding: 10px;
+  transition: visibility 400ms cubic-bezier(0.36, 0, 0, 1) 0s;
+  animation: 600ms cubic-bezier(0.36, 0, 0, 1) 0s 1 normal both running chat-open;
+}
+@keyframes chat-open{
+  0% {
+    opacity: 0;
+    transform: translate3d(0px, 20px, 0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+  }
+}
+.chatclose{
+  display: flex;
+  justify-content: flex-end;
+}
 
 .chat-Box{
-  height: 75vh;
-  width: 35vw;
-  margin-top: 10vh;
+  height: 700px;
+  width: 400px;
+  margin-top: 10px;
 }
 .chat-top{
   display: flex;

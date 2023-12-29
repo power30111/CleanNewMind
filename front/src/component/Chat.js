@@ -130,7 +130,6 @@ return (
                 <button type='submit'>전송</button>
             </form>
         </div>
-
     </div>
 )
 }
