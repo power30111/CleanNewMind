@@ -1,21 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux/'
-
-
 function image(takeboard) {
-
-
-    return (dispatch) =>{
+    return (dispatch) => {
+        const hasImage = takeboard.content.some(content => content.image === '');
         
-        if (takeboard.content.length > 0) {
-            if (takeboard.content[0].image !=null) {
-                dispatch({type:'isimage'});
+        
+        if (hasImage) {
+            dispatch({ type: 'noimage' });
+        } else {
+            dispatch({ type: 'haveimage' });
             }
-            else if ( takeboard.content[0].image ===null) {
-                dispatch({type:'noimage'});
-            }
-        }
-    };
+        };
 }
-
 
 export const ShowContent={image}

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { ImageDrop } from 'quill-image-drop-module';
+import Chat from '../component/Chat';
 
 // 나머지 코드는 이전과 동일
 ReactQuill.Quill.register('modules/imageDrop', ImageDrop);
@@ -152,7 +153,15 @@ const Write = () => {
             }
         }else if (images.length ===0) {
 
-            const formDataArray = await readyformdata(images);
+            const formDataArray=[]
+            const message = text.content.replace(/<[^>]+>/g, ''); // 정규 표현식을 사용하여 HTML 태그 제거
+            const data ={
+                order: '0',
+                text: message,
+                image: '',
+            }
+            formDataArray.push(data)
+
             const setData = {
                 title : text.title,
                 content : formDataArray
@@ -244,6 +253,7 @@ const Write = () => {
                     </div>
                 </Form.Group>
             </Form>
+            <Chat/>
         </Container>
     );
 };

@@ -4,6 +4,7 @@ import { Container, Form} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Chat from '../component/Chat';
 
 
 const Rewrite = () => {
@@ -70,6 +71,7 @@ const Rewrite = () => {
                     </div>
                 </Form.Group>
             </Form>
+            <Chat/>
         </Container>
     )   
 }

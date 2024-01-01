@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch ,useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom';
+import Chat from '../component/Chat';
 
 
 const Mail = () => {
@@ -79,6 +80,7 @@ return (
             </div>
 
         </div>
+        <Chat/>
     </div>
 )
 }
