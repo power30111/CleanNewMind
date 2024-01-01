@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux/'
 import { useEffect } from 'react';
 import ImageDecoding from '../component/ImageDecoding'
+import Chat from '../component/Chat';
+import { ShowContent } from '../redux/actions/ShowContent'
 
 
 const SelectedPage = (props) => {
@@ -24,6 +26,10 @@ const SelectedPage = (props) => {
     const api = axios.create({
         baseURL: 'http://localhost:8080',
     });
+
+    useEffect(() => {
+        dispatch(ShowContent.image(takeboard))
+    }, []);
 
 
     const takeContent=[]
@@ -117,16 +123,10 @@ const SelectedPage = (props) => {
                                     <div key={item.order} className="text-area" name="content">
                                         {item && ( // item이 정의되어 있는지 확인
                                             <div>
-                                                {isimage ? (
                                                     <div>
                                                         {item.text}
-                                                        {isimage && <ImageDecoding base64Data={item.image} />}
+                                                        {isimage?  <ImageDecoding base64Data={item.image}/>:<div style={{display:'none'}}></div>}
                                                     </div>
-                                                ) : (
-                                                    <div>
-                                                        {item.text}
-                                                    </div>
-                                                )}
                                             </div>
                                         )}
                                     </div>
@@ -163,10 +163,7 @@ const SelectedPage = (props) => {
                     </div>
                 </div>
             </div>
-            
-            
-
-            
+            <Chat/>
         </Container>
     )
 }

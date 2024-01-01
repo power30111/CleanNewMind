@@ -5,6 +5,7 @@ import { Form,  Container } from 'react-bootstrap';
 import { useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import Chat from '../component/Chat';
 
 const Mypage = () => {
 
@@ -249,6 +250,7 @@ const Mypage = () => {
             </div>
             )}
         </Modal>
+        <Chat/>
     </Container>
 )}
 

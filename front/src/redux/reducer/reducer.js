@@ -54,7 +54,7 @@ let initialState={
         content : [{
             order:'',
             text:'',
-            image:'',
+            image:'null',
         }],
     },
     comment:{
@@ -121,7 +121,7 @@ function reducer(state=initialState,action){
 
         /* 글쓰기 */
         case 'title' : 
-            return {...state, text : {title : action.payload}}
+            return {...state, text : {...state.text, title : action.payload}}
 
         case 'write' :
             const { name: textName, value: textValue } = action.payload;
@@ -139,7 +139,7 @@ function reducer(state=initialState,action){
         case 'comparetext':
             return {...state, comparetext : action.payload}
 
-        case 'isimage' :
+        case 'haveimage' :
             return {...state, isimage: true}
             
         case 'noimage' :

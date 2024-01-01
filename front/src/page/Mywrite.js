@@ -22,11 +22,6 @@ const Mywrite = () => {
         navigate('/Write')
     }
 
-    // Axios 인스턴스 생성 및 기본 URL 설정
-    const api = axios.create({
-        baseURL: 'http://localhost:8080',
-    });
-
 
     const data = useSelector((state) => state.data)
 /**/
@@ -69,6 +64,7 @@ const Mywrite = () => {
             <div className='homebot Write-btn'>
             <button className="btn-hover color-9" onClick={goWrite}>글쓰기</button>
             </div>
+            <Chat/>
         </Container>
         
     )

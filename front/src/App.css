@@ -230,8 +230,8 @@ body{
 }
 .chatposition{
   position: absolute;
-  bottom: 40%;
-  right: 20%;
+  bottom: 20%;
+  right: 10%;
 }
 
 
@@ -379,6 +379,7 @@ body{
   border-left: 2px solid #9FB6F1;
   border-right: 2px solid #9FB6F1;
   border-bottom: 1px solid #9fb6f1;
+  background-color: white;
   position: relative;
 }
 .chat-content-1{

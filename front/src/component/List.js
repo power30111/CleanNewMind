@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch , useSelector } from 'react-redux'
 import axios from 'axios'
-import { ShowContent } from '../redux/actions/ShowContent'
 
 
 
@@ -44,12 +43,10 @@ const List = (props) => {
                 dispatch({type:"takecontent",payload:response.data})
                 dispatch({type:"getcommentList",payload:response.data.commentList})
                 dispatch({type:"urlid",payload:id})
-                dispatch(ShowContent.image(takeboard))
                 console.log(response.status)
                 console.log("taketext",takeboard)
                 console.log("taketext",commentList)
                 console.log("url아이디",id)
-                console.log('isimage',isimage)
                 navigate(`/board/list/${id}`)
                 
         })
@@ -63,7 +60,6 @@ const List = (props) => {
                 dispatch({type:"takecontent",payload:error.response.data})
                 dispatch({type:"getcommentList",payload:error.response.data.commentList})
                 dispatch({type:"urlid",payload:id})
-
                 console.log(error.response.status)
                 console.log("taketext",takeboard)
                 console.log("taketext",commentList)
