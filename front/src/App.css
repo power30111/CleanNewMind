@@ -41,8 +41,10 @@ body{
   display: flex;
   justify-content: flex-end;
   background-color: #9fb6f1;
+  width: 100%;
   height: 70px;
   align-items: center;
+
 }
 
 @media (min-width: 320px) {
@@ -110,6 +112,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3vh;
 }
 .boardlist{
   width: 80%;
@@ -118,7 +121,7 @@ body{
 .listtop-title{
   display: flex;
   background-color: white;
-  height: 5%;
+  height: 3vh;
   text-align: center;
   border-bottom: 1px solid  #9fb6f1;
   align-items: center;
@@ -141,10 +144,9 @@ body{
   border-right: 1px solid rgb(0, 0, 0);
 }
 .list-writer{
-  width: 10vh;
-  text-align: center;
-  text-decoration: end;
-
+  width: 9vw;
+  text-align: right;
+  padding-right: 2vw;
 }
 
 .homebot{
@@ -230,7 +232,7 @@ body{
 }
 .chatposition{
   position: absolute;
-  bottom: 20%;
+  bottom: 15%;
   right: 10%;
 }
 
@@ -304,8 +306,8 @@ body{
 }
 
 .chat-Box{
-  height: 700px;
-  width: 400px;
+  height: 600px;
+  width: 350px;
   margin-top: 10px;
 }
 .chat-top{
@@ -647,16 +649,19 @@ body{
 }
 .Write-Box{
   width: 70%;
-  border-radius: 40px;
 }
 .Write-title{
   height: 5vh;
-  margin-bottom: 7vh;
-  
+  margin-bottom: 4vh;
+  margin-top: 2vh;
 } 
 .Write-text{
   height: fit-content;
   height: auto;
+}
+.quill{
+  width: 100%;
+  height: 50vh;
 }
 .text-area{
   width: 98%;
@@ -669,12 +674,12 @@ body{
   border-bottom :1px solid #afb6f9; 
   border-radius: 0;
   color: #111;
-
 }
+
 .Write-btn{
   display: flex;
   justify-content: flex-end;
-  margin-top: 2vh;
+  margin-top: 4vh;
   
 }
 .Write-btn>button{
@@ -731,7 +736,7 @@ body{
   height: fit-content;
 }
 
-.selectedpage-title{
+.selectedpage-title{  
   font-size: 26px;
   font-weight: 400;
 }
@@ -739,6 +744,7 @@ body{
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 5vh;
+  min-height: 40vh;
 }
 .comment{
   width: 70%;

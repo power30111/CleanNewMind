@@ -77,7 +77,6 @@ const SelectedPage = (props) => {
             }
         })
         .then((response) => {
-                alert('올리기 성공');
                 console.log("올리기 성공")
                 console.log('내용:',  comment)  
                 commentReset()
@@ -117,10 +116,10 @@ const SelectedPage = (props) => {
                         </div>
                     </div>
 
-                    <div className=" flexbox Write-text selectedpage-content">
-                            <div  className="text-area" name="content">
+                    <div className=" flexbox Write-text ">
+                            <div  className="text-area selectedpage-content" name="content">
                                 {takeboard.content.map((item) => (
-                                    <div key={item.order} className="text-area" name="content">
+                                    <div key={item.order}  name="content">
                                         {item && ( // item이 정의되어 있는지 확인
                                             <div>
                                                     <div>

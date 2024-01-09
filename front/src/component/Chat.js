@@ -5,6 +5,7 @@ import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faComment} from '@fortawesome/free-regular-svg-icons';
+import {faXmark} from '@fortawesome/free-solid-svg-icons';
 
 
 const Chat = () => {
@@ -141,7 +142,7 @@ return (
                 </div>
 
                 <div className='chatclose'>
-                    <FontAwesomeIcon className='chaticon' onClick={handleButtonClick} icon={faComment} size='xl' style={{color: "#6996e2",}} /> 
+                    <FontAwesomeIcon className='chaticon' onClick={handleButtonClick} icon={faXmark} size='xl' style={{color: "#6996e2",}} /> 
                 </div>
             </div>)
             :
