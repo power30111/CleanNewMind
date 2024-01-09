@@ -20,12 +20,16 @@ const Home = () => {
     const data = useSelector((state) => state.data)
     const paging = useSelector((state) => state.paging)
     const searchValue = useSelector((state) => state.searchValue)
+    const isLogin = useSelector((state=> state.isLogin))
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const goWrite = () =>{
-        navigate('/Write')
+        isLogin?
+        (navigate('/Write'))
+        :
+        alert('로그인이 필요합니다')
     }
 
     /*페이징*/
