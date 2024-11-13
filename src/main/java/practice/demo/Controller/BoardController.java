@@ -67,7 +67,7 @@ public class BoardController {
          * isFirst() -> 시작 페이지(0) 여부
          */
     }
-
+ddddddd
     /**
      * encode되어있는 한글로된 검색어들을 decode해주는 메서드
      * @param cond
